@@ -405,7 +405,8 @@ final class SystemStore {
     func completeLesson(game: Game, unit: LessonUnit, lesson: Lesson, quizCorrect: Int, quizTotal: Int, puzzlesSolved: Int) {
         let key = DayKey.today
         let b = begin()
-        var d = FetchDescriptor<LessonRecord>(predicate: #Predicate<LessonRecord> { $0.lessonID == lesson.id })
+        let lessonID = lesson.id
+        var d = FetchDescriptor<LessonRecord>(predicate: #Predicate<LessonRecord> { $0.lessonID == lessonID })
         d.fetchLimit = 1
         var lines: [String] = []
         let discipline = game == .poker && ["disciplin", "tilt", "bankroll", "patience", "emotion", "mindset", "variance"]
