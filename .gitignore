@@ -1,0 +1,11 @@
+*.xcodeproj/
+DerivedData/
+build/
+*.ipa
+.DS_Store
+xcuserdata/
+ios/Support/Info.plist
+content-src/
+# Content files authored separately; not committed.
+ios/System/Resources/Content/challenges.json
+ios/System/Resources/Content/lessons-*.json

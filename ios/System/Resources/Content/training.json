@@ -1,0 +1,741 @@
+{
+  "version": 1,
+  "title": "Foundation to Build: 12-Week Strength & Conditioning",
+  "totalWeeks": 12,
+  "deloadEvery": 4,
+  "progression": {
+    "rule": "double-progression",
+    "consecutiveSessions": 2,
+    "note": "Hit the top of the rep range for all sets, two sessions in a row, before adding load or reps. If you miss the bottom of the range, repeat the same weight next time."
+  },
+  "deload": {
+    "setFactor": 0.6,
+    "loadFactor": 0.9,
+    "cardioFactor": 0.7,
+    "note": "Every 4th week: cut sets to ~60%, load to ~90%, and cardio minutes to ~70% of normal. Keep the same exercises and rep ranges; this is a recovery week, not a day off."
+  },
+  "exercises": [
+    {
+      "id": "goblet-squat",
+      "name": "Goblet Squat",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Hold a dumbbell or kettlebell vertically at chest height; squat between a squat rack or in open floor space.",
+      "home": "Same movement with a dumbbell or kettlebell held at the chest; a loaded backpack works if you have no weights.",
+      "cue": "Elbows inside knees at the bottom, chest tall, drive through the whole foot.",
+      "increment": 2.5,
+      "startHint": "Pick a weight you could squat for about 12 reps with 2-3 reps left in reserve."
+    },
+    {
+      "id": "db-bench-press",
+      "name": "Dumbbell Bench Press",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Flat bench, one dumbbell in each hand, press from chest to lockout.",
+      "home": "Press dumbbells lying on a sturdy bench, bench press pad, or on the floor (reduced range of motion).",
+      "cue": "Shoulder blades pulled back and down, control the lowering phase.",
+      "increment": 1.0,
+      "startHint": "Pick dumbbells you could press for about 12 reps with 2-3 left in reserve."
+    },
+    {
+      "id": "row",
+      "name": "Row (Seated Cable / DB Row)",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Seated cable row machine, chest up, pull handle to the lower ribs.",
+      "home": "Single-arm dumbbell row braced on a bench or chair, or a resistance band anchored to a door.",
+      "cue": "Lead with the elbow, squeeze the shoulder blade, avoid shrugging.",
+      "increment": 1.0,
+      "startHint": "Pick a load or band tension you could row for about 12 reps with 2-3 left in reserve."
+    },
+    {
+      "id": "romanian-deadlift",
+      "name": "Romanian Deadlift (DB) / Hip Hinge",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Dumbbells in front of thighs, hinge at the hips keeping a flat back, lower to mid-shin.",
+      "home": "Same with dumbbells or a kettlebell, or a bodyweight hip hinge if no load is available.",
+      "cue": "Push hips back first, soft knees, feel the hamstrings stretch, not the lower back.",
+      "increment": 2.5,
+      "startHint": "Pick a load you could hinge for about 12 reps with 2-3 left in reserve, lighter than your squat."
+    },
+    {
+      "id": "lat-pulldown",
+      "name": "Lat Pulldown / Assisted Pull-Up",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Cable lat pulldown machine, pull the bar to the upper chest.",
+      "home": "Band-assisted pull-up on a bar (loop a band over the bar and under a knee/foot), or banded pulldown from a high anchor.",
+      "cue": "Pull elbows down and back, chest up, avoid swinging.",
+      "increment": 1.0,
+      "startHint": "Pick a machine weight or band thickness that lets you complete about 10-12 reps with 2-3 left in reserve."
+    },
+    {
+      "id": "plank",
+      "name": "Plank",
+      "kind": "timed",
+      "stat": "STR",
+      "gym": "Forearm plank on a mat, body in one straight line.",
+      "home": "Same on any floor; elevate hands on a couch edge if the floor is too hard on elbows.",
+      "cue": "Squeeze glutes, pull ribs down, don't let hips sag or pike.",
+      "increment": 5,
+      "startHint": "Start with a hold you can keep with perfect form, stopping a few seconds before you'd break form."
+    },
+    {
+      "id": "dead-bug",
+      "name": "Dead Bug",
+      "kind": "bodyweight",
+      "stat": "STR",
+      "gym": "On your back on a mat, opposite arm/leg lower and extend while keeping the low back flat.",
+      "home": "Same on any floor or carpeted surface.",
+      "cue": "Press low back into the floor the whole set, move slowly.",
+      "increment": 1,
+      "startHint": "Start with a rep count per side you can do with a flat low back throughout, 2-3 reps short of failure."
+    },
+    {
+      "id": "barbell-back-squat",
+      "name": "Barbell Back Squat",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Squat rack, bar on upper traps, squat to at least thigh-parallel.",
+      "home": "Substitute heavy goblet squat or double kettlebell front squat — no safe home barbell squat alternative.",
+      "cue": "Brace the core, knees track over toes, drive up through mid-foot.",
+      "increment": 2.5,
+      "startHint": "Start with an empty bar or light plates until form is solid, then add small jumps."
+    },
+    {
+      "id": "barbell-bench-press",
+      "name": "Barbell Bench Press",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Flat bench in a rack with safety pins or a spotter, bar to mid-chest.",
+      "home": "Substitute heavy dumbbell bench press — avoid an unracked home barbell bench without a spotter.",
+      "cue": "Shoulder blades set, slight arch, bar path straight down to the chest.",
+      "increment": 2.5,
+      "startHint": "Start light enough to control the bar for all reps with a spotter or safety pins set."
+    },
+    {
+      "id": "barbell-deadlift",
+      "name": "Barbell Deadlift",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Bar on the floor, hinge down, flat back, pull bar close to the shins.",
+      "home": "Substitute heavy double-kettlebell or dumbbell deadlift.",
+      "cue": "Take the slack out of the bar first, push the floor away, lock out hips and knees together.",
+      "increment": 2.5,
+      "startHint": "Start light, well under your squat weight, and focus on a flat back before adding load."
+    },
+    {
+      "id": "overhead-press",
+      "name": "Barbell Overhead Press",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Bar from the rack or floor, press straight overhead, lock out above the ears.",
+      "home": "Substitute standing dumbbell shoulder press.",
+      "cue": "Brace the core, squeeze glutes, don't lean back excessively.",
+      "increment": 2.5,
+      "startHint": "Start light — this lift is usually your weakest main lift; pick a load for about 8 clean reps."
+    },
+    {
+      "id": "barbell-row",
+      "name": "Barbell Row",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Hinge over the bar, pull to the lower ribs, control the descent.",
+      "home": "Substitute heavy double-dumbbell row or a band row with a strong anchor.",
+      "cue": "Flat back the whole set, pull with the elbows not the hands.",
+      "increment": 2.5,
+      "startHint": "Pick a load you can pull for about 8-10 reps while keeping the back flat."
+    },
+    {
+      "id": "pull-up",
+      "name": "Pull-Up",
+      "kind": "bodyweight",
+      "stat": "STR",
+      "gym": "Dead hang on a pull-up bar, pull chin over the bar, full extension at the bottom.",
+      "home": "Same on a doorway or outdoor pull-up bar; use a resistance band for assistance if needed.",
+      "cue": "Pull elbows down toward the hips, avoid kipping.",
+      "increment": 1,
+      "startHint": "If you can't do a full rep yet, use enough band assistance to get 5-8 clean reps and remove assistance over time."
+    },
+    {
+      "id": "hanging-knee-raise",
+      "name": "Hanging Knee Raise",
+      "kind": "bodyweight",
+      "stat": "STR",
+      "gym": "Hang from a pull-up bar, raise knees toward the chest without swinging.",
+      "home": "Same on an outdoor bar; substitute lying leg raises on the floor if no bar is available.",
+      "cue": "Curl the pelvis under at the top, lower under control.",
+      "increment": 1,
+      "startHint": "Start with a rep count you can do without swinging, 2-3 reps short of failure."
+    },
+    {
+      "id": "kb-swing",
+      "name": "Kettlebell Swing",
+      "kind": "load",
+      "stat": "END",
+      "gym": "Hip-hinge swing of a kettlebell between the legs to chest/shoulder height.",
+      "home": "Same with a kettlebell or a heavy dumbbell held with both hands.",
+      "cue": "Power comes from the hip snap, not the arms or low back.",
+      "increment": 2.5,
+      "startHint": "Pick a kettlebell light enough that your hinge technique stays clean for the full set."
+    },
+    {
+      "id": "kb-farmer-carry",
+      "name": "Farmer's Carry",
+      "kind": "timed",
+      "stat": "END",
+      "gym": "Carry a heavy kettlebell or dumbbell in each hand, walk a set distance or time.",
+      "home": "Same with dumbbells, kettlebells, or heavy loaded bags; use a hallway, yard, or outdoor path.",
+      "cue": "Stand tall, shoulders back, don't let the loads pull you to one side.",
+      "increment": 5,
+      "startHint": "Pick a load you can carry with perfect posture for the full time, stopping before your grip or form fails."
+    },
+    {
+      "id": "incline-db-press",
+      "name": "Incline Dumbbell Press",
+      "kind": "load",
+      "stat": "STR",
+      "gym": "Adjustable bench set to a slight incline, press dumbbells from chest to lockout.",
+      "home": "Prop one end of a sturdy bench/cushion stack, or do floor press if no incline is available.",
+      "cue": "Keep wrists stacked over elbows, control the eccentric.",
+      "increment": 1.0,
+      "startHint": "Pick dumbbells slightly lighter than your flat bench press for about 10-12 reps."
+    },
+    {
+      "id": "walking-lunge",
+      "name": "Walking Lunge",
+      "kind": "bodyweight",
+      "stat": "STR",
+      "gym": "Step forward into a lunge, alternate legs walking down the gym floor; hold dumbbells for extra load if needed.",
+      "home": "Same across a yard, hallway, or outdoor space; hold water bottles or a backpack for load.",
+      "cue": "Front knee tracks over the foot, torso stays tall, push through the front heel to stand.",
+      "increment": 1,
+      "startHint": "Start with a rep count per leg you can do with good knee control, 2-3 reps short of failure."
+    },
+    {
+      "id": "push-up",
+      "name": "Push-Up",
+      "kind": "bodyweight",
+      "stat": "STR",
+      "gym": "Standard push-up on the gym floor; elevate hands on a bench if needed to regress.",
+      "home": "Same on any floor; elevate hands on a couch, step, or wall to regress as needed.",
+      "cue": "Straight line from shoulders to ankles, elbows at about 45 degrees.",
+      "increment": 1,
+      "startHint": "Use an incline (hands on a bench/couch) if needed to get 8-12 clean reps, then progress to the floor."
+    },
+    {
+      "id": "mountain-climbers",
+      "name": "Mountain Climbers",
+      "kind": "timed",
+      "stat": "AGI",
+      "gym": "From a high plank, drive knees alternately toward the chest at pace.",
+      "home": "Same on any floor space.",
+      "cue": "Keep hips low and level, hands stay planted under shoulders.",
+      "increment": 5,
+      "startHint": "Start with a duration at a pace you can sustain with good plank position throughout."
+    },
+    {
+      "id": "burpee",
+      "name": "Burpee",
+      "kind": "bodyweight",
+      "stat": "END",
+      "gym": "Squat, hands down, jump feet back to plank, optional push-up, jump feet in, jump up.",
+      "home": "Same anywhere with floor space; drop the push-up or the jump to regress.",
+      "cue": "Move with control on the way down, land softly on the jump.",
+      "increment": 1,
+      "startHint": "Start with a rep count at a pace you can hold with good form for every rep."
+    },
+    {
+      "id": "side-plank",
+      "name": "Side Plank",
+      "kind": "timed",
+      "stat": "STR",
+      "gym": "Forearm side plank on a mat, hips lifted and stacked.",
+      "home": "Same on any floor.",
+      "cue": "Stack shoulder over elbow, push hips up and forward, don't let them sag.",
+      "increment": 5,
+      "startHint": "Start with a hold per side you can keep with hips fully lifted, stopping a few seconds before form breaks."
+    },
+    {
+      "id": "step-up",
+      "name": "Step-Up",
+      "kind": "bodyweight",
+      "stat": "STR",
+      "gym": "Step onto a flat bench or box, drive through the lead leg to stand tall, step down with control.",
+      "home": "Use a sturdy outdoor step, porch stair, or low wall.",
+      "cue": "Drive through the heel of the stepping leg, avoid pushing off the trailing foot.",
+      "increment": 1,
+      "startHint": "Start with a step height and rep count per leg you can do with full control, 2-3 reps short of failure."
+    }
+  ],
+  "sessions": [
+    {
+      "id": "full-body-a",
+      "title": "Full Body A",
+      "type": "strength",
+      "stat": "STR",
+      "minutes": 45,
+      "notes": "Foundation full-body day: squat and push emphasis. Rest 60-90s between sets, focus on learning the movement before adding load.",
+      "exercises": [
+        { "exercise": "goblet-squat", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 90 },
+        { "exercise": "db-bench-press", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 90 },
+        { "exercise": "row", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 75 },
+        { "exercise": "plank", "sets": 2, "repMin": 20, "repMax": 40, "restSec": 45 }
+      ]
+    },
+    {
+      "id": "full-body-b",
+      "title": "Full Body B",
+      "type": "strength",
+      "stat": "STR",
+      "minutes": 45,
+      "notes": "Foundation full-body day: hinge and pull emphasis, plus core.",
+      "exercises": [
+        { "exercise": "romanian-deadlift", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 90 },
+        { "exercise": "lat-pulldown", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 75 },
+        { "exercise": "dead-bug", "sets": 2, "repMin": 8, "repMax": 12, "restSec": 45 },
+        { "exercise": "plank", "sets": 2, "repMin": 20, "repMax": 40, "restSec": 45 }
+      ]
+    },
+    {
+      "id": "full-body-c",
+      "title": "Full Body C",
+      "type": "strength",
+      "stat": "STR",
+      "minutes": 45,
+      "notes": "Foundation full-body day: squat, pull and hinge together, lighter press load.",
+      "exercises": [
+        { "exercise": "goblet-squat", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 90 },
+        { "exercise": "row", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 75 },
+        { "exercise": "romanian-deadlift", "sets": 2, "repMin": 8, "repMax": 12, "restSec": 90 },
+        { "exercise": "dead-bug", "sets": 2, "repMin": 8, "repMax": 12, "restSec": 45 }
+      ]
+    },
+    {
+      "id": "walk-run-intervals",
+      "title": "Walk-Run Intervals",
+      "type": "cardio",
+      "stat": "END",
+      "minutes": 22,
+      "notes": "Easy aerobic base-building session. Stay conversational on the walk portions.",
+      "cardio": {
+        "mode": "walk-run",
+        "minutes": 22,
+        "instructions": "5 min warm-up walk, then alternate 2 min easy jog / 2 min walk for the remainder, finish with a 3 min cool-down walk.",
+        "zone2": true
+      }
+    },
+    {
+      "id": "barbell-a",
+      "title": "Barbell A",
+      "type": "strength",
+      "stat": "STR",
+      "minutes": 55,
+      "notes": "Introduces the barbell squat and bench as the two main lifts; keep technique priority over load.",
+      "exercises": [
+        { "exercise": "barbell-back-squat", "sets": 3, "repMin": 5, "repMax": 8, "restSec": 150 },
+        { "exercise": "barbell-bench-press", "sets": 3, "repMin": 5, "repMax": 8, "restSec": 150 },
+        { "exercise": "lat-pulldown", "sets": 3, "repMin": 8, "repMax": 10, "restSec": 90 },
+        { "exercise": "plank", "sets": 2, "repMin": 30, "repMax": 45, "restSec": 45 }
+      ]
+    },
+    {
+      "id": "barbell-b",
+      "title": "Barbell B",
+      "type": "strength",
+      "stat": "STR",
+      "minutes": 55,
+      "notes": "Deadlift and overhead press day; deadlift technique comes before load.",
+      "exercises": [
+        { "exercise": "barbell-deadlift", "sets": 3, "repMin": 5, "repMax": 8, "restSec": 180 },
+        { "exercise": "overhead-press", "sets": 3, "repMin": 6, "repMax": 10, "restSec": 120 },
+        { "exercise": "barbell-row", "sets": 3, "repMin": 6, "repMax": 10, "restSec": 90 },
+        { "exercise": "dead-bug", "sets": 2, "repMin": 10, "repMax": 12, "restSec": 45 }
+      ]
+    },
+    {
+      "id": "barbell-c",
+      "title": "Barbell C",
+      "type": "strength",
+      "stat": "STR",
+      "minutes": 60,
+      "notes": "Squat and bench again with a higher rep range, plus a short KB/bodyweight finisher.",
+      "exercises": [
+        { "exercise": "barbell-back-squat", "sets": 3, "repMin": 6, "repMax": 10, "restSec": 150 },
+        { "exercise": "barbell-bench-press", "sets": 3, "repMin": 6, "repMax": 10, "restSec": 120 },
+        { "exercise": "barbell-row", "sets": 3, "repMin": 6, "repMax": 10, "restSec": 90 },
+        { "exercise": "side-plank", "sets": 2, "repMin": 20, "repMax": 30, "restSec": 30 }
+      ],
+      "circuit": {
+        "title": "KB/Bodyweight Finisher",
+        "minutes": 10,
+        "format": "EMOM",
+        "moves": [
+          "8 kettlebell swings",
+          "8 push-ups",
+          "20 sec mountain climbers"
+        ]
+      }
+    },
+    {
+      "id": "zone2-run-30",
+      "title": "Zone 2 Run",
+      "type": "cardio",
+      "stat": "END",
+      "minutes": 30,
+      "notes": "Steady aerobic run or brisk walk-run. You should be able to hold a conversation.",
+      "cardio": {
+        "mode": "zone2",
+        "minutes": 30,
+        "instructions": "Continuous easy-pace run or fast walk, nasal breathing if possible, no sprinting.",
+        "zone2": true
+      }
+    },
+    {
+      "id": "interval-sprints",
+      "title": "Sprint Intervals",
+      "type": "cardio",
+      "stat": "END",
+      "minutes": 20,
+      "notes": "Higher-intensity conditioning; outdoor space or a track works well.",
+      "cardio": {
+        "mode": "intervals",
+        "minutes": 20,
+        "instructions": "5 min warm-up jog, then 6 rounds of 30s hard effort / 90s easy walk recovery, 5 min cool-down walk.",
+        "zone2": false
+      }
+    },
+    {
+      "id": "build-a",
+      "title": "Build A",
+      "type": "strength",
+      "stat": "STR",
+      "minutes": 60,
+      "notes": "Squat/bench/row at higher weekly volume.",
+      "exercises": [
+        { "exercise": "barbell-back-squat", "sets": 4, "repMin": 6, "repMax": 10, "restSec": 150 },
+        { "exercise": "barbell-bench-press", "sets": 4, "repMin": 6, "repMax": 10, "restSec": 120 },
+        { "exercise": "barbell-row", "sets": 4, "repMin": 6, "repMax": 10, "restSec": 90 },
+        { "exercise": "hanging-knee-raise", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 45 }
+      ]
+    },
+    {
+      "id": "build-b",
+      "title": "Build B",
+      "type": "strength",
+      "stat": "STR",
+      "minutes": 60,
+      "notes": "Deadlift/press/pull-up day; pull-ups replace lat pulldown as strength allows.",
+      "exercises": [
+        { "exercise": "barbell-deadlift", "sets": 4, "repMin": 5, "repMax": 8, "restSec": 180 },
+        { "exercise": "overhead-press", "sets": 4, "repMin": 6, "repMax": 10, "restSec": 120 },
+        { "exercise": "pull-up", "sets": 3, "repMin": 5, "repMax": 8, "restSec": 90 },
+        { "exercise": "side-plank", "sets": 3, "repMin": 25, "repMax": 35, "restSec": 30 }
+      ]
+    },
+    {
+      "id": "build-c",
+      "title": "Build C",
+      "type": "strength",
+      "stat": "STR",
+      "minutes": 55,
+      "notes": "Accessory-focused day adding lunges and incline press for balance and extra volume.",
+      "exercises": [
+        { "exercise": "walking-lunge", "sets": 3, "repMin": 10, "repMax": 12, "restSec": 60 },
+        { "exercise": "incline-db-press", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 90 },
+        { "exercise": "row", "sets": 3, "repMin": 8, "repMax": 12, "restSec": 75 },
+        { "exercise": "plank", "sets": 2, "repMin": 35, "repMax": 50, "restSec": 45 }
+      ]
+    },
+    {
+      "id": "zone2-run-45",
+      "title": "Long Zone 2 Run",
+      "type": "cardio",
+      "stat": "END",
+      "minutes": 42,
+      "notes": "Longer aerobic base run; pace stays easy throughout, this is about duration not speed.",
+      "cardio": {
+        "mode": "zone2",
+        "minutes": 42,
+        "instructions": "Continuous easy-pace run or fast walk for the full duration, conversational effort.",
+        "zone2": true
+      }
+    },
+    {
+      "id": "interval-sprints-build",
+      "title": "Sprint Intervals (Build)",
+      "type": "cardio",
+      "stat": "END",
+      "minutes": 25,
+      "notes": "Extended version of the earlier sprint session.",
+      "cardio": {
+        "mode": "intervals",
+        "minutes": 25,
+        "instructions": "5 min warm-up jog, then 8 rounds of 30s hard effort / 90s easy walk recovery, 5 min cool-down walk.",
+        "zone2": false
+      }
+    },
+    {
+      "id": "circuit-15",
+      "title": "Full-Body Conditioning Circuit",
+      "type": "conditioning",
+      "stat": "END",
+      "minutes": 15,
+      "notes": "As many rounds as possible of the listed moves, keeping form solid throughout; rest as needed.",
+      "circuit": {
+        "title": "Full-Body AMRAP",
+        "minutes": 15,
+        "format": "AMRAP",
+        "moves": [
+          "10 burpees",
+          "15 push-ups",
+          "20 kettlebell swings",
+          "30 sec mountain climbers"
+        ]
+      }
+    },
+    {
+      "id": "ruck-long",
+      "title": "Long Ruck",
+      "type": "cardio",
+      "stat": "END",
+      "minutes": 55,
+      "notes": "Outdoor loaded carry walk; use a backpack with weight plates, books, or bottles.",
+      "cardio": {
+        "mode": "ruck",
+        "minutes": 55,
+        "instructions": "Walk outdoors for the full duration carrying 8-10kg in a backpack, upright posture, steady pace.",
+        "zone2": false
+      }
+    }
+  ],
+  "phases": [
+    {
+      "id": "foundation",
+      "title": "Foundation",
+      "weeks": [1, 2, 3, 4],
+      "focus": "Learn the core movement patterns (squat, press, pull, hinge, core) with light to moderate load, and build a basic aerobic habit.",
+      "weeklyZone2Minutes": 45,
+      "schedule": [
+        { "day": 0, "session": "full-body-a" },
+        { "day": 1, "session": "walk-run-intervals" },
+        { "day": 2, "session": "full-body-b" },
+        { "day": 4, "session": "full-body-c" },
+        { "day": 5, "session": "walk-run-intervals" }
+      ]
+    },
+    {
+      "id": "barbell-initiation",
+      "title": "Barbell Initiation",
+      "weeks": [5, 6, 7, 8],
+      "focus": "Introduce the barbell squat, bench, deadlift, overhead press and row; add a dedicated aerobic run and a higher-intensity interval session.",
+      "weeklyZone2Minutes": 60,
+      "schedule": [
+        { "day": 0, "session": "barbell-a" },
+        { "day": 1, "session": "zone2-run-30" },
+        { "day": 2, "session": "barbell-b" },
+        { "day": 4, "session": "barbell-c" },
+        { "day": 5, "session": "interval-sprints" }
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Build",
+      "weeks": [9, 10, 11, 12],
+      "focus": "Increase strength volume, add a dedicated conditioning circuit and a longer aerobic run, and introduce rucking for loaded-carry endurance.",
+      "weeklyZone2Minutes": 90,
+      "schedule": [
+        { "day": 0, "session": "build-a" },
+        { "day": 1, "session": "zone2-run-45" },
+        { "day": 2, "session": "build-b" },
+        { "day": 3, "session": "circuit-15" },
+        { "day": 4, "session": "build-c" },
+        { "day": 5, "session": "interval-sprints-build" },
+        { "day": 6, "session": "ruck-long" }
+      ]
+    }
+  ],
+  "ladder": [
+    {
+      "id": "cold-shower-30s",
+      "title": "Cold Shower Finish - 30s",
+      "detail": "End your normal shower with 30 seconds of cold water. Breathe slowly and steadily; step out immediately if you feel faint or your skin goes numb/painful rather than just cold.",
+      "category": "cold",
+      "stat": "WIL",
+      "repeats": 6,
+      "xp": 15
+    },
+    {
+      "id": "cold-shower-60s",
+      "title": "Cold Shower Finish - 60s",
+      "detail": "End your normal shower with 60 seconds of cold water, same breathing focus as before. Stop early if you feel dizzy, chest tightness, or numbness beyond cold.",
+      "category": "cold",
+      "stat": "WIL",
+      "repeats": 6,
+      "xp": 18
+    },
+    {
+      "id": "cold-shower-90s",
+      "title": "Cold Shower Finish - 90s",
+      "detail": "End your shower with 90 seconds of cold water. Keep breaths slow and even; exit if you feel faint, can't catch your breath, or skin loses sensation.",
+      "category": "cold",
+      "stat": "WIL",
+      "repeats": 6,
+      "xp": 20
+    },
+    {
+      "id": "cold-shower-2min",
+      "title": "Cold Shower Finish - 2 min",
+      "detail": "End your shower with 2 minutes of cold water. Stop immediately if dizzy, short of breath, or in pain beyond normal cold discomfort.",
+      "category": "cold",
+      "stat": "WIL",
+      "repeats": 5,
+      "xp": 25
+    },
+    {
+      "id": "cold-shower-3min",
+      "title": "Cold Shower Finish - 3 min",
+      "detail": "End your shower with 3 minutes of cold water, the top of this track. Never attempt this alone if you have a heart condition; exit at the first sign of dizziness or numbness.",
+      "category": "cold",
+      "stat": "WIL",
+      "repeats": 5,
+      "xp": 30
+    },
+    {
+      "id": "phone-free-first-hour",
+      "title": "Phone-Free First Hour",
+      "detail": "Leave your phone in another room for the first hour after waking. Use the time for movement, sunlight, or a quiet routine instead.",
+      "category": "digital",
+      "stat": "SOV",
+      "repeats": 7,
+      "xp": 15
+    },
+    {
+      "id": "fasting-14h",
+      "title": "14-Hour Fasting Window",
+      "detail": "Keep all food within a 10-hour daily window (e.g. 9am-7pm), 14 hours fasted. Drink water freely; stop and eat if you feel dizzy, shaky, or unwell, and skip this on your hardest training days if it hurts your performance.",
+      "category": "fasting",
+      "stat": "WIL",
+      "repeats": 4,
+      "xp": 18
+    },
+    {
+      "id": "fasting-16h",
+      "title": "16-Hour Fasting Window",
+      "detail": "Keep all food within an 8-hour daily window, 16 hours fasted. Water and black coffee/tea are fine; stop eating window rules if dizzy or unwell, and avoid this on heavy barbell training days if energy suffers.",
+      "category": "fasting",
+      "stat": "WIL",
+      "repeats": 4,
+      "xp": 22
+    },
+    {
+      "id": "fasting-18h",
+      "title": "18-Hour Fasting Window",
+      "detail": "Keep all food within a 6-hour daily window, 18 hours fasted. Stay well hydrated with water/electrolytes; stop if dizzy, lightheaded, or unwell, and skip entirely on your heaviest lifting or longest run days.",
+      "category": "fasting",
+      "stat": "WIL",
+      "repeats": 3,
+      "xp": 28
+    },
+    {
+      "id": "no-sugar-day",
+      "title": "No Added-Sugar Day",
+      "detail": "Go a full day with no added sugar: no sweets, sugary drinks, or desserts. Whole fruit is fine.",
+      "category": "other",
+      "stat": "WIL",
+      "repeats": 5,
+      "xp": 18
+    },
+    {
+      "id": "early-wake-0630",
+      "title": "Early Wake - 06:30",
+      "detail": "Be out of bed by 06:30. Set a fixed bedtime the night before so you get at least 7 hours of sleep; don't chase this goal by cutting sleep short.",
+      "category": "wake",
+      "stat": "SOV",
+      "repeats": 6,
+      "xp": 20
+    },
+    {
+      "id": "early-wake-0600",
+      "title": "Early Wake - 06:00",
+      "detail": "Be out of bed by 06:00, with a fixed bedtime the night before protecting at least 7 hours of sleep.",
+      "category": "wake",
+      "stat": "SOV",
+      "repeats": 6,
+      "xp": 25
+    },
+    {
+      "id": "morning-sunlight-10min",
+      "title": "10 Minutes Morning Sunlight",
+      "detail": "Get outside within an hour of waking for at least 10 minutes of natural daylight, no sunglasses. Cloudy days still count.",
+      "category": "other",
+      "stat": "VIT",
+      "repeats": 7,
+      "xp": 15
+    },
+    {
+      "id": "cold-shower-breath-calm",
+      "title": "Cold Shower + Calm Breathing",
+      "detail": "During a cold shower finish, add slow 4-second-in/6-second-out breathing the whole time instead of gasping. Exit immediately if you feel dizzy or your breathing can't settle.",
+      "category": "cold",
+      "stat": "WIL",
+      "repeats": 5,
+      "xp": 22
+    },
+    {
+      "id": "ruck-30min-5kg",
+      "title": "Ruck - 30 min / 5kg",
+      "detail": "Walk outdoors for 30 minutes carrying 5kg in a backpack, upright posture. Stop if you feel sharp joint pain.",
+      "category": "ruck",
+      "stat": "END",
+      "repeats": 4,
+      "xp": 20
+    },
+    {
+      "id": "ruck-45min-8kg",
+      "title": "Ruck - 45 min / 8kg",
+      "detail": "Walk outdoors for 45 minutes carrying 8kg in a backpack, steady pace, good posture. Stop if you feel sharp joint pain.",
+      "category": "ruck",
+      "stat": "END",
+      "repeats": 4,
+      "xp": 25
+    },
+    {
+      "id": "ruck-60min-10kg",
+      "title": "Ruck - 60 min / 10kg",
+      "detail": "Walk outdoors for 60 minutes carrying 10kg in a backpack, steady pace, good posture throughout. Stop if you feel sharp joint pain.",
+      "category": "ruck",
+      "stat": "END",
+      "repeats": 3,
+      "xp": 30
+    },
+    {
+      "id": "silence-hour",
+      "title": "One Hour of Silence",
+      "detail": "Spend one hour with no music, podcasts, TV, or notifications — just you and the task at hand or a quiet walk.",
+      "category": "digital",
+      "stat": "SOV",
+      "repeats": 5,
+      "xp": 15
+    },
+    {
+      "id": "digital-sabbath-24h",
+      "title": "24-Hour Digital Sabbath",
+      "detail": "Go 24 hours with no social media, streaming, or non-essential phone use. Tell people in advance so urgent contact can still reach you by call if truly needed.",
+      "category": "digital",
+      "stat": "SOV",
+      "repeats": 2,
+      "xp": 35
+    },
+    {
+      "id": "gratitude-journal-nightly",
+      "title": "Nightly Gratitude Journal",
+      "detail": "Before bed, write down three specific things that went well that day. Two or three sentences is enough.",
+      "category": "other",
+      "stat": "SOV",
+      "repeats": 10,
+      "xp": 15
+    }
+  ]
+}
