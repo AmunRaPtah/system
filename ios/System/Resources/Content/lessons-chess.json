@@ -1,0 +1,2290 @@
+{
+ "version": 1,
+ "game": "chess",
+ "units": [
+  {
+   "id": "chess-u1-board",
+   "title": "The Board and the Pieces",
+   "order": 1,
+   "difficulty": 1,
+   "lessons": [
+    {
+     "id": "chess-u1-l1",
+     "title": "The Board and the Setup",
+     "body": "Chess is played on an 8×8 board of 64 squares. **Files** are the columns, lettered **a** to **h** from White's left. **Ranks** are the rows, numbered **1** to **8** from White's side. Every square has a name: e4 is the e-file, fourth rank.\n\nSetting up:\n\n- Place the board so each player has a **light square in the right-hand corner**.\n- White's pieces go on ranks 1 and 2, Black's on ranks 7 and 8.\n- The back rank, from a to h: rook, knight, bishop, queen, king, bishop, knight, rook.\n- The **queen goes on her own colour**: the white queen on d1 (a light square), the black queen on d8 (a dark square). The kings face each other on the e-file.\n- Eight pawns fill the second rank in front.\n\n**White always moves first.** Players then alternate, one move at a time, and you cannot pass.\n\nThe goal is **checkmate**: attacking the enemy king so that it cannot escape. You never actually capture the king. Everything else in chess, from winning pawns to controlling squares, serves that goal.\n\nTrain yourself to name squares quickly. Notation is how you will read every puzzle and lesson that follows.",
+     "quiz": [
+      {
+       "prompt": "Which corner square should be light-coloured when the board is set up correctly?",
+       "choices": [
+        "Only White's left corner",
+        "The one on each player's left",
+        "It does not matter",
+        "The one on each player's right"
+       ],
+       "answer": 3,
+       "explain": "The rule is 'light on the right' for both players. A rotated board puts the king and queen on the wrong squares."
+      },
+      {
+       "prompt": "Where does the white queen start?",
+       "choices": [
+        "c1",
+        "d1",
+        "d8",
+        "e1"
+       ],
+       "answer": 1,
+       "explain": "The queen goes on her own colour: the white queen on the light square d1."
+      },
+      {
+       "prompt": "Who makes the first move in a game?",
+       "choices": [
+        "Black",
+        "The player with the queen on a dark square",
+        "White",
+        "Whoever wins a coin toss, playing either colour"
+       ],
+       "answer": 2,
+       "explain": "White always moves first; colours are what get decided by lot."
+      }
+     ]
+    },
+    {
+     "id": "chess-u1-l2",
+     "title": "Rook and Bishop",
+     "body": "Two pieces move in straight lines and can travel any distance, as long as nothing is in the way.\n\n**The rook** moves along ranks and files: forward, backward, left or right, as many squares as it likes. A rook on an open board controls 14 squares wherever it stands. Rooks are worth about **5 pawns** and become very strong once files open up.\n\n**The bishop** moves diagonally any distance. Because it only moves diagonally, a bishop **stays on the same colour for the whole game**. Each side starts with one light-squared and one dark-squared bishop. A bishop is worth about **3 pawns**.\n\nRules shared by both (and by the queen):\n\n- They cannot jump over pieces. A piece in the path blocks them.\n- They capture by moving onto a square occupied by an enemy piece, which is removed.\n- They can never land on a square occupied by a friendly piece.\n\nA useful habit: when a rook or bishop is on the board, trace its lines all the way to the edge. Many beginner losses come from a long-range piece that was \"far away\" but had a clear line.",
+     "quiz": [
+      {
+       "prompt": "A bishop starts on a dark square. What colour squares can it ever reach?",
+       "choices": [
+        "Both colours, after a few moves",
+        "Only dark squares",
+        "Both colours, but only by capturing",
+        "Only light squares"
+       ],
+       "answer": 1,
+       "explain": "Diagonal moves never change square colour, so a bishop is locked to one colour all game."
+      },
+      {
+       "prompt": "Can a rook jump over a pawn that stands in its path?",
+       "choices": [
+        "Yes, rooks can jump one piece",
+        "Only if the pawn is an enemy pawn",
+        "Only when castling",
+        "No, the pawn blocks it"
+       ],
+       "answer": 3,
+       "explain": "Only the knight jumps. Rooks, bishops and queens are blocked by any piece in the way."
+      },
+      {
+       "prompt": "Roughly how many pawns is a rook worth?",
+       "choices": [
+        "1",
+        "5",
+        "9",
+        "3"
+       ],
+       "answer": 1,
+       "explain": "The standard scale is pawn 1, knight 3, bishop 3, rook 5, queen 9."
+      }
+     ]
+    },
+    {
+     "id": "chess-u1-l3",
+     "title": "Queen and King",
+     "body": "**The queen** combines the rook and the bishop: she moves any distance along ranks, files or diagonals. She is the most powerful piece, worth about **9 pawns**. Beginners often bring the queen out early and lose time, or lose her to a simple attack. Value her, but don't be afraid to trade her when it helps you.\n\n**The king** moves **one square in any direction**. He is the most important piece, because losing him loses the game, but he is not strong in the opening. Two rules make the king special:\n\n- **A king can never move into check.** You may not move your king to a square attacked by an enemy piece.\n- **Kings can never stand next to each other.** Each king attacks the squares around it, so there must always be at least one square between them.\n\nIn the middlegame, keep your king safe, usually behind a wall of pawns after castling. In the endgame, when most pieces are gone, the king becomes a strong fighting piece and should march to the centre.\n\nThe king has no point value, since you can't trade it. Its fighting strength in an endgame is often compared to roughly a minor piece.",
+     "quiz": [
+      {
+       "prompt": "How does the queen move?",
+       "choices": [
+        "Any distance, jumping over pieces",
+        "Any distance along ranks, files or diagonals",
+        "In an L-shape",
+        "One square in any direction"
+       ],
+       "answer": 1,
+       "explain": "The queen is a rook and bishop combined. She cannot jump."
+      },
+      {
+       "prompt": "Can the two kings ever stand on adjacent squares?",
+       "choices": [
+        "Yes, in the endgame",
+        "Only on the edge of the board",
+        "No, never",
+        "Yes, if one king is protected"
+       ],
+       "answer": 2,
+       "explain": "A king may not move into check, and moving next to the other king would put it under attack."
+      },
+      {
+       "prompt": "When should the king become an active fighting piece?",
+       "choices": [
+        "In the endgame, when most pieces are gone",
+        "Only after the queens are promoted",
+        "Never, it should always hide",
+        "In the opening, to control the centre"
+       ],
+       "answer": 0,
+       "explain": "With few enemy pieces left there is little mating danger, and an active king wins endgames."
+      }
+     ]
+    },
+    {
+     "id": "chess-u1-l4",
+     "title": "The Knight",
+     "body": "The knight moves in an **L-shape**: two squares in one direction (along a rank or file), then one square to the side. Another way to see it: it lands on the nearest square that is *not* on the same rank, file or diagonal.\n\nKey facts:\n\n- **The knight jumps.** It is the only piece that can leap over other pieces, so blockades don't stop it.\n- **It always changes colour.** A knight on a light square always moves to a dark square, and the reverse.\n- A knight in the centre controls **8 squares**. In a corner it controls only **2**. That is why the saying goes \"a knight on the rim is dim\".\n- It is worth about **3 pawns**, the same as a bishop.\n\nBecause its pattern is unusual, the knight is the piece beginners most often overlook. Before every move, check: \"Where can the enemy knights jump next turn?\" Knights are also the classic forking piece, attacking two targets at once in a way that's hard to see. You'll practise that in the tactics unit.\n\nTo learn its movement, try touring a knight from b1 to every square on an empty board in your head, one jump at a time.",
+     "quiz": [
+      {
+       "prompt": "A knight stands on a light square. After it moves, what colour square is it on?",
+       "choices": [
+        "Always a light square",
+        "Either, if it captures",
+        "It depends on the direction",
+        "Always a dark square"
+       ],
+       "answer": 3,
+       "explain": "Every knight move changes the square colour."
+      },
+      {
+       "prompt": "How many squares does a knight attack from a corner like a1?",
+       "choices": [
+        "4",
+        "8",
+        "2",
+        "3"
+       ],
+       "answer": 2,
+       "explain": "From a1 a knight reaches only b3 and c2."
+      },
+      {
+       "prompt": "Which piece can jump over other pieces?",
+       "choices": [
+        "The queen",
+        "The knight",
+        "The bishop",
+        "The king when castling only"
+       ],
+       "answer": 1,
+       "explain": "Only the knight jumps. Castling moves the king two squares but it does not jump over pieces; the squares between must be empty."
+      }
+     ]
+    },
+    {
+     "id": "chess-u1-l5",
+     "title": "The Pawn and Promotion",
+     "body": "Pawns are the soul of chess. They are worth 1 point each, but their structure shapes the whole game.\n\n**Movement:**\n\n- A pawn moves **straight forward one square**, never backward.\n- On its **first move** a pawn may move **two squares** forward, if both squares are empty.\n- A pawn **captures diagonally**, one square forward to the left or right. It cannot capture straight ahead, and a piece directly in front blocks it.\n\n**Promotion:** when a pawn reaches the last rank, it must be **promoted** to a queen, rook, bishop or knight of the same colour. It cannot stay a pawn or become a king. You usually choose a queen, so you can have more than one queen.\n\n**En passant:** if an enemy pawn moves two squares and lands right beside your pawn (so it skipped the square your pawn attacked), you may capture it as if it had moved only one square. You must do this **immediately on the next move**, or the right is lost. Example: your pawn on e5, Black plays d7–d5; you may play exd6, removing the pawn on d5.\n\nPawns can't go back, so every pawn move permanently changes the position. Think before pushing.",
+     "quiz": [
+      {
+       "prompt": "How does a pawn capture?",
+       "choices": [
+        "Diagonally forward, one square",
+        "Straight forward, one square",
+        "Sideways, one square",
+        "Diagonally in any direction"
+       ],
+       "answer": 0,
+       "explain": "Pawns move straight but capture one square diagonally forward."
+      },
+      {
+       "prompt": "A pawn reaches the last rank. Which choice is NOT allowed?",
+       "choices": [
+        "Promote to a knight",
+        "Promote to a second queen",
+        "Promote to a rook",
+        "Promote to a king"
+       ],
+       "answer": 3,
+       "explain": "A pawn may become a queen, rook, bishop or knight, never a king."
+      },
+      {
+       "prompt": "Your pawn is on e5. Black moves a pawn d7–d5. When may you capture it en passant?",
+       "choices": [
+        "Only if your pawn has not moved before",
+        "Never, en passant only works on the 4th rank",
+        "Only on your very next move",
+        "Any time later in the game"
+       ],
+       "answer": 2,
+       "explain": "En passant must be played immediately or the right disappears."
+      },
+      {
+       "prompt": "When may a pawn move two squares forward?",
+       "choices": [
+        "Only on the a- and h-files",
+        "On its first move, if both squares are empty",
+        "Any time the path is clear",
+        "Only when capturing"
+       ],
+       "answer": 1,
+       "explain": "The double step is only for a pawn that hasn't moved yet."
+      }
+     ]
+    },
+    {
+     "id": "chess-u1-l6",
+     "title": "Castling",
+     "body": "**Castling** is the only move where two pieces move at once. It tucks your king into safety and brings a rook toward the centre.\n\n**How:** the king moves **two squares** toward a rook, and that rook jumps to the square the king just crossed.\n\n- **Kingside (short) castling:** White's king e1→g1, rook h1→f1. Written **O-O**.\n- **Queenside (long) castling:** White's king e1→c1, rook a1→d1. Written **O-O-O**.\n\n**You may castle only if all of these are true:**\n\n1. Neither the king nor that rook has moved before in the game.\n2. All squares between the king and the rook are empty.\n3. Your king is **not in check** right now.\n4. The king does not **pass through** or **land on** a square attacked by an enemy piece.\n\nThe rook *may* be attacked, and on the queenside the rook may pass over an attacked square (b1). The restriction is only about the squares the king uses.\n\nCastling early, usually within the first ten moves, is one of the simplest ways for a beginner to stop losing games to quick attacks.",
+     "quiz": [
+      {
+       "prompt": "Your king is in check. Can you castle to get out of it?",
+       "choices": [
+        "Only kingside",
+        "Yes, castling is a legal way out of check",
+        "Only if the rook is not attacked",
+        "No, you cannot castle out of check"
+       ],
+       "answer": 3,
+       "explain": "Castling is forbidden while in check. You must deal with the check another way."
+      },
+      {
+       "prompt": "Where does White's king end up after kingside castling?",
+       "choices": [
+        "h1",
+        "c1",
+        "g1",
+        "f1"
+       ],
+       "answer": 2,
+       "explain": "The king moves two squares to g1 and the rook lands on f1."
+      },
+      {
+       "prompt": "Your king has moved once and returned to e1. Can you castle later?",
+       "choices": [
+        "Only if no pieces were captured",
+        "No, a king that has moved can never castle",
+        "Yes, but only queenside",
+        "Yes, it's back on its starting square"
+       ],
+       "answer": 1,
+       "explain": "Any king move permanently removes both castling rights."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chess-u2-check",
+   "title": "Check, Mate and Draws",
+   "order": 2,
+   "difficulty": 1,
+   "lessons": [
+    {
+     "id": "chess-u2-l1",
+     "title": "Check and Its Three Answers",
+     "body": "A king is **in check** when an enemy piece attacks it. You must get out of check on your very next move. If you can't, it is checkmate.\n\nThere are exactly **three ways out of check**:\n\n1. **Move the king** to a safe square (one not attacked).\n2. **Capture the checking piece**, with the king or any other piece.\n3. **Block the check** by putting a piece between the king and the attacker.\n\nBlocking only works against long-range pieces (queen, rook, bishop). A **knight's check cannot be blocked**, because the knight jumps. A pawn's check can't be blocked either, since the pawn is adjacent.\n\nWhen you're in check, list all three options before choosing. Beginners often move the king by reflex when capturing the attacker would win a piece.\n\nAlso: **you may never make a move that leaves your own king in check.** A piece that shields your king from an enemy rook, bishop or queen often cannot legally move away (you'll meet this as a \"pin\").\n\nGiving check is not automatically good. A check that drives the enemy king to a better square just wastes time. Check with a purpose.",
+     "quiz": [
+      {
+       "prompt": "Which is NOT one of the three ways to get out of check?",
+       "choices": [
+        "Move the king",
+        "Capture the checking piece",
+        "Block the line of attack",
+        "Castle"
+       ],
+       "answer": 3,
+       "explain": "Castling out of check is illegal. The three answers are move, capture, block."
+      },
+      {
+       "prompt": "A knight gives check. Which defence is impossible?",
+       "choices": [
+        "Blocking",
+        "All three are always possible",
+        "Capturing the knight",
+        "Moving the king"
+       ],
+       "answer": 0,
+       "explain": "A knight jumps, so there is no line to block."
+      },
+      {
+       "prompt": "May you make a move that exposes your own king to check?",
+       "choices": [
+        "No, that move is illegal",
+        "Yes, if it captures a piece",
+        "Yes, if the opponent doesn't notice",
+        "Only with the king"
+       ],
+       "answer": 0,
+       "explain": "A move that leaves your own king in check is never legal."
+      }
+     ]
+    },
+    {
+     "id": "chess-u2-l2",
+     "title": "Checkmate",
+     "body": "**Checkmate** means the king is in check and **none** of the three answers works: it can't move to a safe square, the checker can't be captured, and the check can't be blocked. The game ends immediately; the side delivering mate wins.\n\nTo spot mates, look at the enemy king's **escape squares** (the up-to-eight squares around it). A mate needs two things at once:\n\n- the king is attacked, and\n- every escape square is attacked or occupied by the king's own pieces.\n\nOften the king's own pawns and pieces do half the work by boxing it in. That's why a king that never gets **luft** (a breathing square) can be mated on its back rank.\n\nA good method for finding mate in 1:\n\n1. List every **check** you can give.\n2. For each, ask: can the king move, can the checker be captured, can it be blocked?\n3. If all three fail, it's mate.\n\nAlways look at checks first. They're forcing moves: your opponent has to respond to them, which makes them easy to calculate. The puzzles in this unit all reward that habit.",
+     "quiz": [
+      {
+       "prompt": "What makes a check into checkmate?",
+       "choices": [
+        "The king is in check twice in a row",
+        "The queen gives the check",
+        "The king has no legal moves but is not in check",
+        "The king cannot escape, the checker cannot be captured, and the check cannot be blocked"
+       ],
+       "answer": 3,
+       "explain": "All three escapes must fail. No legal move while not in check is stalemate, which is a draw."
+      },
+      {
+       "prompt": "When hunting for a mate in 1, what should you look at first?",
+       "choices": [
+        "Every capture you can make",
+        "Your weakest piece",
+        "Your opponent's last move only",
+        "Every check you can give"
+       ],
+       "answer": 3,
+       "explain": "Mates always start with a check, so listing checks first is the fastest search."
+      }
+     ]
+    },
+    {
+     "id": "chess-u2-l3",
+     "title": "Stalemate and Other Draws",
+     "body": "Not every game has a winner. A game can be **drawn** several ways:\n\n- **Stalemate:** the side to move is **not in check** but has **no legal move**. The game is a draw immediately. It's the classic way to throw away a won game: you have a queen against a lone king, you take away every square, but forget to give check.\n- **Threefold repetition:** the same position occurs three times with the same player to move (and the same castling and en passant possibilities). The player can claim a draw.\n- **The 50-move rule:** if 50 moves by each side pass with no capture and no pawn move, a draw can be claimed.\n- **Insufficient material:** neither side can possibly mate, for example king vs king, or king and a single bishop or knight against a king.\n- **Agreement:** the players agree to a draw.\n\nThe practical lesson for a beginner: when you're far ahead, **check every move for stalemate**. Before each move, ask, \"After this, does my opponent have any legal move?\" If the answer is no and they're not in check, stop and choose another move.\n\nWhen you are losing badly, the reverse is a resource: look for a way to leave yourself with no legal moves.",
+     "quiz": [
+      {
+       "prompt": "Black is not in check and has no legal moves, with Black to move. What is the result?",
+       "choices": [
+        "Black loses",
+        "White must make a different move",
+        "A draw by stalemate",
+        "Black skips a turn"
+       ],
+       "answer": 2,
+       "explain": "No legal moves without being in check is stalemate, an immediate draw."
+      },
+      {
+       "prompt": "Which of these is a draw by insufficient material?",
+       "choices": [
+        "King and knight vs king",
+        "King and two pawns vs king",
+        "King and rook vs king",
+        "King and queen vs king"
+       ],
+       "answer": 0,
+       "explain": "A lone knight can never force mate (or even reach one). A rook, a queen or pawns that can promote can."
+      },
+      {
+       "prompt": "You have king and queen against a lone king. What is the main danger?",
+       "choices": [
+        "There is no danger at all",
+        "Losing on the 50-move rule in a few moves",
+        "Your queen being captured by the king, always",
+        "Accidentally stalemating the enemy king"
+       ],
+       "answer": 3,
+       "explain": "Taking all the king's squares without giving check is the classic way to turn a win into a draw."
+      }
+     ]
+    },
+    {
+     "id": "chess-u2-l4",
+     "title": "Mate in One",
+     "body": "Time to use the method from the checkmate lesson. Every puzzle below is a **mate in 1**: one move ends the game.\n\nFor each position:\n\n1. Find whose move it is.\n2. List **every check** you can give: queen, rook, bishop, knight, pawn, even discovered checks.\n3. For each check, test the three escapes: can the king step away, can the checking piece be captured, can the check be blocked?\n4. Play the move only when all three fail.\n\nDon't play the first check you see. Several checks may be available, and usually only one is mate. A check that lets the king slip out is a wasted move and can hand your opponent the initiative.\n\nPay attention to what is **boxing the king in**. Usually it's the king's own pawns, the edge of the board, or one of your pieces covering the escape squares. Seeing what already blocks the king tells you which check finishes the job.\n\nThese puzzles come from real games played on Lichess.",
+     "quiz": [
+      {
+       "prompt": "You find a check. What do you test before playing it?",
+       "choices": [
+        "Whether the move is a capture",
+        "Whether it is the first check you found",
+        "Whether it's your strongest piece",
+        "Whether the king can move away, the checker can be captured, or the check can be blocked"
+       ],
+       "answer": 3,
+       "explain": "A check is only mate when all three escapes fail."
+      },
+      {
+       "prompt": "Why is the edge of the board useful when mating?",
+       "choices": [
+        "Stalemate is impossible on the edge",
+        "Pieces move faster along the edge",
+        "Kings cannot be checked on the edge",
+        "It removes the king's escape squares on one side"
+       ],
+       "answer": 3,
+       "explain": "A king on the edge has fewer squares, so fewer need to be covered."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-fvZaE",
+       "position": "5r1k/pb1p2q1/3p2Qp/1p1P4/2P5/4P1R1/PP4PP/6K1 w - - 3 26",
+       "toMove": "w",
+       "solution": [
+        "g6g7"
+       ],
+       "goal": "Mate in 1",
+       "rating": 426
+      },
+      {
+       "id": "lichess-t9JHf",
+       "position": "rnb1k1nr/pp3ppp/1qp1p3/2bpP3/5PPP/8/PPPPN3/RNBQKB1R b KQkq - 2 6",
+       "toMove": "b",
+       "solution": [
+        "c5f2"
+       ],
+       "goal": "Mate in 1",
+       "rating": 618
+      },
+      {
+       "id": "lichess-skmNA",
+       "position": "2r2rk1/pb3pp1/1p5p/2ppq3/8/P1nQPP2/1P4PP/1BR2RK1 w - - 0 19",
+       "toMove": "w",
+       "solution": [
+        "d3h7"
+       ],
+       "goal": "Mate in 1",
+       "rating": 636
+      },
+      {
+       "id": "lichess-gVLk3",
+       "position": "6k1/2p2ppp/5p2/3Pr3/1N2b3/8/5P1P/R4RK1 b - - 1 32",
+       "toMove": "b",
+       "solution": [
+        "e5g5"
+       ],
+       "goal": "Mate in 1",
+       "rating": 706
+      },
+      {
+       "id": "lichess-XLI2V",
+       "position": "2rq1rk1/1p1b2p1/pn1bpp2/n5NQ/3P4/PPN1B3/5PPP/2R2RK1 w - - 0 19",
+       "toMove": "w",
+       "solution": [
+        "h5h7"
+       ],
+       "goal": "Mate in 1",
+       "rating": 740
+      }
+     ]
+    },
+    {
+     "id": "chess-u2-l5",
+     "title": "Counting Material",
+     "body": "Most games aren't decided by a quick mate. They're decided by **material**, the pieces each side has. The standard point values:\n\n| Piece | Value |\n|---|---|\n| Pawn | 1 |\n| Knight | 3 |\n| Bishop | 3 |\n| Rook | 5 |\n| Queen | 9 |\n\nUse these to judge trades:\n\n- Giving a knight (3) for a rook (5) is \"winning the exchange\", +2.\n- Giving a bishop (3) for a pawn (1) loses 2 points.\n- Two minor pieces (6) are usually a bit better than a rook plus pawn (6) in the middlegame. The points are a guide, not a law.\n\n**Count before every capture sequence.** Before you take, ask: \"If we both keep capturing on this square, who ends up ahead?\" Count the attackers and defenders, and start with the cheapest attacker.\n\nA piece that is attacked and not defended is **hanging**. Taking hanging pieces, and not leaving your own pieces hanging, wins more beginner games than anything else.\n\nUp a piece (about 3 points) with no compensation is usually a winning advantage. Being ahead in material also makes trades good for you: each trade brings you closer to an easy endgame.",
+     "quiz": [
+      {
+       "prompt": "You capture a rook with your bishop, and your bishop is then captured. What is your net gain?",
+       "choices": [
+        "0",
+        "+2",
+        "+5",
+        "-2"
+       ],
+       "answer": 1,
+       "explain": "You gain 5 and lose 3, a net of +2."
+      },
+      {
+       "prompt": "What is a 'hanging' piece?",
+       "choices": [
+        "One pinned to its king",
+        "One on the edge of the board",
+        "One that is attacked and not defended",
+        "Any piece that has not moved yet"
+       ],
+       "answer": 2,
+       "explain": "Hanging pieces can be taken for free."
+      },
+      {
+       "prompt": "You're a knight ahead. Should you welcome even trades?",
+       "choices": [
+        "Yes, simplifying makes the extra piece count more",
+        "Only trade queens, nothing else",
+        "It makes no difference",
+        "No, always avoid trades when ahead"
+       ],
+       "answer": 0,
+       "explain": "With fewer pieces left, the opponent has less counterplay and your extra knight decides."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chess-u3-mates",
+   "title": "Basic Mates",
+   "order": 3,
+   "difficulty": 2,
+   "lessons": [
+    {
+     "id": "chess-u3-l1",
+     "title": "King and Queen vs King",
+     "body": "King and queen against a lone king is a forced win, but you must know the method and avoid stalemate.\n\n**The plan:**\n\n1. **Restrict the king with the queen.** Place the queen a knight's move away from the enemy king. This \"box\" shrinks the area the king can use. Each time the king steps back, follow it with the queen at the same knight's distance, making the box smaller.\n2. **Drive it to the edge.** Keep shrinking until the king is trapped on the edge rank or file.\n3. **Bring your king.** The queen cannot mate alone. Walk your king up until it supports the queen.\n4. **Deliver mate.** Common finishes: the queen directly in front of the enemy king, protected by your king; or the queen sweeping the whole edge rank while your king covers the squares in front.\n\n**Stalemate warning:** once the king is on the edge with only two squares to shuffle between, **stop squeezing** with the queen. Make king moves instead. If you take the last free square without giving check, it is stalemate.\n\nIn the puzzles below, the defending king is already trapped. Find the one move that mates. There is exactly one in each position.",
+     "quiz": [
+      {
+       "prompt": "Can a queen checkmate a lone king without help from her own king?",
+       "choices": [
+        "Yes, but only in a corner",
+        "Yes, if the king is on the edge",
+        "Yes, always",
+        "No, the king must help"
+       ],
+       "answer": 3,
+       "explain": "A lone queen can't cover the king's escapes and protect herself at once; you need your king too."
+      },
+      {
+       "prompt": "The enemy king is trapped on the edge with two squares to move between. What should you do next?",
+       "choices": [
+        "Take one of the two squares with the queen",
+        "Give random checks",
+        "Offer a draw",
+        "Bring your own king closer instead of tightening with the queen"
+       ],
+       "answer": 3,
+       "explain": "Taking the last square without check risks stalemate; bring the king first, then mate."
+      },
+      {
+       "prompt": "Where is the queen placed to build the 'box' around the king?",
+       "choices": [
+        "On the opposite edge",
+        "On the same file as your own king",
+        "A knight's move away from the enemy king",
+        "Adjacent to the enemy king"
+       ],
+       "answer": 2,
+       "explain": "A knight's distance restricts the king without the queen being captured or giving pointless checks."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "gen-kq-1",
+       "position": "8/5K1k/8/8/8/Q7/8/8 w - - 0 1",
+       "toMove": "w",
+       "solution": [
+        "a3h3"
+       ],
+       "goal": "Mate in 1",
+       "rating": 400
+      },
+      {
+       "id": "gen-kq-2",
+       "position": "8/q7/8/8/8/5k1K/8/8 b - - 0 1",
+       "toMove": "b",
+       "solution": [
+        "a7h7"
+       ],
+       "goal": "Mate in 1",
+       "rating": 400
+      },
+      {
+       "id": "gen-kq-3",
+       "position": "8/3Q4/8/8/8/6K1/8/5k2 w - - 0 1",
+       "toMove": "w",
+       "solution": [
+        "d7d1"
+       ],
+       "goal": "Mate in 1",
+       "rating": 400
+      },
+      {
+       "id": "gen-kq-4",
+       "position": "8/8/8/6q1/8/K7/2k5/8 b - - 0 1",
+       "toMove": "b",
+       "solution": [
+        "g5a5"
+       ],
+       "goal": "Mate in 1",
+       "rating": 400
+      }
+     ]
+    },
+    {
+     "id": "chess-u3-l2",
+     "title": "King and Rook vs King",
+     "body": "King and rook against a lone king is also a forced win, but it takes more care, because the rook only controls ranks and files.\n\n**The plan:**\n\n1. **Cut the king off.** Put the rook on a rank or file that the enemy king cannot cross. That fence divides the board.\n2. **Bring your king up.** The rook can't do it alone. Walk your king toward the enemy king.\n3. **Use opposition.** When the two kings face each other with one square between them (on the same file or rank), a rook check along the edge is mate, because your king covers the escape squares.\n4. **Shrink the box.** When the kings are not in opposition, make a waiting rook move or move the rook one line closer, so the fence tightens.\n5. **Protect the rook.** If the enemy king attacks your rook, move it far away along its line (to the other side of the board), keeping the fence.\n\n**The mating picture:** enemy king on the edge, your king directly in front of it two squares away, rook checks along the edge rank. The king has nowhere to go.\n\nAs with the queen, avoid stalemate: if the defending king has no moves, your next move must be a check.\n\nIn the puzzles below, find the single mating move.",
+     "quiz": [
+      {
+       "prompt": "What is the first step against a lone king with K+R?",
+       "choices": [
+        "Advance your king to the corner",
+        "Put the rook next to the enemy king",
+        "Give check as often as possible",
+        "Cut the king off with the rook along a rank or file"
+       ],
+       "answer": 3,
+       "explain": "The rook's fence limits the king's area; checks without a plan just push it around."
+      },
+      {
+       "prompt": "In the standard K+R mate, where is your king when the rook gives mate along the edge?",
+       "choices": [
+        "Diagonally next to the enemy king",
+        "In the opposite corner",
+        "Behind the rook",
+        "Facing the enemy king with one square between them"
+       ],
+       "answer": 3,
+       "explain": "With the kings in opposition, your king covers the squares off the edge, and the rook covers the edge."
+      },
+      {
+       "prompt": "The enemy king attacks your unprotected rook. What is a good reply?",
+       "choices": [
+        "Trade the rook for a pawn",
+        "Move your king away",
+        "Move the rook far away along the same line, keeping the cut-off",
+        "Let it be taken; a draw is fine"
+       ],
+       "answer": 2,
+       "explain": "Moving the rook to the far end keeps the fence and leaves it out of the king's reach."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "gen-kr-1",
+       "position": "8/8/R7/8/8/5K1k/8/8 w - - 0 1",
+       "toMove": "w",
+       "solution": [
+        "a6h6"
+       ],
+       "goal": "Mate in 1",
+       "rating": 450
+      },
+      {
+       "id": "gen-kr-2",
+       "position": "4K3/8/4k3/8/8/8/r7/8 b - - 0 1",
+       "toMove": "b",
+       "solution": [
+        "a2a8"
+       ],
+       "goal": "Mate in 1",
+       "rating": 450
+      },
+      {
+       "id": "gen-kr-3",
+       "position": "k7/8/K7/8/4R3/8/8/8 w - - 0 1",
+       "toMove": "w",
+       "solution": [
+        "e4e8"
+       ],
+       "goal": "Mate in 1",
+       "rating": 450
+      },
+      {
+       "id": "gen-kr-4",
+       "position": "8/2r5/8/8/8/K1k5/8/8 b - - 0 1",
+       "toMove": "b",
+       "solution": [
+        "c7a7"
+       ],
+       "goal": "Mate in 1",
+       "rating": 450
+      }
+     ]
+    },
+    {
+     "id": "chess-u3-l3",
+     "title": "The Back-Rank Mate",
+     "body": "The **back-rank mate** is one of the most common ways games end at every level.\n\n**The pattern:** a castled king sits on its first rank behind its own unmoved pawns (for White, on g1 behind f2, g2, h2). The pawns block its escape. A rook or queen lands on the back rank with check, nothing can block or capture, and it's mate. The king's own pawns are the prison walls.\n\n**How to use it:**\n\n- Look at your opponent's back rank. Is the king boxed in by its pawns? Is the back rank defended only by one piece? If that defender can be removed, distracted or overloaded, the mate appears.\n- Doubling rooks or bringing the queen onto an open file aims straight at that weakness.\n\n**How to defend:**\n\n- Make **luft** (an escape square): at a quiet moment, move one pawn in front of the king one square, for example h2–h3. Now the king has a square to run to.\n- Keep a rook or queen guarding your back rank until the king has luft.\n\nBecause the pattern is so common, it's worth asking every few moves: \"Is either back rank weak right now?\" The puzzles below are real back-rank mates.",
+     "quiz": [
+      {
+       "prompt": "What usually traps the king in a back-rank mate?",
+       "choices": [
+        "Enemy knights",
+        "Its own pawns in front of it",
+        "The edge of the board alone",
+        "The enemy king"
+       ],
+       "answer": 1,
+       "explain": "The unmoved pawns in front of a castled king take away its escape squares."
+      },
+      {
+       "prompt": "What does 'making luft' mean?",
+       "choices": [
+        "Trading queens",
+        "Castling queenside",
+        "Doubling your rooks",
+        "Moving a pawn in front of your king to create an escape square"
+       ],
+       "answer": 3,
+       "explain": "Luft (German for 'air') gives the king a flight square off the back rank."
+      },
+      {
+       "prompt": "Your opponent's only back-rank defender is a rook. Which idea creates a back-rank threat?",
+       "choices": [
+        "Deflect or exchange off that defending rook",
+        "Push your own king forward",
+        "Move your queen to your own back rank",
+        "Attack the pawn in front of their king"
+       ],
+       "answer": 0,
+       "explain": "If the lone defender is removed or distracted, your heavy piece can mate on the back rank."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-xGoGA",
+       "position": "3r2k1/2r2ppp/p4q2/1p2pP2/4P2P/5N2/2PQ2K1/3R4 w - - 0 33",
+       "toMove": "w",
+       "solution": [
+        "d2d8",
+        "f6d8",
+        "d1d8"
+       ],
+       "goal": "Mate in 2",
+       "rating": 612
+      },
+      {
+       "id": "lichess-SpEeO",
+       "position": "5rk1/p1BP2pp/Pp6/4pr2/4p3/2PbP2Q/6PP/R4R1K b - - 0 27",
+       "toMove": "b",
+       "solution": [
+        "f5f1",
+        "a1f1",
+        "f8f1"
+       ],
+       "goal": "Mate in 2",
+       "rating": 781
+      },
+      {
+       "id": "lichess-LwnYr",
+       "position": "4Qrk1/6pp/r3pb2/2P5/1P1P1p2/4P3/5PPP/R5K1 b - - 0 26",
+       "toMove": "b",
+       "solution": [
+        "a6a1"
+       ],
+       "goal": "Mate in 1",
+       "rating": 866
+      },
+      {
+       "id": "lichess-9m4U3",
+       "position": "8/6pk/2p2p1p/1p6/1P1P1Q2/2P2P1P/6PB/1q3n1K b - - 10 42",
+       "toMove": "b",
+       "solution": [
+        "f1g3"
+       ],
+       "goal": "Mate in 1",
+       "rating": 938
+      },
+      {
+       "id": "lichess-L0STb",
+       "position": "r6r/pp2B2p/1qn3k1/3Q1N2/4n3/8/PPP2PPP/RN2R1K1 b - - 0 16",
+       "toMove": "b",
+       "solution": [
+        "b6f2",
+        "g1h1",
+        "f2e1"
+       ],
+       "goal": "Mate in 2",
+       "rating": 963
+      }
+     ]
+    },
+    {
+     "id": "chess-u3-l4",
+     "title": "Mate in Two",
+     "body": "A **mate in 2** means you move, your opponent replies (with any legal move), and then you mate. The challenge: your first move must work **against every reply**.\n\n**How to search:**\n\n1. Start with **checks**, then **captures**, then **threats** (moves that threaten mate next move). This order is called CCT.\n2. For a checking first move, the opponent's replies are few, so calculate each one.\n3. For a quiet first move, ask: \"What does it threaten?\" and \"Can the opponent stop the threat?\" Quiet first moves are the hardest to find, and often the most beautiful.\n\n**Common mate-in-2 ideas:**\n\n- A **sacrifice** that drags the king out or removes a defender, followed by mate.\n- A first check that drives the king onto a square where a second check is mate.\n- Removing the one piece that guards the mating square.\n\nIn these puzzles, the app plays your opponent's reply for you, the move from the real game. Your job is to find both of your moves. Don't guess the first one; see the whole line before you move.",
+     "quiz": [
+      {
+       "prompt": "In a mate in 2, your first move must lead to mate against:",
+       "choices": [
+        "Only checks",
+        "Every legal reply",
+        "The most likely reply",
+        "At least one reply"
+       ],
+       "answer": 1,
+       "explain": "A forced mate has to work whatever the opponent does."
+      },
+      {
+       "prompt": "What does the 'CCT' search order stand for?",
+       "choices": [
+        "Castle, centre, tempo",
+        "Checks, centre, tactics",
+        "Count, calculate, trade",
+        "Checks, captures, threats"
+       ],
+       "answer": 3,
+       "explain": "Search the most forcing moves first: checks, then captures, then threats."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-F81GE",
+       "position": "2r5/pp2k1p1/n3P2p/3p3P/1q1P4/5Q2/PPP5/2KR4 w - - 2 28",
+       "toMove": "w",
+       "solution": [
+        "f3f7",
+        "e7d6",
+        "f7d7"
+       ],
+       "goal": "Mate in 2",
+       "rating": 903
+      },
+      {
+       "id": "lichess-DtKHI",
+       "position": "1RN5/6pp/5p2/8/1Pk3PK/1r5P/8/8 b - - 14 45",
+       "toMove": "b",
+       "solution": [
+        "g7g5",
+        "h4h5",
+        "b3h3"
+       ],
+       "goal": "Mate in 2",
+       "rating": 961
+      },
+      {
+       "id": "lichess-hPhWg",
+       "position": "2r2rk1/pp4b1/4p1PR/2ppPp2/1qnP1P2/1PN2N2/P1P2QP1/2KR4 b - - 0 19",
+       "toMove": "b",
+       "solution": [
+        "b4a3",
+        "c1b1",
+        "a3b2"
+       ],
+       "goal": "Mate in 2",
+       "rating": 981
+      },
+      {
+       "id": "lichess-foEh3",
+       "position": "6rk/p4prp/2p5/1p2Q3/4P2R/P7/KPq4P/8 w - - 0 31",
+       "toMove": "w",
+       "solution": [
+        "h4h7",
+        "h8h7",
+        "e5h5"
+       ],
+       "goal": "Mate in 2",
+       "rating": 1068
+      },
+      {
+       "id": "lichess-F9ZX2",
+       "position": "r1bqr1k1/ppp4p/4pp1B/2b1p3/2Bp4/3Q4/PPP2PPP/R4RK1 w - - 0 15",
+       "toMove": "w",
+       "solution": [
+        "d3g3",
+        "g8f7",
+        "g3g7"
+       ],
+       "goal": "Mate in 2",
+       "rating": 1143
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chess-u4-tactics1",
+   "title": "Tactics I: Double Attacks",
+   "order": 4,
+   "difficulty": 3,
+   "lessons": [
+    {
+     "id": "chess-u4-l1",
+     "title": "Hanging Pieces",
+     "body": "Before learning clever tactics, master the simplest one: **take what is free, and don't leave things free.**\n\nA piece is **hanging** when it's attacked and not defended, or attacked by something cheaper than itself (a pawn attacking a knight, a bishop attacking a rook).\n\nAt beginner level, most games are decided by hanging pieces. A strong habit is the **two-question scan** before every move:\n\n1. **What did my opponent's last move attack?** Is any of my pieces now hanging? Is there a new threat to my king?\n2. **What can I attack or take now?** Is any enemy piece undefended or defended fewer times than it is attacked?\n\nOnly after both questions do you look for your own plans.\n\n**Counting on a square:** if a piece is attacked twice and defended once, it can usually be won. But capture with the cheapest piece first, and check the trade value. Taking a pawn defended by a pawn with your queen loses the queen.\n\nThe puzzles below are one-movers: a piece has been left hanging. Find it and take it. They're easy on purpose. You're building the reflex of seeing free material instantly.",
+     "quiz": [
+      {
+       "prompt": "Your knight is attacked by a pawn and defended by a pawn. Is it safe?",
+       "choices": [
+        "Only if it is your move",
+        "No, losing a knight for a pawn is a bad trade",
+        "Yes, knights can't be taken by pawns",
+        "Yes, it is defended"
+       ],
+       "answer": 1,
+       "explain": "Defended doesn't mean safe when the attacker is cheaper than the piece."
+      },
+      {
+       "prompt": "What is the first question to ask after your opponent moves?",
+       "choices": [
+        "Which piece have I not moved yet?",
+        "What does their move attack or threaten?",
+        "Can I castle now?",
+        "How much time is left?"
+       ],
+       "answer": 1,
+       "explain": "Spotting the opponent's threats first prevents most blunders."
+      },
+      {
+       "prompt": "A rook is attacked twice and defended once. You attack with a bishop and a queen. Which should capture first?",
+       "choices": [
+        "Neither; never capture defended pieces",
+        "The queen, the stronger piece",
+        "The bishop, the cheaper attacker",
+        "It makes no difference"
+       ],
+       "answer": 2,
+       "explain": "Capture with the cheapest piece first, so that when the defender recaptures you lose as little as possible."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-Ne2KA",
+       "position": "6r1/5p1k/2p1p1p1/pp5p/3PqP1P/6R1/PPP3R1/1K2Q3 b - - 0 33",
+       "toMove": "b",
+       "solution": [
+        "e4e1"
+       ],
+       "goal": "Mate in 1",
+       "rating": 481
+      },
+      {
+       "id": "lichess-zXRnX",
+       "position": "Q3b2k/2r3p1/p5Bq/4p3/7B/P5P1/7K/8 w - - 3 41",
+       "toMove": "w",
+       "solution": [
+        "a8e8"
+       ],
+       "goal": "Mate in 1",
+       "rating": 682
+      },
+      {
+       "id": "lichess-NvLmy",
+       "position": "r1b2r1k/pp3p1p/4p1pQ/3p4/5P2/1B6/PqP3PP/R4R1K w - - 0 20",
+       "toMove": "w",
+       "solution": [
+        "h6f8"
+       ],
+       "goal": "Mate in 1",
+       "rating": 790
+      },
+      {
+       "id": "lichess-f8QdS",
+       "position": "2nR1r1k/6pp/4Q3/4P3/2P4n/pP2q3/P7/3R1K2 w - - 4 42",
+       "toMove": "w",
+       "solution": [
+        "d8f8"
+       ],
+       "goal": "Mate in 1",
+       "rating": 896
+      }
+     ]
+    },
+    {
+     "id": "chess-u4-l2",
+     "title": "The Knight Fork",
+     "body": "A **fork** is one piece attacking two (or more) enemy pieces at the same time. The opponent can usually save only one, so you win the other.\n\nThe **knight** is the best forking piece because:\n\n- it attacks in a pattern that's hard to see,\n- it can attack a queen or rook without being attacked back by that piece,\n- its attack can't be blocked.\n\nThe most valuable forks include the **king**: a knight check that also hits the queen or a rook (a \"royal fork\" or \"family fork\"). The opponent must answer the check, and you take the other piece.\n\n**How to find forks:**\n\n- Look for enemy pieces that stand a knight's jump apart from the same square, especially the king, queen and rooks.\n- Look for squares your knight can reach in one move where it would attack two targets.\n- Check that the forking square is safe, or that the fork is worth the knight even if it's captured.\n\nCommon targets: a king on g8 and a queen on d8 or e7, rooks on a8 and e8, a king and queen on the same colour square arrangement a knight's distance apart.\n\nIn each puzzle, find the knight move that attacks two things, then follow up.",
+     "quiz": [
+      {
+       "prompt": "Why is a fork that includes check so strong?",
+       "choices": [
+        "It wins the king",
+        "It always leads to mate",
+        "Checks can't be answered",
+        "The opponent must answer the check, so the second target is lost"
+       ],
+       "answer": 3,
+       "explain": "The check forces the reply, leaving the other attacked piece to be taken."
+      },
+      {
+       "prompt": "Which is a reason the knight is the best forking piece?",
+       "choices": [
+        "It's the most valuable piece",
+        "Its attack can't be blocked and is hard to see",
+        "It moves the farthest",
+        "It can't be captured"
+       ],
+       "answer": 1,
+       "explain": "Knights jump, so their attacks can't be blocked, and the L-pattern is easy to miss."
+      },
+      {
+       "prompt": "Your knight could fork the queen and a rook, but the forking square is defended by a pawn. What do you check?",
+       "choices": [
+        "Whether the queen is on a light square",
+        "Whether you still come out ahead after the knight is taken",
+        "Nothing, forks always win",
+        "Whether you have castled"
+       ],
+       "answer": 1,
+       "explain": "If the pawn takes your knight, the fork never happens; only play it if the result still favours you."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-C9csw",
+       "position": "6k1/3r3p/p5p1/2p5/PpP1Np2/8/1P5P/5K2 w - - 0 43",
+       "toMove": "w",
+       "solution": [
+        "e4f6",
+        "g8f7",
+        "f6d7"
+       ],
+       "goal": "Win material with a knight fork",
+       "rating": 565
+      },
+      {
+       "id": "lichess-nzEQV",
+       "position": "r4rk1/2p2ppp/pbN5/3b2B1/1P6/P4N2/2P3PP/3K1R2 w - - 1 18",
+       "toMove": "w",
+       "solution": [
+        "c6e7",
+        "g8h8",
+        "e7d5"
+       ],
+       "goal": "Win material with a knight fork",
+       "rating": 862
+      },
+      {
+       "id": "lichess-Gs5TU",
+       "position": "8/3R4/3p4/3Pk3/K7/3n4/P7/8 b - - 2 45",
+       "toMove": "b",
+       "solution": [
+        "d3c5",
+        "a4b5",
+        "c5d7"
+       ],
+       "goal": "Win material with a knight fork",
+       "rating": 903
+      },
+      {
+       "id": "lichess-b3N64",
+       "position": "r7/5kpp/pb3pn1/1p3b2/2p1N3/P4NB1/1PP2PPP/4R1K1 w - - 2 24",
+       "toMove": "w",
+       "solution": [
+        "e4d6",
+        "f7f8",
+        "d6f5"
+       ],
+       "goal": "Win material with a knight fork",
+       "rating": 960
+      },
+      {
+       "id": "lichess-oM09W",
+       "position": "R7/1p3pk1/6p1/8/5R2/2n4P/3r2P1/6K1 b - - 4 42",
+       "toMove": "b",
+       "solution": [
+        "c3e2",
+        "g1f2",
+        "e2f4"
+       ],
+       "goal": "Win material with a knight fork",
+       "rating": 1077
+      }
+     ]
+    },
+    {
+     "id": "chess-u4-l3",
+     "title": "Double Attack with the Queen",
+     "body": "A **double attack** is any move that creates two threats at once. A fork is the most common type, and the **queen** is the most powerful double-attacker because she moves in eight directions.\n\nTypical queen double attacks:\n\n- **Check plus attack:** the queen gives check and, from the same square, attacks a loose piece. After the king moves, the piece falls.\n- **Mate threat plus attack:** the queen threatens mate on one side and a hanging piece on the other.\n- **Two loose pieces:** the queen moves to a square that hits two undefended pieces at once.\n\nThe key word is **loose**. Undefended pieces are targets for double attacks. A useful saying: *loose pieces drop off*. Look at the board and mark every enemy piece that isn't defended. Then ask whether one move of your queen hits two of them, or one of them plus the king.\n\nThe same awareness protects you: keep your own pieces defended, and be suspicious when two of your pieces are both loose.\n\nOne caution: the queen is valuable, so make sure the square she lands on isn't attacked by something cheaper.",
+     "quiz": [
+      {
+       "prompt": "What makes a piece a good target for a double attack?",
+       "choices": [
+        "It has already moved",
+        "It is your opponent's queen",
+        "It is on the edge",
+        "It is undefended (loose)"
+       ],
+       "answer": 3,
+       "explain": "If one attacked piece is undefended, the opponent can't save both."
+      },
+      {
+       "prompt": "Your queen gives check and also attacks an undefended rook. The king steps out of check. What happens next?",
+       "choices": [
+        "The game is drawn",
+        "You take the rook",
+        "You must check again",
+        "The rook becomes defended automatically"
+       ],
+       "answer": 1,
+       "explain": "The check forced the king to move, leaving the rook en prise."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-qrIrm",
+       "position": "r2qk2r/ppp2p2/2b4p/4p1p1/8/6P1/PPP1Q1PP/RN3RK1 w kq - 0 14",
+       "toMove": "w",
+       "solution": [
+        "e2e5",
+        "d8e7",
+        "e5h8"
+       ],
+       "goal": "Win material with a double attack",
+       "rating": 949
+      },
+      {
+       "id": "lichess-x1H0q",
+       "position": "rnbqk2r/pppp1ppp/4n3/4P3/2B5/2P1BQ2/PPP3PP/R3K1NR b KQkq - 5 8",
+       "toMove": "b",
+       "solution": [
+        "d8h4",
+        "f3g3",
+        "h4c4"
+       ],
+       "goal": "Win material with a double attack",
+       "rating": 999
+      },
+      {
+       "id": "lichess-jWyhr",
+       "position": "2b4k/1r1n2b1/2QPqr2/4p2p/2p1Pp2/5P1P/BP3R2/3R2BK w - - 0 34",
+       "toMove": "w",
+       "solution": [
+        "c6c8",
+        "f6f8",
+        "c8b7"
+       ],
+       "goal": "Win material with a double attack",
+       "rating": 1022
+      },
+      {
+       "id": "lichess-dm0Cd",
+       "position": "r3kb1r/1ppnqppp/p1npb3/1Q6/3P4/4BN1P/PPPN1PP1/R3KB1R w KQkq - 0 12",
+       "toMove": "w",
+       "solution": [
+        "b5b7",
+        "d7b6",
+        "b7c6"
+       ],
+       "goal": "Win material with a double attack",
+       "rating": 1114
+      },
+      {
+       "id": "lichess-FSsX3",
+       "position": "5k2/1B3p2/2p4p/2Pp2p1/3Pq2n/4P2P/5QP1/6K1 b - - 1 35",
+       "toMove": "b",
+       "solution": [
+        "e4b1",
+        "g1h2",
+        "b1b7"
+       ],
+       "goal": "Win material with a double attack",
+       "rating": 1119
+      }
+     ]
+    },
+    {
+     "id": "chess-u4-l4",
+     "title": "The Pin",
+     "body": "A **pin** happens when a piece can't move (or shouldn't) because moving it would expose a more valuable piece behind it to a bishop, rook or queen.\n\n- **Absolute pin:** the piece behind is the **king**. The pinned piece legally cannot move off the line. Example: a black knight on c6, the king on e8, and a white bishop on b5. The knight can't move.\n- **Relative pin:** the piece behind is valuable but not the king (a queen or rook). Moving the pinned piece is legal but loses material.\n\n**How to exploit a pin:**\n\n- **Pile up on the pinned piece.** It can't run, so attack it again, often with a pawn.\n- **Attack something the pinned piece was defending.** A pinned piece doesn't really defend; it's \"frozen\" on its line.\n\n**How to escape a pin:** break the line by moving the piece behind it, block with another piece, or attack the pinning piece.\n\nOnly long-range pieces can pin: bishops, rooks and queens. Watch the lines from your opponent's bishops and rooks to your king and queen. If a single piece of yours stands between them, you're already pinned or about to be.",
+     "quiz": [
+      {
+       "prompt": "What is the difference between an absolute and a relative pin?",
+       "choices": [
+        "There is no difference",
+        "In an absolute pin the piece behind is the king, so the pinned piece legally cannot move",
+        "A relative pin can only happen on the back rank",
+        "An absolute pin is made by a queen"
+       ],
+       "answer": 1,
+       "explain": "Exposing the king is illegal; exposing a queen or rook is just expensive."
+      },
+      {
+       "prompt": "Which piece can NOT create a pin?",
+       "choices": [
+        "Knight",
+        "Rook",
+        "Queen",
+        "Bishop"
+       ],
+       "answer": 0,
+       "explain": "Pins need a line; only bishops, rooks and queens attack along lines."
+      },
+      {
+       "prompt": "A black knight is pinned to its king. What is a good way to exploit it?",
+       "choices": [
+        "Ignore it",
+        "Trade off the pinning bishop at once",
+        "Move your king next to it",
+        "Attack the knight again, for example with a pawn"
+       ],
+       "answer": 3,
+       "explain": "The pinned knight can't escape, so adding attackers often wins it."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-iyUzX",
+       "position": "5b1k/7p/5r2/4Q3/8/P1P3K1/1P5P/5b2 b - - 1 37",
+       "toMove": "b",
+       "solution": [
+        "f8d6",
+        "e5d6",
+        "f6d6"
+       ],
+       "goal": "Use the pin",
+       "rating": 816
+      },
+      {
+       "id": "lichess-Kbu9W",
+       "position": "8/5p2/R3pkp1/7p/7P/p1r1N3/4KP2/8 w - - 4 37",
+       "toMove": "w",
+       "solution": [
+        "e3d5",
+        "f6e5",
+        "d5c3"
+       ],
+       "goal": "Use the pin",
+       "rating": 980
+      },
+      {
+       "id": "lichess-Y6zS6",
+       "position": "5rk1/ppp3pp/8/2q5/5p2/2NPBQ1P/PPP5/4RK2 b - - 0 20",
+       "toMove": "b",
+       "solution": [
+        "f4e3",
+        "f1g2",
+        "f8f3"
+       ],
+       "goal": "Use the pin",
+       "rating": 1050
+      },
+      {
+       "id": "lichess-Q13xo",
+       "position": "7Q/1r1k1q2/5Pp1/1r2p3/p2p4/3P4/1P6/1KB4R w - - 6 47",
+       "toMove": "w",
+       "solution": [
+        "h1h7",
+        "f7h7",
+        "h8h7"
+       ],
+       "goal": "Use the pin",
+       "rating": 1144
+      },
+      {
+       "id": "lichess-LAx94",
+       "position": "4b3/5kp1/2p2p1p/3q4/1Q1P3P/3B2P1/5P1K/8 w - - 3 47",
+       "toMove": "w",
+       "solution": [
+        "d3c4",
+        "d5c4",
+        "b4c4"
+       ],
+       "goal": "Use the pin",
+       "rating": 1200
+      }
+     ]
+    },
+    {
+     "id": "chess-u4-l5",
+     "title": "The Skewer",
+     "body": "A **skewer** is a pin in reverse. A long-range piece attacks a **valuable piece in front**, and when that piece moves out of the way, it exposes a **lesser piece behind** on the same line, which is then captured.\n\nClassic example: a rook checks the king along a rank, the king must step off the line, and the rook captures the queen or rook that stood behind it.\n\nPin vs skewer:\n\n- **Pin:** the cheaper piece is in front, the valuable piece behind. The front piece is stuck.\n- **Skewer:** the valuable piece is in front, the cheaper piece behind. The front piece must move and abandons the one behind.\n\n**Where skewers appear:**\n\n- In endgames with rooks and queens, when the king and another piece share a rank, file or diagonal.\n- When a king and queen line up on a diagonal, a bishop check can skewer the queen.\n\nThe defence is to avoid lining up your king and valuable pieces on open lines that an enemy bishop, rook or queen can reach. When you see the enemy king and queen on the same line, look for a check along it.",
+     "quiz": [
+      {
+       "prompt": "In a skewer, which piece is in front?",
+       "choices": [
+        "The less valuable piece",
+        "Always the attacker's own piece",
+        "The more valuable piece",
+        "Always a pawn"
+       ],
+       "answer": 2,
+       "explain": "The valuable front piece is forced to move, exposing the piece behind."
+      },
+      {
+       "prompt": "A rook checks the king along a rank. Behind the king on that rank is an undefended queen. What is this called?",
+       "choices": [
+        "A fork",
+        "A skewer",
+        "A discovered attack",
+        "A pin"
+       ],
+       "answer": 1,
+       "explain": "The king must move off the line and the queen behind it is captured."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-JihaR",
+       "position": "8/1r1k1p2/3P2p1/2K4p/1p2R3/8/7P/8 w - - 0 48",
+       "toMove": "w",
+       "solution": [
+        "e4e7",
+        "d7d8",
+        "e7b7"
+       ],
+       "goal": "Win material with a skewer",
+       "rating": 797
+      },
+      {
+       "id": "lichess-3nTwy",
+       "position": "6k1/7p/8/1p2pP2/8/P1P4P/1P5r/1R3K2 b - - 0 38",
+       "toMove": "b",
+       "solution": [
+        "h2h1",
+        "f1e2",
+        "h1b1"
+       ],
+       "goal": "Win material with a skewer",
+       "rating": 883
+      },
+      {
+       "id": "lichess-2tvui",
+       "position": "8/8/4k3/8/4K2R/r3N3/5P1p/8 b - - 1 53",
+       "toMove": "b",
+       "solution": [
+        "a3a4",
+        "e4d3",
+        "a4h4"
+       ],
+       "goal": "Win material with a skewer",
+       "rating": 989
+      },
+      {
+       "id": "lichess-DnEoC",
+       "position": "3R4/2P5/6k1/8/2KNrpb1/8/8/8 w - - 9 66",
+       "toMove": "w",
+       "solution": [
+        "d8g8",
+        "g6f6",
+        "g8g4"
+       ],
+       "goal": "Win material with a skewer",
+       "rating": 1086
+      },
+      {
+       "id": "lichess-BqYbw",
+       "position": "r4k1r/ppp3pp/8/3P4/2B2p1q/3P1P1b/PPP1K2P/RN2Q1R1 b - - 1 16",
+       "toMove": "b",
+       "solution": [
+        "a8e8",
+        "e2d2",
+        "e8e1"
+       ],
+       "goal": "Win material with a skewer",
+       "rating": 1183
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chess-u5-tactics2",
+   "title": "Tactics II: Hidden Attacks",
+   "order": 5,
+   "difficulty": 3,
+   "lessons": [
+    {
+     "id": "chess-u5-l1",
+     "title": "Discovered Attack",
+     "body": "A **discovered attack** happens when you move one piece out of the way and **uncover an attack** by a piece behind it, usually a bishop, rook or queen.\n\nWhat makes it powerful is that **two pieces are now active**: the one that moved can make its own threat (capture, check, attack), while the uncovered piece attacks something else. The opponent often can't deal with both.\n\n**Discovered check** is the strongest version: the uncovered piece gives check, so the opponent must answer the check, and the moving piece can go almost anywhere, even capture a queen.\n\n**How to spot them:**\n\n- Look for your own pieces standing between your long-range piece and an enemy target (especially the king or queen).\n- Ask: \"If this piece moved, what would be uncovered?\" Then: \"Where can this piece go with a threat of its own?\"\n\n**Defending:** be wary when an enemy bishop, rook or queen points at your king or queen through one of the opponent's own pieces. That's a loaded gun.\n\nIn the puzzles, find the move that unleashes the hidden attack.",
+     "quiz": [
+      {
+       "prompt": "In a discovered attack, which piece makes the uncovered attack?",
+       "choices": [
+        "The piece that moves",
+        "The opponent's piece",
+        "Always the king",
+        "The piece that stays still, behind the one that moves"
+       ],
+       "answer": 3,
+       "explain": "Moving the front piece opens the line for the piece behind it."
+      },
+      {
+       "prompt": "Why is a discovered check so dangerous?",
+       "choices": [
+        "It wins the opponent's king",
+        "It is always checkmate",
+        "The opponent must answer the check, so the moving piece's threat goes unanswered",
+        "It can't be blocked"
+       ],
+       "answer": 2,
+       "explain": "The check takes priority, giving the moving piece a free threat."
+      },
+      {
+       "prompt": "Which piece can be the hidden attacker in a discovered attack?",
+       "choices": [
+        "Only a pawn",
+        "Only the king",
+        "Only a knight",
+        "A bishop, rook or queen"
+       ],
+       "answer": 3,
+       "explain": "The uncovered attack runs along a line, so it comes from a long-range piece."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-dXQ8j",
+       "position": "r2q2k1/1p1bb1pp/p1n1pr2/3p2N1/3P4/2NBP1Q1/PP4PP/R4RK1 b - - 1 15",
+       "toMove": "b",
+       "solution": [
+        "f6f1",
+        "a1f1",
+        "e7g5"
+       ],
+       "goal": "Find the discovered attack",
+       "rating": 883
+      },
+      {
+       "id": "lichess-Y40wY",
+       "position": "5r2/5Np1/p3p1kp/1b6/p4R2/2r3P1/5P1P/R5K1 w - - 1 28",
+       "toMove": "w",
+       "solution": [
+        "f7e5",
+        "g6h7",
+        "f4f8"
+       ],
+       "goal": "Find the discovered attack",
+       "rating": 969
+      },
+      {
+       "id": "lichess-1h5wT",
+       "position": "r1b2knr/5ppp/4p3/1p1q4/8/8/PP1Q1PPP/3RR1K1 w - - 0 18",
+       "toMove": "w",
+       "solution": [
+        "d2b4",
+        "f8e8",
+        "d1d5"
+       ],
+       "goal": "Find the discovered attack",
+       "rating": 1080
+      },
+      {
+       "id": "lichess-Xe6CK",
+       "position": "8/1pp1k1p1/p6p/r2P1R1P/8/5P2/6P1/6K1 w - - 2 39",
+       "toMove": "w",
+       "solution": [
+        "d5d6",
+        "e7e6",
+        "f5a5"
+       ],
+       "goal": "Find the discovered attack",
+       "rating": 1162
+      },
+      {
+       "id": "lichess-o3DNx",
+       "position": "8/8/3Q4/4r1p1/3K2k1/6b1/8/8 b - - 1 74",
+       "toMove": "b",
+       "solution": [
+        "e5e4",
+        "d4e4",
+        "g3d6"
+       ],
+       "goal": "Find the discovered attack",
+       "rating": 1195
+      }
+     ]
+    },
+    {
+     "id": "chess-u5-l2",
+     "title": "Double Check",
+     "body": "A **double check** is a discovered check in which the moving piece **also** gives check. The king is attacked by two pieces at once.\n\nThe rule that makes it deadly: against a double check, **only a king move helps**. You can't capture two checking pieces with one move, and you can't block two lines at once. So:\n\n- If the king has no safe square, a double check is **mate**, even if both checking pieces could be captured individually.\n- The moving piece can go to a square where it's attacked, even by the queen, because the opponent has no time to take it.\n\n**Spotting it:** find your long-range piece aimed at the enemy king through one of your own pieces. Then ask whether that front piece can move to a square where it gives check too.\n\nDouble checks often appear around a king that's still in the centre, or a castled king when a bishop or rook is lined up behind a knight.\n\nIn these puzzles, look for the move that checks with two pieces at once.",
+     "quiz": [
+      {
+       "prompt": "What is the only legal way to answer a double check?",
+       "choices": [
+        "Block one of the lines",
+        "Move the king",
+        "Capture one of the checking pieces",
+        "Castle"
+       ],
+       "answer": 1,
+       "explain": "Capturing or blocking stops only one of the two checks."
+      },
+      {
+       "prompt": "A double check is given and the king has no safe square. What is the result?",
+       "choices": [
+        "The game continues with a capture",
+        "The checking pieces must retreat",
+        "Checkmate",
+        "Stalemate"
+       ],
+       "answer": 2,
+       "explain": "With only king moves allowed and none available, it's mate."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-XZZGi",
+       "position": "R3N1k1/5pp1/1pp4p/3p4/1PnP4/3bP1P1/5P1P/1r3BK1 w - - 6 27",
+       "toMove": "w",
+       "solution": [
+        "e8f6"
+       ],
+       "goal": "Mate in 1",
+       "rating": 779
+      },
+      {
+       "id": "lichess-TstKl",
+       "position": "5r2/1p1b1pkp/3ppnp1/q1p3P1/1nP1P3/r2PNN1P/PQ2BP2/R3K2R b KQ - 0 17",
+       "toMove": "b",
+       "solution": [
+        "b4d3",
+        "e1f1",
+        "d3b2"
+       ],
+       "goal": "Find the double check",
+       "rating": 1088
+      },
+      {
+       "id": "lichess-XlTi8",
+       "position": "r3kb1r/1bq2p1p/p2p1pn1/1p1P1N2/5P2/8/PPP1B1PP/R2QR1K1 w kq - 0 15",
+       "toMove": "w",
+       "solution": [
+        "e2b5",
+        "e8d8",
+        "e1e8"
+       ],
+       "goal": "Mate in 2",
+       "rating": 1155
+      },
+      {
+       "id": "lichess-yaghc",
+       "position": "2k1q2r/1ppr4/p7/3R1Q2/1R6/1P2p2P/1PP2P2/4K3 b - - 0 28",
+       "toMove": "b",
+       "solution": [
+        "e3f2",
+        "e1f2",
+        "h8f8"
+       ],
+       "goal": "Find the double check",
+       "rating": 1210
+      }
+     ]
+    },
+    {
+     "id": "chess-u5-l3",
+     "title": "Removing the Defender",
+     "body": "Sometimes a target is defended exactly once. **Remove that defender** and the target falls. This idea, also called \"capturing the defender\" or \"undermining\", appears all the time.\n\n**The method:**\n\n1. Find an enemy piece or square you'd like to attack (a piece, or a mating square).\n2. Ask: \"What defends it?\" Often the answer is a single piece.\n3. Find a way to **capture**, **deflect** (force it away) or **overload** that defender.\n4. Then take the target.\n\nExample: a knight defends the enemy queen. You capture the knight with your bishop. If they recapture, they've lost the queen's guard elsewhere; if they don't, you're simply a piece up.\n\n**Overloaded pieces:** a piece doing two defensive jobs at once is overloaded. Attack one of the things it guards; when it responds, the other job is abandoned.\n\nWhen you analyse a position, draw mental arrows: \"this piece guards that.\" A single arrow holding up an important point is a weakness you can attack.",
+     "quiz": [
+      {
+       "prompt": "An enemy rook is defended only by a knight. What is the 'removing the defender' idea?",
+       "choices": [
+        "Defend your own rook",
+        "Trade queens",
+        "Attack the rook with your king",
+        "Capture or drive away the knight, then take the rook"
+       ],
+       "answer": 3,
+       "explain": "Once the only defender is gone, the rook is hanging."
+      },
+      {
+       "prompt": "What is an overloaded piece?",
+       "choices": [
+        "A piece defending two things at once",
+        "A piece attacked by two enemy pieces",
+        "A piece pinned to the king",
+        "A piece that has moved many times"
+       ],
+       "answer": 0,
+       "explain": "If you attack one of its duties, it can't keep both."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-pFRJn",
+       "position": "2r3k1/p4p1p/1p2p1p1/3pP3/1b1P2P1/q1P1Q3/2R1BPKP/8 w - - 8 33",
+       "toMove": "w",
+       "solution": [
+        "c3b4",
+        "c8c2",
+        "e3a3"
+       ],
+       "goal": "Remove the defender",
+       "rating": 1006
+      },
+      {
+       "id": "lichess-KF8Q2",
+       "position": "2kr1b1r/ppp2ppp/5n2/3q4/4N3/P2P1QP1/1PPB1PKP/R4R2 b - - 2 14",
+       "toMove": "b",
+       "solution": [
+        "f6e4",
+        "d3e4",
+        "d5d2"
+       ],
+       "goal": "Remove the defender",
+       "rating": 1102
+      },
+      {
+       "id": "lichess-pndHW",
+       "position": "6k1/5p1b/4p2p/3pPPp1/6P1/r1b4B/R6P/B1N4K b - - 0 43",
+       "toMove": "b",
+       "solution": [
+        "a3a2",
+        "c1a2",
+        "c3a1"
+       ],
+       "goal": "Remove the defender",
+       "rating": 1182
+      },
+      {
+       "id": "lichess-twrJz",
+       "position": "r6k/pb1q1B1p/1pn3pb/2p3N1/5Q2/2PP2N1/P4PPP/4R1K1 b - - 2 21",
+       "toMove": "b",
+       "solution": [
+        "h6g5",
+        "f4g5",
+        "d7f7"
+       ],
+       "goal": "Remove the defender",
+       "rating": 1244
+      }
+     ]
+    },
+    {
+     "id": "chess-u5-l4",
+     "title": "Pawn Promotion Tactics",
+     "body": "A pawn one or two steps from promotion is a huge force. Many tactics revolve around **making a new queen** or forcing the opponent to give up material to stop one.\n\n**Ideas to look for:**\n\n- **The direct push:** sometimes the pawn simply advances and the opponent can't stop it.\n- **Deflection:** a single enemy piece is guarding the promotion square. Lure it away (often with a check or a sacrifice), and the pawn queens.\n- **Promotion with check or capture:** a pawn that captures diagonally onto the last rank, or promotes with check, gains time.\n- **Underpromotion:** usually you choose a queen, but occasionally a knight is better, for example when it gives check and forks, or when a queen would stalemate.\n\n**Counting the race:** when both sides have passed pawns, count how many moves each needs to promote. A tempo can decide everything. Checks gain tempo.\n\n**Defending:** blockade a passed pawn with a piece directly in front of it, ideally a knight or the king. A blocked pawn can't move.\n\nIn these puzzles, find the move that promotes or forces promotion.",
+     "quiz": [
+      {
+       "prompt": "A single enemy rook guards the square your pawn needs to queen on. What tactical idea helps?",
+       "choices": [
+        "Deflect the rook away from that square",
+        "Wait for the rook to leave on its own",
+        "Move the pawn sideways",
+        "Promote to a king"
+       ],
+       "answer": 0,
+       "explain": "Deflection lures the guard away so the pawn can promote."
+      },
+      {
+       "prompt": "What is underpromotion?",
+       "choices": [
+        "Promoting without capturing",
+        "Losing the pawn on the last rank",
+        "Promoting to a piece other than a queen",
+        "Promoting on the 7th rank"
+       ],
+       "answer": 2,
+       "explain": "Sometimes a knight, rook or bishop is better, for instance to avoid stalemate or to give a forking check."
+      },
+      {
+       "prompt": "What is the best way to stop an enemy passed pawn?",
+       "choices": [
+        "Blockade it with a piece directly in front of it",
+        "Attack it from behind with a pawn",
+        "Trade all your pieces",
+        "Ignore it and attack the king"
+       ],
+       "answer": 0,
+       "explain": "A pawn can't move through a piece standing in front of it."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-hrFo0",
+       "position": "8/2p5/6P1/2k2K2/2p5/1p6/Q7/8 b - - 0 56",
+       "toMove": "b",
+       "solution": [
+        "b3a2",
+        "g6g7",
+        "a2a1q"
+       ],
+       "goal": "Promote or force promotion",
+       "rating": 879
+      },
+      {
+       "id": "lichess-7Jfqw",
+       "position": "B1k5/p1Pn1pp1/1p1pp3/1P5r/7p/P4P1P/4KP2/2R5 w - - 1 35",
+       "toMove": "w",
+       "solution": [
+        "a8b7",
+        "c8b7",
+        "c7c8q"
+       ],
+       "goal": "Mate in 2",
+       "rating": 966
+      },
+      {
+       "id": "lichess-qroPQ",
+       "position": "1r6/4P3/4R3/5p2/5P2/p1P1pk2/8/3K4 w - - 3 60",
+       "toMove": "w",
+       "solution": [
+        "e7e8q",
+        "b8e8",
+        "e6e8"
+       ],
+       "goal": "Promote or force promotion",
+       "rating": 1078
+      },
+      {
+       "id": "lichess-BDW5Q",
+       "position": "8/R2n2K1/3r3P/8/1k6/8/8/8 w - - 5 72",
+       "toMove": "w",
+       "solution": [
+        "h6h7",
+        "d7c5",
+        "h7h8q"
+       ],
+       "goal": "Promote or force promotion",
+       "rating": 1156
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chess-u6-opening",
+   "title": "Opening Principles",
+   "order": 6,
+   "difficulty": 3,
+   "lessons": [
+    {
+     "id": "chess-u6-l1",
+     "title": "Fight for the Centre",
+     "body": "The four central squares (d4, e4, d5, e5) are the most important on the board. Pieces in the centre control more squares and can reach either side quickly.\n\n**Principle 1: occupy or control the centre with pawns.** Good first moves for White are 1.e4 and 1.d4; good replies for Black are 1...e5, 1...d5 or other moves that contest those squares (like 1...c5 against 1.e4).\n\nWhy pawns first? A pawn in the centre takes squares away from enemy pieces and opens lines for your own bishops and queen.\n\nMoves that ignore the centre (1.a4, 1.h4) aren't losing, but they waste the most valuable resource in the opening: **time**. Each move in the opening should help you control the centre, develop a piece, or make your king safe.\n\n**Don't overextend.** Pushing all your centre pawns quickly can leave them weak if your pieces aren't ready to support them. Two pawns in the centre, backed by developed pieces, is the classic ideal.",
+     "quiz": [
+      {
+       "prompt": "Which squares form the centre?",
+       "choices": [
+        "a1, h1, a8, h8",
+        "d4, e4, d5, e5",
+        "c3, f3, c6, f6",
+        "e1, e8, d1, d8"
+       ],
+       "answer": 1,
+       "explain": "The four middle squares are the centre."
+      },
+      {
+       "prompt": "Why is 1.e4 a good first move?",
+       "choices": [
+        "It prepares queenside castling directly",
+        "It occupies the centre and opens lines for the bishop and queen",
+        "It develops a knight",
+        "It protects the king"
+       ],
+       "answer": 1,
+       "explain": "1.e4 controls d5 and f5 and frees the f1-bishop and the queen."
+      }
+     ]
+    },
+    {
+     "id": "chess-u6-l2",
+     "title": "Develop Your Pieces",
+     "body": "**Principle 2: develop your knights and bishops early.** \"Development\" means moving pieces off the back rank to active squares where they help control the centre.\n\nGuidelines:\n\n- **Knights before bishops** is a good rule of thumb. Knights belong on f3, c3 (for White) or f6, c6 (for Black), where they hit the centre. Knights on the rim (a3, h3) control fewer squares.\n- **Bishops** go to active diagonals: c4, b5, e2, d3 or fianchetto squares like g2.\n- **Move each piece once** in the opening if you can. Moving the same piece twice while others sit at home wastes time.\n- **Don't bring the queen out early.** She can be chased by smaller pieces, and each time she retreats, your opponent develops with tempo.\n- **Connect your rooks.** Once your minor pieces are out and you've castled, move the queen up a square so your two rooks see each other.\n\nA quick count: after about 10 moves, how many of your pieces are developed compared with your opponent's? The side that's ahead in development usually gets the initiative.",
+     "quiz": [
+      {
+       "prompt": "What does 'development' mean in the opening?",
+       "choices": [
+        "Moving your king to the centre",
+        "Trading pieces",
+        "Pushing all your pawns",
+        "Moving pieces from the back rank to active squares"
+       ],
+       "answer": 3,
+       "explain": "Developed pieces join the fight; undeveloped ones are spectators."
+      },
+      {
+       "prompt": "Why is bringing the queen out early often a mistake?",
+       "choices": [
+        "Smaller pieces can chase her and gain time",
+        "It's illegal before castling",
+        "The queen can't move before move 10",
+        "She loses value"
+       ],
+       "answer": 0,
+       "explain": "Each forced retreat is a free developing move for the opponent."
+      },
+      {
+       "prompt": "When are your rooks 'connected'?",
+       "choices": [
+        "When they protect the king",
+        "When they're on the same file",
+        "When no pieces stand between them on the back rank",
+        "When both have moved"
+       ],
+       "answer": 2,
+       "explain": "Clearing the minor pieces and queen from the back rank lets the rooks defend each other."
+      }
+     ]
+    },
+    {
+     "id": "chess-u6-l3",
+     "title": "King Safety and Castling",
+     "body": "**Principle 3: get your king safe, usually by castling early.**\n\nIn the opening the centre is where the fighting happens. A king left on e1 or e8 sits in the line of fire as files open. Castling moves it to the side behind pawns and brings a rook toward the centre.\n\nHabits:\n\n- Aim to castle within roughly the first ten moves, after developing the kingside knight and bishop.\n- After castling, **don't push the pawns in front of your king without reason**. Each pawn move creates holes that enemy pieces can use. A single move like h3 (luft) can be useful later, but random pushes weaken the shelter.\n- Watch the **f7 square** (f2 for White). At the start it's defended only by the king, so it's the most common early target (as in Scholar's Mate: Bc4 and Qh5 or Qf3 attacking f7).\n\n**Defending against early attacks:** if the opponent brings out the queen to attack f7, don't panic. Defend calmly (for example with ...g6, ...Qe7 or ...Nf6, depending on the position) and then develop with gain of time by attacking the queen.\n\nA safe king lets you play the rest of the game without fear.",
+     "quiz": [
+      {
+       "prompt": "Which square is Black's weakest point at the very start of the game?",
+       "choices": [
+        "e5",
+        "a7",
+        "d8",
+        "f7"
+       ],
+       "answer": 3,
+       "explain": "f7 is defended only by the king, which is why early attacks target it."
+      },
+      {
+       "prompt": "After castling kingside, why avoid pushing the pawns in front of your king without a reason?",
+       "choices": [
+        "Each push creates weak squares near your king",
+        "Pawns can't move after castling",
+        "It undoes castling",
+        "It's an illegal move"
+       ],
+       "answer": 0,
+       "explain": "Pawns can't move back, so the holes are permanent."
+      }
+     ]
+    },
+    {
+     "id": "chess-u6-l4",
+     "title": "Punishing Opening Mistakes",
+     "body": "Beginners lose many games in the first 15 moves to the same mistakes: leaving pieces undefended, walking into forks, and moving the queen too early. The principles from this unit protect you. Tactics let you **punish** opponents who break them.\n\nWhat to look for in the opening:\n\n- **Undeveloped opponent, open lines:** if the enemy king is still in the centre and a file or diagonal opens, attack it.\n- **Loose pieces:** developing moves can leave a piece undefended. Look for double attacks against them.\n- **Pins on the c6/f6 knights:** a bishop on b5 or g5 pinning a knight to the king or queen is a common source of tactics.\n- **Early queen raids:** if the opponent's queen grabs a pawn, look for ways to trap her or develop with tempo by attacking her.\n\nThe puzzles below come from real games where a player stumbled in the opening. Each time, find the move that punishes the mistake.\n\nAfter each game you play, look at the first 10 moves. Did you break a principle? Did your opponent? That review habit improves your openings faster than memorising lines.",
+     "quiz": [
+      {
+       "prompt": "Your opponent's king is still in the centre and a central file opens. What should you consider?",
+       "choices": [
+        "Trading all the pieces",
+        "Closing the file immediately",
+        "Attacking along that file, for example with your rooks or queen",
+        "Castling queenside to avoid it"
+       ],
+       "answer": 2,
+       "explain": "An uncastled king on an open file is a target."
+      },
+      {
+       "prompt": "What is the most useful way to improve your openings as a beginner?",
+       "choices": [
+        "Avoid castling to surprise opponents",
+        "Review each game's first moves against the principles",
+        "Memorise 20 moves of one opening",
+        "Always play the same first move without thinking"
+       ],
+       "answer": 1,
+       "explain": "Understanding why moves are good beats memorising them."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-SlRGm",
+       "position": "r2qk2r/pp3ppp/2p5/2bpP3/4nPb1/3B1Q2/PPP3PP/RNB2R1K w kq - 2 14",
+       "toMove": "w",
+       "solution": [
+        "f3g4",
+        "e4f2",
+        "f1f2"
+       ],
+       "goal": "Punish the opening mistake",
+       "rating": 786
+      },
+      {
+       "id": "lichess-cbgGG",
+       "position": "r3kb1r/pp1qpppp/2np4/2p5/4P3/2NP1N1b/PPP1BP2/R1BQR1K1 b kq - 2 11",
+       "toMove": "b",
+       "solution": [
+        "d7g4",
+        "g1h2",
+        "g4g2"
+       ],
+       "goal": "Mate in 2",
+       "rating": 949
+      },
+      {
+       "id": "lichess-DvyrJ",
+       "position": "r1bqk2r/ppp2ppp/4p3/1nbpP3/5BP1/3Q4/PPP2P1P/R3KB1R w KQkq - 0 11",
+       "toMove": "w",
+       "solution": [
+        "d3b5",
+        "d8d7",
+        "b5c5"
+       ],
+       "goal": "Punish the opening mistake",
+       "rating": 1013
+      },
+      {
+       "id": "lichess-kq1IE",
+       "position": "r1b1kb1r/pp3qp1/2n1p2p/3np2Q/3p1P2/P2B4/1PP3PP/RNB2RK1 w kq - 0 12",
+       "toMove": "w",
+       "solution": [
+        "d3g6",
+        "f7g6",
+        "h5g6"
+       ],
+       "goal": "Punish the opening mistake",
+       "rating": 1071
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chess-u7-endgame",
+   "title": "Basic Endgames",
+   "order": 7,
+   "difficulty": 4,
+   "lessons": [
+    {
+     "id": "chess-u7-l1",
+     "title": "The Active King",
+     "body": "When the queens and most pieces are gone, the danger of mate drops and the king becomes a **strong attacking and defending piece**. In the endgame, the side with the more active king often wins.\n\nGuidelines:\n\n- **Centralise the king** as soon as the endgame begins. From the centre it can go to either wing.\n- **Use the king to support passed pawns** and to attack enemy pawns.\n- **Count tempi.** In king-and-pawn endings, a single move often decides. Count how many moves each king needs to reach a key square before you commit.\n\n**Passed pawns:** a pawn with no enemy pawns in front of it or on the neighbouring files is a passed pawn. Passed pawns must be pushed (or blockaded, if they're the opponent's). An outside passed pawn, far from the other pawns, is especially strong because it lures the enemy king away.\n\n**The square of the pawn:** to tell whether a king can catch a passed pawn, draw a square from the pawn to its promotion rank (side length = squares to go). If the defending king can step into that square on its move, it catches the pawn. Otherwise the pawn queens.",
+     "quiz": [
+      {
+       "prompt": "Why should the king become active in the endgame?",
+       "choices": [
+        "With few pieces left there's little mating danger, and the king is a strong fighter",
+        "To avoid the 50-move rule",
+        "The rules change in the endgame",
+        "Kings move faster in the endgame"
+       ],
+       "answer": 0,
+       "explain": "Without enemy queens and rooks around, the king's strength outweighs its risk."
+      },
+      {
+       "prompt": "What is a passed pawn?",
+       "choices": [
+        "A pawn that captured en passant",
+        "A pawn with no enemy pawns ahead of it on its own or neighbouring files",
+        "A pawn on the 7th rank",
+        "A pawn that has moved two squares"
+       ],
+       "answer": 1,
+       "explain": "No enemy pawn can stop or capture it on its way, so it's a promotion threat."
+      },
+      {
+       "prompt": "What does the 'square of the pawn' tell you?",
+       "choices": [
+        "How many pawns you need to win",
+        "Which square the pawn will promote on",
+        "Whether the pawn is pinned",
+        "Whether a king can catch a passed pawn"
+       ],
+       "answer": 3,
+       "explain": "If the king can enter the square, it catches the pawn in time."
+      }
+     ]
+    },
+    {
+     "id": "chess-u7-l2",
+     "title": "King and Pawn: Opposition",
+     "body": "In king-and-pawn endings, the kings often stand face to face. **Opposition** is the key concept.\n\n**Definition:** the kings are in opposition when they stand on the same file (or rank) with **one square between them**. The player who **does not** have to move \"has the opposition\". The player who must move has to give way, letting the other king advance.\n\n**Why it matters:** with a king and one pawn against a lone king, the stronger side wants its king **in front of its pawn**, and wants the opposition. Then the defending king is pushed aside and the pawn promotes.\n\nRules of thumb for K+P vs K:\n\n- **King in front of the pawn** is much better than pushing the pawn first.\n- If the defending king gets **directly in front of the pawn** and keeps the opposition, it's usually a draw.\n- A **rook pawn** (a- or h-pawn) is usually a draw if the defending king reaches the corner.\n- If your king reaches the sixth rank in front of a non-rook pawn, you win no matter who moves.\n\nThe puzzles below are real pawn endings. Look for king moves that take the opposition or reach a key square, and count each line carefully.",
+     "quiz": [
+      {
+       "prompt": "The two kings stand on e4 and e6, and it is Black to move. Who has the opposition?",
+       "choices": [
+        "Neither",
+        "Black",
+        "White",
+        "Both"
+       ],
+       "answer": 2,
+       "explain": "The side that does not have to move has the opposition; here Black must give way."
+      },
+      {
+       "prompt": "In K+P vs K, where should the stronger king usually be?",
+       "choices": [
+        "As far away as possible",
+        "In a corner",
+        "Behind its pawn",
+        "In front of its pawn"
+       ],
+       "answer": 3,
+       "explain": "The king clears the path; pushing the pawn too early lets the defender block it."
+      },
+      {
+       "prompt": "Why is a rook pawn (a- or h-file) often a draw?",
+       "choices": [
+        "The defending king can hide in the corner and can't be driven out",
+        "Rook pawns can't promote",
+        "The pawn moves too slowly",
+        "Rook pawns promote to rooks"
+       ],
+       "answer": 0,
+       "explain": "From the corner, the defender can't be pushed aside without stalemate."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-TpoIJ",
+       "position": "8/8/8/2p5/2P1K3/8/2k5/8 b - - 1 70",
+       "toMove": "b",
+       "solution": [
+        "c2c3",
+        "e4d5",
+        "c3b4"
+       ],
+       "goal": "Win the pawn endgame",
+       "rating": 857
+      },
+      {
+       "id": "lichess-ZHRhR",
+       "position": "8/5kpK/6P1/8/8/8/8/8 b - - 0 57",
+       "toMove": "b",
+       "solution": [
+        "f7f6",
+        "h7h8",
+        "f6g6"
+       ],
+       "goal": "Win the pawn endgame",
+       "rating": 991
+      },
+      {
+       "id": "lichess-1wjtU",
+       "position": "8/8/8/6p1/6P1/8/6K1/4k3 w - - 2 62",
+       "toMove": "w",
+       "solution": [
+        "g2f3",
+        "e1f1",
+        "f3e4"
+       ],
+       "goal": "Win the pawn endgame",
+       "rating": 1080
+      },
+      {
+       "id": "lichess-V5pKP",
+       "position": "8/8/5K2/5P2/4Pkp1/8/8/8 b - - 0 55",
+       "toMove": "b",
+       "solution": [
+        "g4g3",
+        "f6e6",
+        "g3g2"
+       ],
+       "goal": "Win the pawn endgame",
+       "rating": 1134
+      },
+      {
+       "id": "lichess-2YsBq",
+       "position": "8/8/1P6/8/8/4k3/6pp/6K1 w - - 0 65",
+       "toMove": "w",
+       "solution": [
+        "g1g2",
+        "h2h1q",
+        "g2h1"
+       ],
+       "goal": "Win the pawn endgame",
+       "rating": 1280
+      }
+     ]
+    },
+    {
+     "id": "chess-u7-l3",
+     "title": "Rook Endgames",
+     "body": "Rook endings are the most common endgames in practice. A few principles take you a long way:\n\n- **Rooks belong behind passed pawns**, both your own (pushing them) and your opponent's (chasing them). A rook behind a pawn gains scope as the pawn advances; a rook in front of it gets more passive.\n- **Activity beats material.** An active rook attacking pawns, or cutting off the enemy king, is often worth more than a pawn.\n- **Cut off the king.** Placing your rook on a file or rank the enemy king can't cross keeps it away from the action, as in the K+R mate.\n- **The 7th rank.** A rook on the opponent's second rank (your 7th) attacks pawns and traps the king on the back rank.\n- **Checks from a distance.** When defending, checking the enemy king from far away (the long side) gives your king time and keeps the rook safe.\n\nWatch for tactics that win the rook, especially skewers along ranks or files when a king and rook line up.\n\nThe puzzles below are real rook endings. Look for active rook moves, back-rank ideas and skewers.",
+     "quiz": [
+      {
+       "prompt": "Where does a rook usually belong relative to a passed pawn?",
+       "choices": [
+        "Behind it",
+        "Anywhere on the back rank",
+        "On the same rank, beside it",
+        "In front of it"
+       ],
+       "answer": 0,
+       "explain": "Behind the pawn, the rook's scope grows as the pawn advances."
+      },
+      {
+       "prompt": "Why is a rook on the 7th rank strong?",
+       "choices": [
+        "It attacks pawns and can trap the king on its back rank",
+        "Rooks can't be captured there",
+        "It promotes the pawns behind it",
+        "It defends your own king"
+       ],
+       "answer": 0,
+       "explain": "Pawns on their starting rank and the king on the back rank are targets."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-q0xns",
+       "position": "8/8/R3k1p1/6P1/7p/P5r1/5K2/8 b - - 5 47",
+       "toMove": "b",
+       "solution": [
+        "e6f5",
+        "a6f6",
+        "f5g5"
+       ],
+       "goal": "Find the best rook-endgame move",
+       "rating": 910
+      },
+      {
+       "id": "lichess-h7F89",
+       "position": "7k/8/6K1/8/8/2r5/R7/8 w - - 1 52",
+       "toMove": "w",
+       "solution": [
+        "a2a8",
+        "c3c8",
+        "a8c8"
+       ],
+       "goal": "Mate in 2",
+       "rating": 979
+      },
+      {
+       "id": "lichess-DVtQc",
+       "position": "1r2k3/1r4RK/6PP/8/8/8/8/8 w - - 1 50",
+       "toMove": "w",
+       "solution": [
+        "g7b7",
+        "b8b7",
+        "g6g7"
+       ],
+       "goal": "Find the best rook-endgame move",
+       "rating": 1143
+      },
+      {
+       "id": "lichess-4JEsY",
+       "position": "4R3/8/4r3/1p3k2/8/1KP5/8/8 w - - 11 42",
+       "toMove": "w",
+       "solution": [
+        "e8e6",
+        "f5e6",
+        "b3b4"
+       ],
+       "goal": "Find the best rook-endgame move",
+       "rating": 1259
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "chess-u8-thinking",
+   "title": "How to Think at the Board",
+   "order": 8,
+   "difficulty": 5,
+   "lessons": [
+    {
+     "id": "chess-u8-l1",
+     "title": "The Thinking Checklist",
+     "body": "Strong players don't just know more. They **think in a consistent order** and rarely skip steps. Use this checklist every move:\n\n1. **What did my opponent's move do?** What does it attack, threaten or open up? What does it no longer defend?\n2. **Am I in danger?** Are any of my pieces hanging or under attack? Is my king under threat?\n3. **Checks, captures, threats (CCT).** List my forcing moves and the opponent's. Calculate the forcing ones first.\n4. **If nothing is forcing, improve.** Which piece is worst placed? What's the plan: centre, development, king safety, active rooks, weak pawns?\n5. **Blunder check.** Before touching a piece, imagine the move on the board and ask: \"What are their checks, captures and threats now?\"\n\nIt feels slow at first, but steps 1, 2 and 5 take seconds once they're habits. They will save more points than any opening or endgame knowledge.\n\n**Discipline matters more than talent here.** Most lost games come not from not knowing the move but from not looking. Treat the checklist like a pilot's checklist: you run it even when you're sure.",
+     "quiz": [
+      {
+       "prompt": "What is the first question of the checklist?",
+       "choices": [
+        "What did my opponent's last move do?",
+        "Which opening am I playing?",
+        "How can I attack the king?",
+        "How many pawns are left?"
+       ],
+       "answer": 0,
+       "explain": "Understanding the opponent's move first catches threats before you act."
+      },
+      {
+       "prompt": "What is a blunder check?",
+       "choices": [
+        "Imagining your move played and looking for the opponent's checks, captures and threats",
+        "Re-reading your last move",
+        "Asking the arbiter",
+        "Checking the clock"
+       ],
+       "answer": 0,
+       "explain": "Most blunders are visible one move ahead, if you look before moving."
+      },
+      {
+       "prompt": "When no forcing moves exist, what should you do?",
+       "choices": [
+        "Improve your worst-placed piece or follow a plan",
+        "Push a random pawn",
+        "Offer a draw",
+        "Move your king"
+       ],
+       "answer": 0,
+       "explain": "Quiet positions call for improvement and planning."
+      }
+     ]
+    },
+    {
+     "id": "chess-u8-l2",
+     "title": "Calculation Basics",
+     "body": "**Calculation** means seeing a sequence of moves in your head before you play the first one. It's the core skill this pillar trains.\n\n**Rules that make calculation reliable:**\n\n- **Forcing moves first.** Checks and captures restrict replies, so lines stay short and clear.\n- **Candidate moves.** Before calculating deeply, list 2-3 candidate moves. Don't fall in love with the first idea.\n- **Consider the opponent's best reply**, not the reply you hope for. Ask \"what would I play in their place?\"\n- **Count to the end of the sequence.** Stop only at a quiet position, then evaluate: material, king safety, threats.\n- **Visualise the changed board.** Pieces that have moved in your head still count. A common error is forgetting that a piece left a square, or that a defender has been captured.\n\n**Training method:** solve puzzles without moving pieces until you've seen the full line. In the app, commit to the full solution in your head before playing the first move. If you got it right by luck, count it as wrong.\n\nCalculation improves with deliberate practice: a few focused puzzles a day beats many rushed ones.",
+     "quiz": [
+      {
+       "prompt": "When calculating, which reply should you assume your opponent plays?",
+       "choices": [
+        "A random reply",
+        "The most common reply",
+        "Their best reply",
+        "The reply you hope for"
+       ],
+       "answer": 2,
+       "explain": "Hope chess loses; calculate against the strongest defence."
+      },
+      {
+       "prompt": "Why calculate forcing moves first?",
+       "choices": [
+        "They limit the opponent's replies, so lines are shorter and clearer",
+        "They take less time on the clock",
+        "They are always the best moves",
+        "Quiet moves can't be calculated"
+       ],
+       "answer": 0,
+       "explain": "Fewer replies mean a smaller, more accurate search."
+      }
+     ]
+    },
+    {
+     "id": "chess-u8-l3",
+     "title": "Mixed Tactics Test",
+     "body": "Real games don't tell you which tactic is coming. This lesson mixes everything: forks, pins, skewers, discovered attacks, back-rank ideas and mates.\n\nUse the full checklist on each puzzle:\n\n1. **Look at the whole board.** Where are the kings? What's loose? Which lines are open?\n2. **List the forcing moves:** checks, captures, threats, for both sides.\n3. **Calculate the most forcing candidate to the end.** Expect your opponent's best reply.\n4. **Blunder check before you commit.**\n\nDon't rush. A wrong answer in a puzzle costs nothing, but the habit of guessing costs games. If you can't find the solution in a few minutes, look for what the position *gives* you: a loose piece, a king with no escape squares, two pieces on one line. Tactics come from these weaknesses.\n\nThese puzzles are a little harder than the earlier ones (around 1100-1400 Lichess rating). If you solve most of them by calculation, not guesswork, you've built a real foundation: you'll beat most casual players and be ready for longer study.",
+     "quiz": [
+      {
+       "prompt": "You can't find the tactic. What should you look for in the position?",
+       "choices": [
+        "Any pawn move",
+        "A draw offer",
+        "The move that looks most aggressive",
+        "Weaknesses such as loose pieces, an exposed king or pieces on the same line"
+       ],
+       "answer": 3,
+       "explain": "Tactics arise from concrete weaknesses; find them first."
+      },
+      {
+       "prompt": "You solved a puzzle but guessed the second move. How should you count it?",
+       "choices": [
+        "As solved",
+        "It doesn't matter",
+        "As not solved, then work out the line properly",
+        "As half solved"
+       ],
+       "answer": 2,
+       "explain": "Honest scoring builds real calculation, not luck."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "lichess-0Ou3c",
+       "position": "8/5pp1/7p/3k4/5P2/r1RK2P1/7P/8 b - - 0 42",
+       "toMove": "b",
+       "solution": [
+        "a3c3",
+        "d3c3",
+        "d5e4"
+       ],
+       "goal": "Find the best move",
+       "rating": 1133
+      },
+      {
+       "id": "lichess-Xb6E3",
+       "position": "4r1k1/5R1p/p2pp1pB/4b3/4P3/3Q4/q5rP/5R1K w - - 0 26",
+       "toMove": "w",
+       "solution": [
+        "f7f8",
+        "e8f8",
+        "f1f8"
+       ],
+       "goal": "Mate in 2",
+       "rating": 1171
+      },
+      {
+       "id": "lichess-LbUMY",
+       "position": "r1b2rk1/ppq1np1p/4p1p1/1Bp1b3/3pNB2/3P4/PPP1QPPP/R3K2R w KQ - 0 13",
+       "toMove": "w",
+       "solution": [
+        "e4f6",
+        "e5f6",
+        "f4c7"
+       ],
+       "goal": "Find the best move",
+       "rating": 1206
+      },
+      {
+       "id": "lichess-QAnQG",
+       "position": "5bk1/5p1p/2r2p2/1pR2N2/1q1pP1P1/1P1Q1P2/7P/4R1K1 b - - 0 36",
+       "toMove": "b",
+       "solution": [
+        "b4e1",
+        "d3f1",
+        "e1f1"
+       ],
+       "goal": "Find the best move",
+       "rating": 1254
+      },
+      {
+       "id": "lichess-MiPIm",
+       "position": "Q4rk1/5p1p/p3p1p1/8/8/3q4/5PPP/R2R2K1 b - - 0 27",
+       "toMove": "b",
+       "solution": [
+        "d3d1",
+        "a1d1",
+        "f8a8"
+       ],
+       "goal": "Find the best move",
+       "rating": 1341
+      },
+      {
+       "id": "lichess-ugadH",
+       "position": "r2qk2r/1pp1bppp/p2p1n2/3Np1B1/4P1b1/3P1N1P/PPP2PP1/R2QK2R b KQkq - 0 10",
+       "toMove": "b",
+       "solution": [
+        "g4f3",
+        "d1f3",
+        "f6d5"
+       ],
+       "goal": "Find the best move",
+       "rating": 1374
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

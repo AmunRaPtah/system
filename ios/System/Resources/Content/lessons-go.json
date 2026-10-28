@@ -1,0 +1,1301 @@
+{
+ "version": 1,
+ "game": "go",
+ "units": [
+  {
+   "id": "go-u1-rules",
+   "title": "Stones, Liberties and Capture",
+   "order": 1,
+   "difficulty": 1,
+   "lessons": [
+    {
+     "id": "go-u1-l1",
+     "title": "The Board and the Goal",
+     "body": "Go is played by two players, **Black** and **White**, who take turns placing one stone on an empty **intersection** of the grid (not inside the squares). The full board is 19×19, but beginners start on **9×9**, which is what this course uses.\n\n- **Black moves first.**\n- Once placed, a stone **never moves**. It stays until it is captured.\n- You may **pass** instead of playing. When both players pass in a row, the game ends.\n\n**The goal is to surround more of the board than your opponent.** Area you wall off with your stones is your territory. Capturing stones helps, but it is a means, not the goal.\n\n**Coordinates** in this app: columns are lettered **a to j, skipping i** (an old convention to avoid confusing i with j), and rows are numbered **1 to 9** from the bottom. The centre point of a 9×9 board is **e5**.\n\nBecause White moves second, White receives **komi**, a few points of compensation added to its score (usually between 6.5 and 7.5 points, depending on the rule set). The half point prevents ties.\n\nGo has very few rules, but they create enormous depth. The next lessons cover all of them.",
+     "quiz": [
+      {
+       "prompt": "Where do you place stones in go?",
+       "choices": [
+        "Anywhere, then slide them",
+        "On the intersections of the lines",
+        "Inside the squares",
+        "Only on the edge"
+       ],
+       "answer": 1,
+       "explain": "Stones go on intersections; a 9×9 board has 81 of them."
+      },
+      {
+       "prompt": "Who plays first?",
+       "choices": [
+        "Whoever captures first",
+        "White",
+        "The stronger player",
+        "Black"
+       ],
+       "answer": 3,
+       "explain": "Black always moves first; White gets komi to compensate."
+      },
+      {
+       "prompt": "What is the main goal of go?",
+       "choices": [
+        "Capture all enemy stones",
+        "Surround more of the board than your opponent",
+        "Reach the far edge",
+        "Make a line of five"
+       ],
+       "answer": 1,
+       "explain": "Territory decides the game; captures are a tool for it."
+      }
+     ]
+    },
+    {
+     "id": "go-u1-l2",
+     "title": "Liberties",
+     "body": "The key idea in go is the **liberty**.\n\nA liberty is an **empty point directly next to a stone**, along the lines: up, down, left or right. **Diagonals are not liberties.**\n\n- A lone stone in the centre has **4** liberties.\n- On the edge it has **3**.\n- In the corner it has **2**.\n\n**Chains (groups).** Stones of the same colour that touch along the lines form a single **chain**. A chain shares its liberties: count all empty points next to any stone of the chain, each point once. Stones touching only diagonally are *not* connected.\n\n**Atari.** When a stone or chain has only **one** liberty left, it is in **atari**: it can be captured on the next move.\n\nCounting liberties is to go what checking for hanging pieces is to chess. Before every move, look at your weakest chain and ask: \"How many liberties does it have? How many does the enemy chain next to it have?\" In a fight, the side with more liberties usually wins.\n\nThe edge and corner reduce liberties, which is why stones near the edge are easier to capture.",
+     "quiz": [
+      {
+       "prompt": "How many liberties does a single stone in the corner have?",
+       "choices": [
+        "2",
+        "4",
+        "3",
+        "1"
+       ],
+       "answer": 0,
+       "explain": "A corner stone has only two neighbouring points on the board."
+      },
+      {
+       "prompt": "Two black stones touch only diagonally. Are they one chain?",
+       "choices": [
+        "Only on the edge",
+        "Yes, diagonals connect",
+        "No, only stones adjacent along the lines are connected",
+        "Only if White has no stones nearby"
+       ],
+       "answer": 2,
+       "explain": "Connection is along lines only; a diagonal pair can still be cut apart."
+      },
+      {
+       "prompt": "A chain has exactly one liberty. What is that called?",
+       "choices": [
+        "An eye",
+        "Atari",
+        "Seki",
+        "Ko"
+       ],
+       "answer": 1,
+       "explain": "In atari, the opponent can capture by filling the last liberty."
+      }
+     ]
+    },
+    {
+     "id": "go-u1-l3",
+     "title": "Capturing Stones",
+     "body": "When you **fill the last liberty** of an enemy stone or chain, it is **captured**: remove it from the board. Captured stones count for you under territory scoring, and the points they occupied become empty.\n\nThe order of events matters:\n\n1. You place your stone.\n2. Any **enemy** chains with no liberties are removed.\n3. Only then is your own stone checked.\n\nThat order explains how you can play into a point that looks surrounded: if your stone captures something, it gains liberties from the removed stones and is legal.\n\n**Practice spotting captures:** in each puzzle, find the enemy stone in atari and the single point that fills its last liberty. Look first at stones on the edge and in the corner, which have fewer liberties to begin with.\n\nThe puzzles below cover the centre, edge and corner, playing both colours. Each has exactly one capturing move.",
+     "quiz": [
+      {
+       "prompt": "A white stone in the centre has black stones on three sides. What does Black play to capture it?",
+       "choices": [
+        "The fourth adjacent point",
+        "Black must pass first",
+        "A diagonal point",
+        "Any point on the edge"
+       ],
+       "answer": 0,
+       "explain": "Filling the last liberty captures the stone."
+      },
+      {
+       "prompt": "You place a stone that removes an enemy chain's last liberty. What happens first?",
+       "choices": [
+        "Both stones are removed",
+        "Nothing until the next turn",
+        "The enemy chain is removed",
+        "Your stone is checked for liberties first"
+       ],
+       "answer": 2,
+       "explain": "Enemy captures resolve before your own stone's liberties are checked."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "go-cap-center",
+       "position": "........./........./........./....b..../...bwb.../........./........./........./.........",
+       "toMove": "b",
+       "solution": [
+        "e4"
+       ],
+       "goal": "Capture 1 stone",
+       "rating": 100
+      },
+      {
+       "id": "go-cap-edge",
+       "position": "........./........./........./........./........./........./........./........./...bwb...",
+       "toMove": "b",
+       "solution": [
+        "e2"
+       ],
+       "goal": "Capture 1 stone",
+       "rating": 100
+      },
+      {
+       "id": "go-cap-corner",
+       "position": "........./........./........./........./........./........./........./........./wb.......",
+       "toMove": "b",
+       "solution": [
+        "a2"
+       ],
+       "goal": "Capture 1 stone",
+       "rating": 100
+      },
+      {
+       "id": "go-cap-white-center",
+       "position": "........./........./..w....../.wbw...../........./........./........./........./.........",
+       "toMove": "w",
+       "solution": [
+        "c5"
+       ],
+       "goal": "Capture 1 stone",
+       "rating": 100
+      }
+     ]
+    },
+    {
+     "id": "go-u1-l4",
+     "title": "Passing and the End of the Game",
+     "body": "Go doesn't end with a checkmate. It ends when **both players agree there is nothing useful left to play**.\n\n**Passing.** On your turn you may **pass** instead of placing a stone. When **both players pass in a row**, the game is over.\n\nYou pass when every remaining move would either:\n\n- fill your own territory (losing points under some rules, never gaining any), or\n- play into territory the opponent already controls, where your stone would simply be captured.\n\n**Dead stones.** After the passes, players agree which stones are **dead**: stones that are surrounded and could not avoid capture if play continued. Dead stones are removed and counted as captured, even though no one actually played the capturing moves. If players disagree, they keep playing until it's clear.\n\n**Then the score is counted** (unit 6 covers how).\n\nBeginners often stop too early, leaving open borders where the opponent can still push in, or keep playing pointless moves inside their own area. Before you pass, check that every border between your stones and the opponent's is closed.",
+     "quiz": [
+      {
+       "prompt": "How does a game of go end?",
+       "choices": [
+        "After 100 moves",
+        "Both players pass in a row",
+        "One player captures a stone",
+        "The board is completely full"
+       ],
+       "answer": 1,
+       "explain": "Two consecutive passes signal that neither side has a useful move."
+      },
+      {
+       "prompt": "What happens to dead stones at the end of the game?",
+       "choices": [
+        "The game restarts",
+        "They are removed and counted as captured",
+        "They are given back",
+        "They stay and count as living"
+       ],
+       "answer": 1,
+       "explain": "Stones that couldn't escape capture are taken off when scoring."
+      },
+      {
+       "prompt": "Before passing, what should you check?",
+       "choices": [
+        "That the centre point is filled",
+        "That you captured at least one stone",
+        "That every border with the opponent's area is closed",
+        "That you have more stones on the board"
+       ],
+       "answer": 2,
+       "explain": "Open borders let the opponent push into your area after you pass."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "go-u2-atari",
+   "title": "Atari, Chains and Escape",
+   "order": 2,
+   "difficulty": 1,
+   "lessons": [
+    {
+     "id": "go-u2-l1",
+     "title": "Capturing Chains",
+     "body": "Chains are captured exactly like single stones: fill **every** liberty and the whole chain comes off the board at once. A large chain in atari is a huge prize.\n\n**How to count:** list every empty point touching any stone of the chain. Shared points count once. If only one point is left, the chain is in atari, and playing there captures every stone in it.\n\nThings to notice:\n\n- Long chains along the edge often have very few liberties, because the edge takes one side away.\n- Your capturing stone must itself be legal. Usually it is, because capturing gives it new liberties.\n- Look for the **biggest** capture available, but also check whether the capture leaves your own stones in atari.\n\nThe puzzles below have exactly one move that captures the stated number of stones. Count carefully: there may be another enemy stone in atari elsewhere, but the goal asks for a specific capture.",
+     "quiz": [
+      {
+       "prompt": "A white chain of three stones has one liberty left. Black plays there. How many stones are captured?",
+       "choices": [
+        "3",
+        "0, chains can't be captured",
+        "2",
+        "1"
+       ],
+       "answer": 0,
+       "explain": "The whole chain shares liberties and is removed together."
+      },
+      {
+       "prompt": "Why do chains on the edge often have few liberties?",
+       "choices": [
+        "They don't; edge chains have more",
+        "The edge counts as an enemy stone",
+        "Edge stones can't connect",
+        "The edge removes the points on one side"
+       ],
+       "answer": 3,
+       "explain": "Fewer neighbouring points means fewer liberties to fill."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "go-cap-two",
+       "position": "........./........./........./....b..../...bwb.../...bwb.../........./........./.........",
+       "toMove": "b",
+       "solution": [
+        "e3"
+       ],
+       "goal": "Capture 2 stones",
+       "rating": 150
+      },
+      {
+       "id": "go-cap-three-edge",
+       "position": "........./........./........./........./........./........./........./..bb...../.bwwwb...",
+       "toMove": "b",
+       "solution": [
+        "e2"
+       ],
+       "goal": "Capture 3 stones",
+       "rating": 150
+      },
+      {
+       "id": "go-cap-bigger",
+       "position": "........./........./........./..b..b.../.bw.bwb../..b.bwb../........./........./.........",
+       "toMove": "b",
+       "solution": [
+        "f3"
+       ],
+       "goal": "Capture 2 stones",
+       "rating": 200
+      },
+      {
+       "id": "go-cap-white-two",
+       "position": "........./........./........./........./.....w.../....wbbw./.....ww../........./.........",
+       "toMove": "w",
+       "solution": [
+        "g5"
+       ],
+       "goal": "Capture 2 stones",
+       "rating": 200
+      }
+     ]
+    },
+    {
+     "id": "go-u2-l2",
+     "title": "Escaping Atari",
+     "body": "When **your** stone is in atari, you have a few ways to save it:\n\n1. **Extend.** Play on its last liberty, adding a stone. The chain now has new liberties. Check that it gets at least two, or it will just be captured next move.\n2. **Capture.** If an enemy stone touching your chain is itself in atari, capturing it gives your chain liberties back. This is often the best answer.\n3. **Connect** to a nearby friendly chain that has plenty of liberties.\n\n**Don't extend blindly.** Extending toward the edge or into enemy stones may leave you with only two liberties, and the opponent can keep chasing. A stone that can't get away should sometimes be **abandoned**; trying to save it can lose more stones.\n\n**Count after the move:** \"If I extend, how many liberties will my chain have? Can the opponent put it back in atari, and does that lead anywhere?\"\n\nIn the puzzles below, find the single move that saves your stone. In one of them, the right answer is a capture, not an extension.",
+     "quiz": [
+      {
+       "prompt": "Your stone is in atari and an enemy stone touching it is also in atari. What is often best?",
+       "choices": [
+        "Pass",
+        "Play on the far side of the board",
+        "Extend away from it",
+        "Capture the enemy stone"
+       ],
+       "answer": 3,
+       "explain": "Capturing removes the threat and gives your stone liberties."
+      },
+      {
+       "prompt": "You extend a stone out of atari and it ends up with only two liberties. What is the danger?",
+       "choices": [
+        "The opponent can put it straight back in atari and keep chasing",
+        "Your stone is captured immediately",
+        "It becomes illegal",
+        "None, two liberties is always safe"
+       ],
+       "answer": 0,
+       "explain": "Two liberties is fragile; check if the chase leads to capture."
+      },
+      {
+       "prompt": "When might you give up on a stone in atari?",
+       "choices": [
+        "When saving it would cost more stones than it is worth",
+        "Whenever it has been on the board more than ten moves",
+        "Never",
+        "Only in the corner"
+       ],
+       "answer": 0,
+       "explain": "Running with a doomed stone makes the loss bigger."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "go-escape-extend",
+       "position": "........./........./........./....w..../...wbw.../........./........./........./.........",
+       "toMove": "b",
+       "solution": [
+        "e4"
+       ],
+       "goal": "Save your stone",
+       "rating": 150
+      },
+      {
+       "id": "go-escape-edge",
+       "position": "........./........./........./........./........./........./........./..bwb..../...b.....",
+       "toMove": "w",
+       "solution": [
+        "d3"
+       ],
+       "goal": "Save your stone",
+       "rating": 150
+      },
+      {
+       "id": "go-escape-capture",
+       "position": "........./........./........./..bw...../.bwbw..../....w..../...w...../........./.........",
+       "toMove": "b",
+       "solution": [
+        "c4"
+       ],
+       "goal": "Save your stone",
+       "rating": 250
+      }
+     ]
+    },
+    {
+     "id": "go-u2-l3",
+     "title": "Suicide and Connection",
+     "body": "**Suicide is illegal.** You may not place a stone where it (or the chain it joins) would have **no liberties**, *unless* the move captures enemy stones. Remember the order: enemy chains with no liberties are removed first, then your stone is checked.\n\nSo:\n\n- Playing into a point completely surrounded by enemy stones is illegal, unless it fills the last liberty of one of those enemy chains.\n- Joining your own chain so that the combined chain has no liberties is also illegal.\n\n**Cutting and connecting.** Since diagonal stones are not connected, the points between them are **cutting points**. If the opponent plays there, your stones are split into separate chains, each with fewer liberties. Strong shape keeps stones connected or at least makes cuts unprofitable.\n\nCommon connections:\n\n- A **solid connection** puts stones side by side.\n- A **diagonal** pair has two cutting points; if the opponent takes one, play the other.\n- A **one-point jump** (a gap of one) is hard to cut in practice.\n\nIn a fight, cutting your opponent into weak pieces while keeping your own stones connected is often the whole battle.",
+     "quiz": [
+      {
+       "prompt": "When is it legal to play a stone that has no liberties after placement?",
+       "choices": [
+        "Only in the corner",
+        "Never",
+        "When it captures enemy stones",
+        "Always"
+       ],
+       "answer": 2,
+       "explain": "Captures are removed first, which gives the stone liberties."
+      },
+      {
+       "prompt": "Two black stones are diagonal to each other. White plays on one of the two shared neighbouring points. What should Black usually do?",
+       "choices": [
+        "Play the other point to connect",
+        "Pass",
+        "Capture the white stone at once, always",
+        "Play on the edge"
+       ],
+       "answer": 0,
+       "explain": "A diagonal pair has two cutting points; keep one for yourself."
+      }
+     ]
+    },
+    {
+     "id": "go-u2-l4",
+     "title": "Connecting and Cutting",
+     "body": "Stones only share liberties when they're **connected along the lines**: directly left, right, above or below. **Diagonal stones are not connected.** The opponent can sometimes play between them.\n\n**A cut** is a move that separates two of your groups. After a cut, you have two weaker groups instead of one strong one, and each one has to be defended separately.\n\n**Ways to connect:**\n\n- **Solid connection:** fill the cutting point directly. Unbreakable, but slow.\n- **Hanging connection:** leave a point that the opponent can't usefully play, because a stone there would be in atari immediately. It's more flexible and still effectively connected.\n- **Miai connection:** two different ways to connect. If the opponent blocks one, you play the other.\n\n**When to cut:** cutting is strongest when the opponent's separated pieces both become weak, and when your own stones near the cut are strong. Cutting when your own stones are weaker often backfires.\n\nA good habit: after every opponent move, look for **cutting points** in your own position and in theirs.",
+     "quiz": [
+      {
+       "prompt": "Are two stones touching only at a diagonal connected?",
+       "choices": [
+        "No, connection runs only along the lines",
+        "Yes, always",
+        "Only on the edge",
+        "Only for Black"
+       ],
+       "answer": 0,
+       "explain": "Diagonal stones can still be cut apart."
+      },
+      {
+       "prompt": "Why can a cut be dangerous for the side that is cut?",
+       "choices": [
+        "It leaves two weaker groups that each need defending",
+        "It captures both groups immediately",
+        "It ends the game",
+        "It gives the cutter an extra move"
+       ],
+       "answer": 0,
+       "explain": "Two weak groups are harder to defend than one strong one."
+      },
+      {
+       "prompt": "What is a miai connection?",
+       "choices": [
+        "A diagonal connection",
+        "Two different ways to connect, so the opponent can't stop both",
+        "Connecting by capturing",
+        "A connection made on the first line"
+       ],
+       "answer": 1,
+       "explain": "If one route is blocked, you take the other."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "go-u3-ko",
+   "title": "Ko",
+   "order": 3,
+   "difficulty": 2,
+   "lessons": [
+    {
+     "id": "go-u3-l1",
+     "title": "The Ko Rule",
+     "body": "Sometimes one stone captures one stone, and the capturing stone could be captured right back by playing on the point just emptied. The two players could repeat this forever. That shape is called a **ko**.\n\n**The ko rule:** you **may not immediately recapture** in a ko. You must play somewhere else first. On your following turn, if the ko is still open, the recapture is legal again.\n\nMore precisely, a move may not recreate the board position from just before your opponent's last move. (Many rule sets extend this to any earlier position, called superko, but the simple version covers almost every case.)\n\n**What this means in practice:**\n\n- If you capture in a ko, your opponent must play elsewhere first.\n- They will try to play a **ko threat**: a move elsewhere so big you must answer it. After you answer, they may recapture the ko.\n- You can then threaten elsewhere and retake, and so on. This is a **ko fight**.\n- To end the ko, one side **fills or connects** it.\n\nIn the puzzles, capture the stone that starts the ko. The app checks that your opponent cannot recapture straight away.",
+     "quiz": [
+      {
+       "prompt": "You capture one stone in a ko. Can your opponent recapture on the very next move?",
+       "choices": [
+        "Only if they pass",
+        "Only on the edge",
+        "Yes, immediately",
+        "No, they must play elsewhere first"
+       ],
+       "answer": 3,
+       "explain": "The ko rule forbids the immediate recapture."
+      },
+      {
+       "prompt": "What is a ko threat?",
+       "choices": [
+        "Filling your own eye",
+        "A capture of the ko stone",
+        "Passing twice",
+        "A move elsewhere big enough that the opponent should answer it"
+       ],
+       "answer": 3,
+       "explain": "If the opponent answers the threat, you are allowed to retake the ko."
+      },
+      {
+       "prompt": "How does a ko fight end?",
+       "choices": [
+        "One side fills or connects the ko",
+        "Both players pass once",
+        "The player who captured first wins it automatically",
+        "The board is cleared"
+       ],
+       "answer": 0,
+       "explain": "Once the ko point is resolved, no more recaptures are possible."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "go-ko-center",
+       "position": "........./........./........./....bw.../...bw.w../....bw.../........./........./.........",
+       "toMove": "b",
+       "solution": [
+        "f5"
+       ],
+       "goal": "Capture 1 stone (ko)",
+       "rating": 250
+      },
+      {
+       "id": "go-ko-edge",
+       "position": "........./........./........./........./........./........./........./...wb..../..wb.b...",
+       "toMove": "w",
+       "solution": [
+        "e1"
+       ],
+       "goal": "Capture 1 stone (ko)",
+       "rating": 250
+      }
+     ]
+    },
+    {
+     "id": "go-u3-l2",
+     "title": "Snapback",
+     "body": "A **snapback** is a trap built from the capture rules. You **sacrifice** a stone, letting your opponent capture it. But the capturing chain ends up in atari, and you **capture it straight back** on the point where your stone was, taking more stones than you gave.\n\nHow it differs from ko:\n\n- In a ko, one stone captures one stone and the shape repeats, so the immediate recapture is forbidden.\n- In a snapback, your recapture takes **two or more** stones, so the position is not repeated and the recapture is legal.\n\n**How to spot one:** look for an enemy chain with two liberties, where one of those liberties is a point you can play into. If your stone there would be captured, but the capturing stone would leave the enemy chain with only one liberty, that's a snapback.\n\n**How to avoid one:** before capturing a stone, ask: \"After I capture, how many liberties does my capturing chain have?\" If the answer is one, you're walking into a snapback. Sometimes it's better to connect instead of capturing.\n\nSnapbacks are a lesson in looking one move past the capture: the first capture is not the end of the sequence.",
+     "quiz": [
+      {
+       "prompt": "Why is the immediate recapture legal in a snapback but not in a ko?",
+       "choices": [
+        "The recapture takes more than one stone, so the position does not repeat",
+        "Ko only happens on the edge",
+        "Because the sacrificed stone was White",
+        "Snapbacks ignore all rules"
+       ],
+       "answer": 0,
+       "explain": "The ko rule only forbids recreating the previous position; a multi-stone recapture never does that."
+      },
+      {
+       "prompt": "Before capturing a stone, what should you check to avoid a snapback?",
+       "choices": [
+        "How many stones you have captured so far",
+        "How many liberties your capturing chain will have",
+        "Whether the stone is on a star point",
+        "Whether it is Black's turn"
+       ],
+       "answer": 1,
+       "explain": "If your chain will have just one liberty, it can be captured right back."
+      }
+     ]
+    },
+    {
+     "id": "go-u3-l3",
+     "title": "Ko Threats",
+     "body": "After your opponent takes a ko, the rule stops you retaking immediately. So what do you do?\n\n**Play a ko threat.** This is a move somewhere else that threatens something big, so big that your opponent would rather answer it than finish the ko. For example, put a large group in atari or threaten to break into their territory.\n\nThe usual sequence:\n\n1. Opponent takes the ko.\n2. You play a **threat** elsewhere.\n3. Opponent **answers** the threat.\n4. Now the position has changed, so **you can retake the ko**.\n5. Now they need a threat, and so on.\n\nThe ko ends when one side **resolves** it (connects or captures to finish it), usually when the other side has run out of threats big enough to matter.\n\n**Judging a threat:** your opponent will ignore a threat that's smaller than the ko itself and resolve the ko instead. So count roughly: what is the ko worth, and is my threat worth more?\n\n**Practical tip:** don't waste potential threats early. Moves that would be good threats later can be valuable to keep in reserve.",
+     "quiz": [
+      {
+       "prompt": "Your opponent just took a ko. What can you do to be allowed to retake it?",
+       "choices": [
+        "Remove one of their stones",
+        "Play a threat elsewhere that they answer, then retake",
+        "Retake immediately",
+        "Pass twice"
+       ],
+       "answer": 1,
+       "explain": "Once another move has been played, the board has changed and retaking is legal."
+      },
+      {
+       "prompt": "When will your opponent ignore your ko threat?",
+       "choices": [
+        "Always",
+        "Only if the threat is on the edge",
+        "Never",
+        "When the threat is smaller than what the ko is worth"
+       ],
+       "answer": 3,
+       "explain": "They resolve the ko and accept the smaller loss elsewhere."
+      },
+      {
+       "prompt": "What does it mean to resolve a ko?",
+       "choices": [
+        "Play the move that finishes it so it can't be retaken",
+        "Capture any stone on the board",
+        "Pass",
+        "Start a new ko"
+       ],
+       "answer": 0,
+       "explain": "Connecting or capturing ends the back-and-forth."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "go-u4-chasing",
+   "title": "Ladders and Nets",
+   "order": 4,
+   "difficulty": 3,
+   "lessons": [
+    {
+     "id": "go-u4-l1",
+     "title": "Atari in the Right Direction",
+     "body": "Not every atari is good. A stone in atari usually **extends** to escape, and the direction you chase it decides whether you capture it.\n\n**Chase toward your strength.** Atari from the side so that the escaping stone runs toward **the edge** or toward **your own stones**. There it finds no new liberties and dies.\n\n**Don't chase toward the open centre** or toward enemy stones. The fleeing chain gains liberties, connects to friends and escapes, and your chasing stones are left full of weaknesses.\n\nA useful habit: before giving atari, picture the opponent's extension. Ask, \"After they extend, how many liberties do they have, and can I atari again?\" If the extension brings them to three or more liberties, the chase is usually over.\n\nAlso ask what your atari **gives** your opponent. An atari that forces them to make a strong, connected shape can help them.\n\nIn the first puzzle below, play the atari that drives the stone toward the edge.",
+     "quiz": [
+      {
+       "prompt": "When chasing a stone, which direction should you drive it?",
+       "choices": [
+        "Toward the opponent's strong stones",
+        "Toward the centre",
+        "Toward the edge or your own stones",
+        "Direction never matters"
+       ],
+       "answer": 2,
+       "explain": "Where there are no new liberties, the fleeing stone dies."
+      },
+      {
+       "prompt": "After your atari, the opponent extends and gets three liberties. What usually follows?",
+       "choices": [
+        "It is a ko",
+        "The chase is over; the stones have escaped",
+        "You capture next move",
+        "The stones are dead automatically"
+       ],
+       "answer": 1,
+       "explain": "With three liberties, a single move can't put them back in atari."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "go-ladder-edge",
+       "position": "........./........./........./........./........./........./...b...../..bw...../.........",
+       "toMove": "b",
+       "solution": [
+        "e2"
+       ],
+       "goal": "Atari toward the edge",
+       "rating": 300
+      }
+     ]
+    },
+    {
+     "id": "go-u4-l2",
+     "title": "The Ladder",
+     "body": "A **ladder** is a chase in which you keep the fleeing stone in atari on every move, and it zig-zags diagonally across the board until it hits the edge and is captured.\n\n**The pattern:** the escaping stone has one liberty. It extends and gets two. You atari again from the side that sends it zig-zagging, and so on. Each step it never gets more than two liberties.\n\n**Ladder breakers.** If a stone of the fleeing side sits on the ladder's diagonal path, the escaping chain connects to it and gains liberties: the ladder **fails**, and the chaser is left with a broken shape full of cutting points. Always **read the whole ladder path** before starting one. If the ladder doesn't work, don't play it.\n\nThe defender can also play a ladder breaker on purpose: a stone placed on the path that both helps elsewhere and rescues the ladder.\n\nIn the puzzles: first run a working ladder, keeping White in atari move after move (the app plays White's escape moves). Then, with the roles reversed, place the stone that breaks a ladder and saves your stone.",
+     "quiz": [
+      {
+       "prompt": "What is a ladder breaker?",
+       "choices": [
+        "A stone of the fleeing side on the ladder's path",
+        "A stone that captures the chaser",
+        "A pass",
+        "A stone in the corner"
+       ],
+       "answer": 0,
+       "explain": "When the fleeing chain reaches it, it gains liberties and escapes."
+      },
+      {
+       "prompt": "Why should you read the whole ladder before starting it?",
+       "choices": [
+        "Ladders are illegal if they fail",
+        "The opponent gets a free move",
+        "If it fails, your chasing stones are left full of weaknesses",
+        "Ladders always succeed"
+       ],
+       "answer": 2,
+       "explain": "A failed ladder leaves many cutting points for the opponent."
+      },
+      {
+       "prompt": "During a working ladder, how many liberties does the fleeing chain have after each extension?",
+       "choices": [
+        "Three or more",
+        "Two, so the next atari is always available",
+        "None",
+        "One"
+       ],
+       "answer": 1,
+       "explain": "Two liberties let the chaser atari again every move."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "go-ladder-center",
+       "position": "........./........./........./....b..../..bw...../...b...../......w../........./.........",
+       "toMove": "b",
+       "solution": [
+        "e5",
+        "d6",
+        "d7",
+        "c6",
+        "b6",
+        "c7",
+        "c8"
+       ],
+       "goal": "Run the ladder: keep White in atari",
+       "rating": 350
+      },
+      {
+       "id": "go-ladder-breaker",
+       "position": "........./........./.b......./....w..../..wbw..../...w...../........./........./.........",
+       "toMove": "b",
+       "solution": [
+        "d6"
+       ],
+       "goal": "Save your stone",
+       "rating": 400
+      }
+     ]
+    },
+    {
+     "id": "go-u4-l3",
+     "title": "The Net",
+     "body": "When a ladder doesn't work, a **net** (Japanese *geta*) often does. Instead of putting the stone in atari, you play a **loose surrounding move** that leaves it with two or three liberties but blocks every escape route.\n\nWhy it works:\n\n- If the stone tries to run, every extension runs into your stones and gets at most two liberties, so you can atari and capture.\n- The net stone is usually placed a **diagonal or knight's move away**, covering the direction of escape.\n\n**Net vs ladder:** a ladder captures by repeated atari along a long diagonal and depends on the whole board. A net works locally, so it isn't affected by distant ladder breakers.\n\n**How to find one:** imagine where the stone wants to run. Place a stone that stops that direction while your other stones block the rest. Then check each escape attempt: does it ever get three liberties? If not, the net holds.\n\nIn the puzzles, find the net move that captures the stone in every variation (the app checks each escape).",
+     "quiz": [
+      {
+       "prompt": "How does a net differ from a ladder?",
+       "choices": [
+        "It surrounds loosely without giving atari, and works locally",
+        "It needs a ko",
+        "It always gives atari",
+        "It only works on the edge"
+       ],
+       "answer": 0,
+       "explain": "A net blocks escape routes in advance, so distant stones don't matter."
+      },
+      {
+       "prompt": "When is a net preferable to a ladder?",
+       "choices": [
+        "Always",
+        "Never",
+        "When the ladder would fail because of a breaker",
+        "Only in the corner"
+       ],
+       "answer": 2,
+       "explain": "A net doesn't depend on the long diagonal path."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "go-net-1",
+       "position": "........./........./........./..b....../..bw...../...b.b.../........./........./.........",
+       "toMove": "b",
+       "solution": [
+        "e6"
+       ],
+       "goal": "Capture the stone (net)",
+       "rating": 450
+      },
+      {
+       "id": "go-net-2",
+       "position": "........./........./......b../........./...b.wb../.....b.../........./........./.........",
+       "toMove": "b",
+       "solution": [
+        "e6"
+       ],
+       "goal": "Capture the stone (net)",
+       "rating": 450
+      }
+     ]
+    },
+    {
+     "id": "go-u4-l4",
+     "title": "Ladder or Net?",
+     "body": "When an enemy stone is trying to escape, you have two main capturing techniques. Choosing correctly is a reading exercise.\n\n**The ladder** keeps the stone in atari at every move, chasing it diagonally across the board.\n\n- It works only if the path is clear. A **ladder breaker** (a friendly stone for the runner on the diagonal path) lets the runner escape.\n- A **failed ladder is a disaster**: the chaser is left with many cutting points and weak stones all along the path.\n- So **trace the path** before starting. Follow the diagonal to the edge and check every point near it.\n\n**The net** doesn't give atari. It places a stone that loosely surrounds the target so that every escape attempt fails.\n\n- It works regardless of distant stones, because the chase is short.\n- It needs careful reading: check each way the stone can try to get out.\n\n**Which to choose:** if the ladder works, it's simple and certain. If there's a breaker, or you're not sure, look for a net. If neither works, don't chase: strengthen your own position instead.",
+     "quiz": [
+      {
+       "prompt": "What happens if you chase a ladder that has a breaker?",
+       "choices": [
+        "You capture more stones",
+        "Nothing changes",
+        "The game ends",
+        "The runner escapes and your chasing stones are left full of weaknesses"
+       ],
+       "answer": 3,
+       "explain": "A failed ladder leaves many cutting points behind."
+      },
+      {
+       "prompt": "Why can a net work when a ladder doesn't?",
+       "choices": [
+        "It captures in a short sequence that distant stones can't affect",
+        "It is always on the edge",
+        "It doesn't need to be read",
+        "It gives atari every move"
+       ],
+       "answer": 0,
+       "explain": "The net closes the escape routes locally."
+      },
+      {
+       "prompt": "Before starting a ladder, what must you do?",
+       "choices": [
+        "Pass",
+        "Play a ko threat",
+        "Trace its path to the edge and check for breakers",
+        "Count the score"
+       ],
+       "answer": 2,
+       "explain": "The ladder's outcome is decided by the stones on its path."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "go-u5-life",
+   "title": "Eyes, Life and Death",
+   "order": 5,
+   "difficulty": 4,
+   "lessons": [
+    {
+     "id": "go-u5-l1",
+     "title": "Eyes and Two Eyes",
+     "body": "An **eye** is an empty point (or small area) completely surrounded by your own stones. The opponent can't play inside it, **unless** that move captures.\n\n**Why one eye is not enough:** if your group has only one eye, the opponent surrounds it from outside, and finally plays in the eye. That stone would have no liberties, but it fills your group's last liberty and **captures** it, so the move is legal.\n\n**Why two eyes are life:** with **two separate eyes**, the opponent can never fill both. Playing in either one is suicide (it doesn't capture, because your group still has the other eye). A group with two real eyes can **never be captured**.\n\nSo the big question for every group is: **can it make two eyes?**\n\n- **Alive:** has two eyes, or can make them whatever the opponent does.\n- **Dead:** can't make two eyes even if it moves first.\n- **Unsettled:** whoever moves first decides.\n\nCorners and edges help: you need fewer stones there to form eyes, which is why go openings start in the corners.",
+     "quiz": [
+      {
+       "prompt": "Why can a group with two separate eyes never be captured?",
+       "choices": [
+        "Eyes are protected by the rules",
+        "Two-eyed groups have no liberties",
+        "Only Black can make two eyes",
+        "The opponent can't fill both; a stone in either eye is suicide"
+       ],
+       "answer": 3,
+       "explain": "Filling one eye captures nothing while the other eye remains, so it's illegal."
+      },
+      {
+       "prompt": "A group has one eye and is surrounded from outside. What happens?",
+       "choices": [
+        "It is alive",
+        "It's a draw",
+        "It becomes a ko",
+        "The opponent can eventually play in the eye and capture it"
+       ],
+       "answer": 3,
+       "explain": "With only one eye, the last liberty is inside the eye; filling it captures."
+      },
+      {
+       "prompt": "What does 'unsettled' mean for a group?",
+       "choices": [
+        "It has already been captured",
+        "It has two eyes",
+        "It is in atari",
+        "Whoever moves first decides whether it lives or dies"
+       ],
+       "answer": 3,
+       "explain": "The first move there is often worth a lot."
+      }
+     ]
+    },
+    {
+     "id": "go-u5-l2",
+     "title": "Making Life",
+     "body": "The size and shape of a group's **eye space** (the empty area inside) decides whether it can live.\n\n**Three-point eye spaces** are the key cases:\n\n- **Straight three** (three points in a line): if you play the **middle point**, you split it into two eyes and live. If the opponent plays there first, you are left with one eye and die.\n- **Bent three** (an L-shape of three points): again, the **middle point** (the corner of the L) is the vital point.\n\nThe point that splits the space into two eyes is called the **vital point**. Finding it is the basic skill of life and death.\n\nGeneral rule: **the middle of a three-point space is vital**. Larger spaces (straight four, for example) are alive even if the opponent moves first, since you can always answer to make two eyes. Spaces of size four in a square (\"square four\") are dead.\n\nIn each puzzle, your group has a three-point eye space. Find the move that makes two eyes. The app checks that the result is unconditionally alive, so no attack can ever kill it.",
+     "quiz": [
+      {
+       "prompt": "Your group has a straight three eye space. Where should you play to live?",
+       "choices": [
+        "The middle point",
+        "An end point",
+        "Outside the group",
+        "Nowhere; it is already alive"
+       ],
+       "answer": 0,
+       "explain": "The middle stone divides the space into two separate eyes."
+      },
+      {
+       "prompt": "What is the 'vital point' of an eye space?",
+       "choices": [
+        "The point that decides whether the group makes two eyes",
+        "The point closest to the edge",
+        "Any liberty of the group",
+        "The corner of the board"
+       ],
+       "answer": 0,
+       "explain": "Whoever plays the vital point first usually decides life or death."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "go-live-straight3",
+       "position": "........./........./........./........./........./........./bbbbbb.../wwwwwb.../w...wb...",
+       "toMove": "w",
+       "solution": [
+        "c1"
+       ],
+       "goal": "Make two eyes",
+       "rating": 350
+      },
+      {
+       "id": "go-live-bent3",
+       "position": "........./........./........./........./........./bbb....../wwbb...../.wwb...../..wb.....",
+       "toMove": "w",
+       "solution": [
+        "a1"
+       ],
+       "goal": "Make two eyes",
+       "rating": 400
+      },
+      {
+       "id": "go-live-straight3-b",
+       "position": "........./........./........./........./........./........./...wwwwww/...wbbbbb/...wb...b",
+       "toMove": "b",
+       "solution": [
+        "g1"
+       ],
+       "goal": "Make two eyes",
+       "rating": 350
+      },
+      {
+       "id": "go-live-bent3-b",
+       "position": "........./........./........./........./........./......www/.....wwbb/.....wbb./.....wb..",
+       "toMove": "b",
+       "solution": [
+        "j1"
+       ],
+       "goal": "Make two eyes",
+       "rating": 400
+      }
+     ]
+    },
+    {
+     "id": "go-u5-l3",
+     "title": "Killing a Group",
+     "body": "Killing is the mirror of making life: **play the vital point first** so the group can only make one eye.\n\nFor a group with a **straight three** or **bent three** eye space, the attacker plays the **middle point**. Now:\n\n- The defender can't split the space into two eyes.\n- The attacker's stone inside can be captured, but that just leaves one larger single eye, not two.\n- Eventually the attacker surrounds the group from outside and fills the remaining eye to capture it.\n\n**Placement vs reduction.** Two killing techniques:\n\n- **Placement:** playing *inside* the eye space on the vital point, as above.\n- **Reduction:** pushing in from outside to shrink the eye space below what's needed for two eyes.\n\nDon't rush to actually capture a dead group. If it can't make two eyes, it's dead; you can remove it at the end of the game. Spending moves to capture it early wastes time you could use elsewhere.\n\nIn each puzzle, find the move that stops the group from making two eyes. The app searches every defence in the local area to confirm that it really dies.",
+     "quiz": [
+      {
+       "prompt": "How do you kill a group with a straight three eye space if it is your move?",
+       "choices": [
+        "Pass and wait",
+        "Play the middle point",
+        "Play an end point",
+        "Play outside the group only"
+       ],
+       "answer": 1,
+       "explain": "Taking the vital point leaves only one eye."
+      },
+      {
+       "prompt": "A group is dead but not yet captured. Should you spend moves to capture it?",
+       "choices": [
+        "Yes, or it comes back to life automatically",
+        "Yes, immediately every time",
+        "Only if it has more than ten stones",
+        "Usually not; dead stones are removed at the end of the game"
+       ],
+       "answer": 3,
+       "explain": "Capturing a dead group early wastes moves unless the opponent threatens to rescue it."
+      }
+     ],
+     "puzzles": [
+      {
+       "id": "go-kill-straight3",
+       "position": "........./........./........./........./........./........./bbbbbb.../wwwwwb.../w...wb...",
+       "toMove": "b",
+       "solution": [
+        "c1"
+       ],
+       "goal": "Kill: stop two eyes",
+       "rating": 350
+      },
+      {
+       "id": "go-kill-straight3-w",
+       "position": "........./........./........./........./........./........./...wwwwww/...wbbbbb/...wb...b",
+       "toMove": "w",
+       "solution": [
+        "g1"
+       ],
+       "goal": "Kill: stop two eyes",
+       "rating": 350
+      },
+      {
+       "id": "go-kill-bent3-w",
+       "position": "........./........./........./........./........./......www/.....wwbb/.....wbb./.....wb..",
+       "toMove": "w",
+       "solution": [
+        "j1"
+       ],
+       "goal": "Kill: stop two eyes",
+       "rating": 400
+      },
+      {
+       "id": "go-kill-bent3",
+       "position": "........./........./........./........./........./bbb....../wwbb...../.wwb...../..wb.....",
+       "toMove": "b",
+       "solution": [
+        "a1"
+       ],
+       "goal": "Kill: stop two eyes",
+       "rating": 400
+      }
+     ]
+    },
+    {
+     "id": "go-u5-l4",
+     "title": "False Eyes and Seki",
+     "body": "Two last ideas complete the basics of life and death.\n\n**False eyes.** A point can look like an eye but not be one. If the surrounding stones are **not all connected**, the opponent can play to put one part in atari, and the \"eye\" point must eventually be filled to connect. A false eye usually comes from missing **diagonal** points: in the middle of the board, an eye is false if the opponent holds two of its four diagonal points. On the edge, one of its two diagonals is enough; in the corner, the single diagonal point decides it.\n\nSo when you count eyes, check the diagonals. Two false eyes are no better than none.\n\n**Seki (mutual life).** Sometimes two groups, one Black and one White, share liberties and **neither can attack** the other without killing itself, for example two groups with no eyes sharing two liberties. Whoever fills a shared liberty puts their own group in atari, and the other side captures. So both sides leave it alone, and both groups **live without two eyes**. In Japanese scoring, groups in seki usually earn no territory.\n\nRecognising seki stops you from making the losing move of filling a shared liberty.",
+     "quiz": [
+      {
+       "prompt": "What usually makes an eye false?",
+       "choices": [
+        "The surrounding stones are not connected, often because the opponent holds the diagonal points",
+        "It was made by Black",
+        "It is too big",
+        "It is on the edge"
+       ],
+       "answer": 0,
+       "explain": "The opponent can force you to fill the point to connect."
+      },
+      {
+       "prompt": "In seki, what happens if one side fills a shared liberty?",
+       "choices": [
+        "The game ends",
+        "Nothing",
+        "It wins the seki",
+        "It puts its own group in atari and the other side captures"
+       ],
+       "answer": 3,
+       "explain": "That's why neither side plays there, and both groups live."
+      },
+      {
+       "prompt": "Do groups in seki need two eyes to live?",
+       "choices": [
+        "No, they live because neither side can approach",
+        "They need three eyes",
+        "They are always dead",
+        "Yes, always"
+       ],
+       "answer": 0,
+       "explain": "Seki is life without two eyes."
+      }
+     ]
+    },
+    {
+     "id": "go-u5-l5",
+     "title": "Eye Shapes",
+     "body": "A group's **eye space** is the empty area enclosed inside it. Its **shape** decides whether the group lives. These patterns assume the outside is completely surrounded and the inside is empty.\n\n**Three spaces (straight or bent):** there's one **vital point**, the middle. If the owner plays it, they get two eyes. If the attacker plays it, the group dies. You practised this in the last two lessons.\n\n**Straight four:** **alive.** It has two ways to split into two eyes, so if the attacker takes one, the owner plays the other (miai).\n\n**Square four (a 2×2 block):** **dead.** No move inside makes two eyes, so the owner can't save it and the attacker doesn't even need to move first.\n\n**Pyramid four (T-shape), bulky five, and cross-shaped five:** each has **one vital point**. Whoever plays there first decides: the owner lives, or the attacker kills.\n\n**Lesson:** a big space isn't automatically alive. The shape matters. When attacking, look for the vital point that leaves only one eye. When defending, take it first.",
+     "quiz": [
+      {
+       "prompt": "Is a straight four eye space (completely enclosed) alive?",
+       "choices": [
+        "Yes, it can always be split into two eyes",
+        "Only on the edge",
+        "No, it's always dead",
+        "Only if the owner plays first"
+       ],
+       "answer": 0,
+       "explain": "There are two splitting points, so it's miai."
+      },
+      {
+       "prompt": "Is a square four eye space (a 2×2 block) alive?",
+       "choices": [
+        "Only if the owner moves first",
+        "No, it can never make two eyes",
+        "Only in the corner",
+        "Yes, always"
+       ],
+       "answer": 1,
+       "explain": "No move inside the square creates two separate eyes."
+      },
+      {
+       "prompt": "In a bent three eye space, who decides the group's fate?",
+       "choices": [
+        "Always the attacker",
+        "Whoever plays the vital middle point first",
+        "Nobody; it's seki",
+        "Always the owner"
+       ],
+       "answer": 1,
+       "explain": "The middle point is the vital point for three-space shapes."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "go-u6-strategy",
+   "title": "Territory, Opening and Counting",
+   "order": 6,
+   "difficulty": 5,
+   "lessons": [
+    {
+     "id": "go-u6-l1",
+     "title": "Territory and Influence",
+     "body": "Every move in go balances two things:\n\n- **Territory:** points you have already surrounded, solid and countable.\n- **Influence (thickness):** strong walls facing open space. They don't count as points yet, but they make it easy to build territory or attack later.\n\nPlaying **low** (on the 2nd and 3rd lines) secures territory. Playing **high** (the 4th line and above) builds influence. On a 9×9 board the 3rd line is the main territory line.\n\nA wall of strong stones should be used for **attacking**, not to enclose territory right next to it: territory near a strong wall is small, while pushing the opponent's weak stones toward your wall can win much more.\n\n**Corners, edges, centre.** It takes the fewest stones to surround territory in a corner, more on the edge, and the most in the centre. That's why the game starts in the corners.\n\nThe skill is judging which matters more right now. If you have solid territory and the opponent has a big wall, you should invade or reduce their area. If you have influence, use it to attack.",
+     "quiz": [
+      {
+       "prompt": "Which line on a 9×9 board is the main territory line?",
+       "choices": [
+        "The 3rd line",
+        "The 1st line",
+        "The centre point",
+        "The 5th line"
+       ],
+       "answer": 0,
+       "explain": "Third-line stones secure territory efficiently without being too low."
+      },
+      {
+       "prompt": "Where is it most efficient to make territory?",
+       "choices": [
+        "In the corners",
+        "In the centre",
+        "On the first line",
+        "Next to enemy walls"
+       ],
+       "answer": 0,
+       "explain": "Corners use the edges as walls, so fewer stones are needed."
+      },
+      {
+       "prompt": "How should you usually use a strong wall?",
+       "choices": [
+        "Ignore it",
+        "To build territory right next to it",
+        "To attack weak enemy stones",
+        "Fill your own liberties"
+       ],
+       "answer": 2,
+       "explain": "Territory directly beside a wall is small; attacking makes more of it."
+      }
+     ]
+    },
+    {
+     "id": "go-u6-l2",
+     "title": "Opening on 9×9",
+     "body": "The 9×9 board is small, so the opening is short and fights start quickly. Good principles:\n\n- **The centre point (e5)** is a strong first move on 9×9. It reaches every corner and side. The 3-3, 3-4 and 4-4 points (such as c3, c4 or d4 from a corner) are also common.\n- **Respond to the opponent's stones:** on a small board everything is close, so stones affect each other immediately.\n- **Keep your stones connected** or at least hard to cut. Weak, separate groups are the main way beginners lose on 9×9.\n- **Don't play on the first or second line early.** Those moves make tiny territory.\n- **Look at the whole board** after every move: which groups are weak? Strengthen yours, attack theirs.\n\n**Big, urgent, small.** Before each move, ask: \"Is something urgent?\" (A group in danger, a cut, an atari.) If nothing is urgent, play the biggest move (an open area, a move that strengthens a weak group while reducing the opponent's area). Small moves on the edge come at the end.\n\nPlay many fast 9×9 games. They teach life-and-death and fighting quickly.",
+     "quiz": [
+      {
+       "prompt": "Which of these is a strong first move on 9×9?",
+       "choices": [
+        "a1, the corner point",
+        "e1, on the edge",
+        "a5, on the side",
+        "e5, the centre point"
+       ],
+       "answer": 3,
+       "explain": "The centre influences the whole small board."
+      },
+      {
+       "prompt": "Why are early moves on the first or second line usually bad?",
+       "choices": [
+        "They are illegal in the opening",
+        "They make very little territory",
+        "They count as passes",
+        "They are always captured"
+       ],
+       "answer": 1,
+       "explain": "Low stones near the edge surround almost nothing."
+      },
+      {
+       "prompt": "What should you check before choosing the biggest move?",
+       "choices": [
+        "Whether it is move ten",
+        "Whether anything is urgent, such as a weak group or a cut",
+        "How many stones you have captured",
+        "Whether White has komi"
+       ],
+       "answer": 1,
+       "explain": "Urgent moves come before big ones."
+      }
+     ]
+    },
+    {
+     "id": "go-u6-l3",
+     "title": "Counting the Score",
+     "body": "At the end (both players pass), dead stones are removed and the score is counted. There are two common methods, and they almost always give the same result.\n\n**Area scoring (Chinese rules):** your score is **your stones on the board + the empty points you surround**. Captures don't need tracking.\n\n**Territory scoring (Japanese and Korean rules):** your score is **empty points you surround + stones you have captured** (including dead stones removed at the end). Stones on the board don't count.\n\nThen **komi** is added to White's score (on 9×9, often 7 under area scoring or 6.5 under territory scoring). The higher total wins.\n\n**Example (area scoring):** Black has 30 stones and surrounds 14 empty points: 44. White has 25 stones and surrounds 12 points: 37, plus komi 7 = 44. That's a tie, which is why komi often has a half point (6.5 or 7.5): with 7.5, White would win by 0.5.\n\n**Counting during the game** is an advanced skill but worth starting early: a rough count tells you whether to play safe (you're ahead) or take risks (you're behind).",
+     "quiz": [
+      {
+       "prompt": "Under area scoring, what counts toward your score?",
+       "choices": [
+        "Captured stones plus stones on the board",
+        "Only captured stones",
+        "Your stones on the board plus empty points you surround",
+        "Only empty points you surround"
+       ],
+       "answer": 2,
+       "explain": "Area scoring counts stones and surrounded points."
+      },
+      {
+       "prompt": "Area scoring: Black has 32 stones and 10 surrounded points. White has 27 stones and 11 surrounded points, with komi 7.5. Who wins?",
+       "choices": [
+        "Black, by 3.5",
+        "Black, by 4",
+        "It's a tie",
+        "White, by 3.5"
+       ],
+       "answer": 3,
+       "explain": "Black has 32+10=42; White has 27+11+7.5=45.5; White wins by 3.5."
+      },
+      {
+       "prompt": "Why does komi often include a half point?",
+       "choices": [
+        "So the game can't end in a tie",
+        "To punish Black",
+        "Because the board has an odd number of points",
+        "It's a rounding error"
+       ],
+       "answer": 0,
+       "explain": "A half point makes the totals always different."
+      },
+      {
+       "prompt": "You count during the game and see you are clearly ahead. What does that suggest?",
+       "choices": [
+        "Start risky invasions",
+        "Resign",
+        "Pass immediately",
+        "Play safe, solid moves"
+       ],
+       "answer": 3,
+       "explain": "When ahead, reduce risk; when behind, look for complications."
+      }
+     ]
+    },
+    {
+     "id": "go-u6-l4",
+     "title": "Sente and Gote",
+     "body": "Some moves keep the initiative; others give it away. This is one of the most practical ideas in go.\n\n- **Sente:** a move your opponent **must answer**, or they lose something big. After they answer, it's your turn again, and you can play elsewhere.\n- **Gote:** a move that **doesn't need an answer**. After it, your opponent gets to choose where to play next.\n\n**Why it matters:** the player who keeps sente gets to choose the biggest point on the board, again and again.\n\n**Examples:**\n\n- A move that puts a group in atari is usually sente: it must be answered.\n- Closing your own border so nothing can leak in is often gote: useful, but your opponent then plays elsewhere.\n\n**Double sente:** a move that would be sente for whoever plays it. Play these as early as possible.\n\n**Reverse sente:** a gote move that prevents your opponent's sente move. Worth roughly twice a gote move of the same size.\n\nBefore playing a gote move, ask: \"Is there a sente move I should play first?\" Playing sente moves first, then the biggest gote move, is a good basic rule.",
+     "quiz": [
+      {
+       "prompt": "What makes a move sente?",
+       "choices": [
+        "It captures a stone",
+        "It's the first move of the game",
+        "It's played in the centre",
+        "The opponent must answer it or lose something big"
+       ],
+       "answer": 3,
+       "explain": "A forced answer returns the turn to you."
+      },
+      {
+       "prompt": "Why is keeping sente valuable?",
+       "choices": [
+        "It ends the game sooner",
+        "You get an extra stone",
+        "It doubles your score",
+        "You get to choose the next biggest point"
+       ],
+       "answer": 3,
+       "explain": "Initiative means choosing where the game goes."
+      },
+      {
+       "prompt": "What is double sente?",
+       "choices": [
+        "Passing twice",
+        "A move that captures twice",
+        "Two moves in a row",
+        "A move that would be sente for either player"
+       ],
+       "answer": 3,
+       "explain": "Whoever plays it first gains, so it's urgent."
+      }
+     ]
+    },
+    {
+     "id": "go-u6-l5",
+     "title": "The Endgame",
+     "body": "The **endgame (yose)** is the final stage, when the main territories are settled and players close the borders between them. On a 9×9 board, games are often decided by just a few points here.\n\n**Principles:**\n\n1. **Biggest first.** Estimate how many points each border move gains, and play the largest one.\n2. **Sente before gote.** Play moves that force an answer before moves that don't (see the previous lesson).\n3. **Don't forget the first line.** Edge moves look small but can be worth several points, especially in sente.\n4. **Check for weaknesses.** Cutting points and short liberties in your borders can let the opponent gain more than you expect.\n\n**Estimating a move's value:** compare the score if you play there with the score if your opponent plays there. The difference is the value of the move (the full swing).\n\n**Finish the game.** Fill neutral points (*dame*) that belong to no one, close every border, then pass. Under area scoring, neutral points are worth one point to whoever fills them, so fill them before passing.\n\nEndgame skill is pure counting and discipline: steady small gains add up.",
+     "quiz": [
+      {
+       "prompt": "What is the basic endgame order?",
+       "choices": [
+        "Sente moves first, then the biggest gote move",
+        "Centre moves first",
+        "Pass as early as possible",
+        "Smallest moves first"
+       ],
+       "answer": 0,
+       "explain": "Sente moves keep the initiative; then take the largest remaining point."
+      },
+      {
+       "prompt": "How do you estimate the value of an endgame move?",
+       "choices": [
+        "Compare the score if you play it with the score if the opponent plays it",
+        "Measure distance to the centre",
+        "Count your stones",
+        "Count captured stones only"
+       ],
+       "answer": 0,
+       "explain": "The swing between the two outcomes is the move's value."
+      },
+      {
+       "prompt": "Under area scoring, what should you do with neutral points before passing?",
+       "choices": [
+        "Give them to the opponent",
+        "Remove a stone for each one",
+        "Fill them, because each is worth a point to whoever fills it",
+        "Leave them empty"
+       ],
+       "answer": 2,
+       "explain": "Area scoring counts stones on the board as well as territory."
+      }
+     ]
+    },
+    {
+     "id": "go-u6-l6",
+     "title": "A Thinking Checklist",
+     "body": "Go rewards a steady routine more than flashes of inspiration. Before each move, run through this checklist.\n\n**1. What did my opponent's last move do?** Does it threaten a capture, a cut, an invasion, or a ladder? Most beginner losses come from not answering a threat.\n\n**2. Are any of my groups weak?** Count liberties of nearby chains. Anything with one or two liberties, or without room for two eyes, needs attention.\n\n**3. Can I capture or attack?** Look at the opponent's chains with few liberties. Read ladders and nets before playing them.\n\n**4. Is there a cut?** Check cutting points in both positions.\n\n**5. Where is the biggest point?** If nothing urgent is happening, play the largest move on the board, preferring sente.\n\n**6. Read before you play.** For any fight, imagine the next few moves for both sides. If you can't read it out, choose the safer move.\n\n**Urgent before big:** a move that saves or kills a group is usually worth more than any territory move.\n\nAfter each game, review the moment you lost the most, and ask which step of the checklist would have caught it.",
+     "quiz": [
+      {
+       "prompt": "What should you check first before each move?",
+       "choices": [
+        "Where the centre point is",
+        "How many stones you have",
+        "What your opponent's last move threatens",
+        "Whether you can pass"
+       ],
+       "answer": 2,
+       "explain": "Missing a threat is the most common beginner mistake."
+      },
+      {
+       "prompt": "Which is usually more important: saving a weak group or taking a big territory point?",
+       "choices": [
+        "Neither; pass instead",
+        "Taking territory",
+        "Saving or killing a group: urgent comes before big",
+        "They're equal"
+       ],
+       "answer": 2,
+       "explain": "A group's life can be worth far more than a single territory move."
+      },
+      {
+       "prompt": "You can't read a fight to the end. What should you do?",
+       "choices": [
+        "Play the riskiest move",
+        "Pass",
+        "Resign",
+        "Choose the safer move"
+       ],
+       "answer": 3,
+       "explain": "When reading runs out, safety keeps your position intact."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

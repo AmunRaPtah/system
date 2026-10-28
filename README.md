@@ -25,7 +25,10 @@ SideStore.
 Quest, lesson and training content is JSON read at runtime from
 `ios/System/Resources/Content/` (a folder reference, copied as `Content/` in
 the app bundle). Every file is optional: a missing or malformed file gives an
-empty list, and the app still runs. `training.json` is committed. Challenges and
-lessons (`challenges.json`, `lessons-{chess,go,poker}.json`) are authored
-separately and are not in the repo. See [CONTENT_SCHEMA.md](CONTENT_SCHEMA.md)
-for the format.
+empty list, and the app still runs. All content is committed: `training.json`,
+`challenges.json` and `lessons-{chess,go,poker}.json`. See
+[CONTENT_SCHEMA.md](CONTENT_SCHEMA.md) for the format.
+
+Validate before pushing a content change (`tools/`, needs `pip install chess treys`):
+
+    for v in challenges chess go poker; do python3 tools/validate_$v.py || break; done

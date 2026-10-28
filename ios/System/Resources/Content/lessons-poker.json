@@ -1,0 +1,1641 @@
+{
+ "version": 1,
+ "game": "poker",
+ "units": [
+  {
+   "id": "poker-u1-game",
+   "title": "The Game",
+   "order": 1,
+   "difficulty": 1,
+   "lessons": [
+    {
+     "id": "poker-u1-l1",
+     "title": "Poker as Decision-Making",
+     "body": "This course teaches No-Limit Texas Hold'em, but the real subject is **making good decisions under uncertainty**.\n\nIn chess you see the whole board. In poker you don't: your opponents' cards are hidden, and the next card is random. You can play perfectly and lose a hand, or play badly and win one. That's what makes poker such good training for the mind:\n\n- **Separate decisions from results.** A good decision is one that wins money *on average*, given what you knew. Judge yourself by the decision, not by the card that came next.\n- **Think in probabilities.** \"Will I win?\" has no useful answer. \"How often will I win, and what does it cost to find out?\" does.\n- **Manage risk.** Even winning players have long losing stretches. Surviving them is a skill.\n- **Control emotions.** Losing a hand you were favoured to win is normal. Reacting badly to it is expensive.\n\nYou'll learn the rules, then the maths (outs, pot odds, expected value), then postflop thinking, then bankroll and discipline.\n\nA note on money: this course is about the thinking skill. Play for play-money or very small stakes while learning, and never with money you need.",
+     "quiz": [
+      {
+       "prompt": "You make a call that wins money on average, but you lose the hand. Was it a good decision?",
+       "choices": [
+        "Only if you won the next hand",
+        "It depends on how much you lost",
+        "No, it lost",
+        "Yes, decisions are judged by their average outcome, not one result"
+       ],
+       "answer": 3,
+       "explain": "In a game with luck, single results are noisy; the long-run value is what counts."
+      },
+      {
+       "prompt": "Why is poker harder to judge than chess?",
+       "choices": [
+        "Poker has no rules about betting",
+        "Chess has more luck",
+        "Hidden cards and random cards mean good play can lose in the short run",
+        "Poker has more pieces"
+       ],
+       "answer": 2,
+       "explain": "Uncertainty separates decision quality from results."
+      },
+      {
+       "prompt": "What is a sensible way to start playing while you learn?",
+       "choices": [
+        "Borrow money for a bigger bankroll",
+        "Only play against professionals",
+        "Play money or very small stakes you can afford to lose",
+        "High stakes, to take it seriously"
+       ],
+       "answer": 2,
+       "explain": "Learning costs mistakes; keep their price low."
+      }
+     ]
+    },
+    {
+     "id": "poker-u1-l2",
+     "title": "How a Hand Is Played",
+     "body": "A Hold'em hand follows a fixed sequence.\n\n**1. Blinds.** Two players post forced bets before the cards are dealt: the **small blind** (SB) and the **big blind** (BB), usually half and one full minimum bet. In a \"$1/$2\" game, the SB is $1 and the BB is $2. Blinds create something to fight for.\n\n**2. Hole cards.** Each player gets **two private cards**.\n\n**3. Preflop betting.** Starting with the player to the left of the big blind, each player can **fold**, **call** (match the current bet) or **raise**.\n\n**4. The flop.** Three **community cards** are dealt face up. Another betting round, starting with the first active player left of the button.\n\n**5. The turn.** A fourth community card, then betting.\n\n**6. The river.** A fifth community card, then the final betting.\n\n**7. Showdown.** If two or more players remain, they reveal. Each makes the **best five-card hand** from their two cards and the five on the board (using both, one or none of their own cards). The best hand wins the pot.\n\nWhen nobody has bet in a round, a player can **check** (pass the action without betting). A hand often ends before showdown when everyone folds to a bet.",
+     "quiz": [
+      {
+       "prompt": "How many community cards are on the board by the river?",
+       "choices": [
+        "5",
+        "3",
+        "4",
+        "7"
+       ],
+       "answer": 0,
+       "explain": "Three on the flop, one on the turn, one on the river."
+      },
+      {
+       "prompt": "At showdown, how is each player's hand formed?",
+       "choices": [
+        "All seven cards",
+        "The best five cards from their two cards plus the five on the board",
+        "Only the hole cards",
+        "Exactly both hole cards plus three board cards"
+       ],
+       "answer": 1,
+       "explain": "Any combination of the seven available cards works, including just the board."
+      },
+      {
+       "prompt": "What can you do when no one has bet yet in a betting round?",
+       "choices": [
+        "Check or bet",
+        "Only call",
+        "Only raise all-in",
+        "Only fold"
+       ],
+       "answer": 0,
+       "explain": "With no bet to match, you can check (pass) or make the first bet."
+      }
+     ]
+    },
+    {
+     "id": "poker-u1-l3",
+     "title": "Hand Rankings",
+     "body": "From best to worst, the poker hands are:\n\n1. **Straight flush** — five in a row, all one suit (the A-high one is a royal flush).\n2. **Four of a kind** — four cards of the same rank.\n3. **Full house** — three of a kind plus a pair.\n4. **Flush** — five cards of one suit, not in sequence.\n5. **Straight** — five ranks in a row, mixed suits. The ace can be high (10-J-Q-K-A) or low (A-2-3-4-5), but a straight can't wrap around (Q-K-A-2-3 is not a straight).\n6. **Three of a kind** — three cards of one rank.\n7. **Two pair**.\n8. **One pair**.\n9. **High card**.\n\n**Ties** are broken by the ranks inside the hand, then by **kickers** (the side cards that fill out the five). With A-K against A-Q on a board of A-7-4-9-2, both players have a pair of aces, but the king kicker beats the queen. Suits never break ties: if both players have the same five-card hand, the pot is split.\n\nRarer hands rank higher. A flush beats a straight because it's less likely to be dealt.\n\nIn this app, 10 is written as \"10\", and suits as ♠ ♥ ♦ ♣.",
+     "quiz": [
+      {
+       "prompt": "Which hand ranks higher?",
+       "choices": [
+        "A straight",
+        "A flush",
+        "Two pair",
+        "Three of a kind"
+       ],
+       "answer": 1,
+       "explain": "A flush beats a straight, which beats three of a kind and two pair."
+      },
+      {
+       "prompt": "Is Q-K-A-2-3 a straight?",
+       "choices": [
+        "Only if suited",
+        "Only in the small blind",
+        "Yes",
+        "No, straights can't wrap around the ace"
+       ],
+       "answer": 3,
+       "explain": "The ace plays either high or low, but not both at once."
+      },
+      {
+       "prompt": "The board is Q♥ 7♥ 2♥ 9♣ 4♠ and you hold A♥ K♥. What is your best five-card hand?",
+       "choices": [
+        "Flush",
+        "Four of a kind",
+        "Straight",
+        "Full house"
+       ],
+       "answer": 0,
+       "explain": "Your best five cards make flush."
+      },
+      {
+       "prompt": "The board is A♦ 7♣ 4♠ 9♥ 2♦. Player 1 holds A♠ K♣, Player 2 holds A♣ Q♦, Player 3 holds 9♦ 9♠. Who wins?",
+       "choices": [
+        "Split pot",
+        "Player 3",
+        "Player 2",
+        "Player 1"
+       ],
+       "answer": 1,
+       "explain": "Player 3 wins with three of a kind."
+      }
+     ]
+    },
+    {
+     "id": "poker-u1-l4",
+     "title": "Reading Showdowns",
+     "body": "Beginners often misread hands at showdown. Use a fixed procedure.\n\n**Step 1: check the board for flush and straight possibilities.** Three or more cards of one suit allow a flush. Three cards within a five-rank window allow a straight.\n\n**Step 2: find each player's best five cards.** Combine the two hole cards with the board, then pick the best five. Players may use **zero, one or two** hole cards. If the board itself is a straight and nobody beats it, everyone \"plays the board\" and splits.\n\n**Step 3: compare category first, then ranks, then kickers.** Two flushes are compared by their highest card, then the next, and so on. Two straights by their top card. Two full houses by the three-of-a-kind part first.\n\n**Common traps:**\n\n- A board pair gives everyone a pair, so \"I have a pair\" may just mean you have the board's pair plus a kicker.\n- A four-flush board means a single card of that suit makes a flush.\n- Counterfeiting: your two pair can be beaten when the board pairs higher, leaving your kicker to decide.\n\nThe questions below are computed with a hand evaluator. Work them out before you look at the choices.",
+     "quiz": [
+      {
+       "prompt": "The board is K♥ Q♠ J♦ 10♣ 9♥. Player 1 holds A♥ 2♣, Player 2 holds 8♠ 8♦, Player 3 holds K♦ K♠. Who wins?",
+       "choices": [
+        "Player 1",
+        "Player 3",
+        "Split pot",
+        "Player 2"
+       ],
+       "answer": 0,
+       "explain": "Player 1 wins with straight."
+      },
+      {
+       "prompt": "The board is 8♥ 8♦ 5♣ 5♠ K♦. Player 1 holds A♣ Q♣, Player 2 holds A♥ J♠, Player 3 holds 9♦ 9♣. Who wins?",
+       "choices": [
+        "Player 2",
+        "Player 3",
+        "Player 1",
+        "Split pot"
+       ],
+       "answer": 1,
+       "explain": "Player 3 wins with two pair."
+      },
+      {
+       "prompt": "The board is 8♠ 7♣ 6♦ K♥ K♦ and you hold 10♦ 9♦. What is your best five-card hand?",
+       "choices": [
+        "Flush",
+        "Straight",
+        "Three of a kind",
+        "Full house"
+       ],
+       "answer": 1,
+       "explain": "Your best five cards make straight."
+      },
+      {
+       "prompt": "The board shows four hearts. You have one heart in your hand. What do you have?",
+       "choices": [
+        "A flush, using your heart and the four on the board",
+        "Only a pair",
+        "No flush; you need two hearts",
+        "A straight flush"
+       ],
+       "answer": 0,
+       "explain": "One hole card plus four board cards make five of one suit."
+      }
+     ]
+    },
+    {
+     "id": "poker-u1-l5",
+     "title": "Counting Starting Hands",
+     "body": "Probability starts with counting. There are **52 cards**, so the number of two-card starting hands is 52 × 51 / 2 = **1,326** combinations.\n\nThose combinations group into **169** distinct hand types:\n\n- **13 pocket pairs** (2-2 to A-A), each with **6** combinations (choose 2 of 4 suits).\n- **78 suited** hands (like A-K suited), each with **4** combinations (one per suit).\n- **78 offsuit** hands (like A-K offsuit), each with **12** combinations.\n\nSo A-K in total is 4 + 12 = **16** combinations, while A-A is only 6. Unpaired hands are much more common than pairs.\n\nUseful facts:\n\n- Chance of being dealt **any pocket pair**: 78 / 1,326 = 1 in 17 (about 5.9%).\n- Chance of being dealt **A-A**: 6 / 1,326 = 1 in 221.\n- With a pocket pair, you flop **three of a kind or better about 11.8%** of the time, roughly 1 in 8.5.\n\nCombination counting is the base of hand reading later: when you think \"my opponent has A-A or A-K\", remember there are many more ways to hold A-K.",
+     "quiz": [
+      {
+       "prompt": "How many card combinations are there for all two-card starting hands?",
+       "choices": [
+        "1326",
+        "169",
+        "1225",
+        "2652"
+       ],
+       "answer": 0,
+       "explain": "Enumerating all pairs of cards from a 52-card deck gives 1326."
+      },
+      {
+       "prompt": "How many card combinations are there for a specific pocket pair such as A-A?",
+       "choices": [
+        "12",
+        "6",
+        "1",
+        "4"
+       ],
+       "answer": 1,
+       "explain": "Enumerating all pairs of cards from a 52-card deck gives 6."
+      },
+      {
+       "prompt": "How many card combinations are there for A-K offsuit?",
+       "choices": [
+        "1",
+        "4",
+        "6",
+        "12"
+       ],
+       "answer": 3,
+       "explain": "Enumerating all pairs of cards from a 52-card deck gives 12."
+      },
+      {
+       "prompt": "How many card combinations are there for A-K (suited and offsuit together)?",
+       "choices": [
+        "16",
+        "1",
+        "6",
+        "4"
+       ],
+       "answer": 0,
+       "explain": "Enumerating all pairs of cards from a 52-card deck gives 16."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "poker-u2-preflop",
+   "title": "Position and Preflop",
+   "order": 2,
+   "difficulty": 2,
+   "lessons": [
+    {
+     "id": "poker-u2-l1",
+     "title": "Position",
+     "body": "**Position** is where you sit relative to the **button** (the dealer marker), which moves one seat clockwise each hand. After the flop, the player on the button acts **last**, and acting last is a big advantage: you see what everyone else did before you decide.\n\nAt a 6-player table, the seats are:\n\n- **UTG** (under the gun): first to act preflop, worst position.\n- **HJ** (hijack).\n- **CO** (cutoff).\n- **BTN** (button): best position.\n- **SB** and **BB** (the blinds): they act last preflop, but **first** on every later street, so they're the worst seats after the flop.\n\n**Why position matters:**\n\n- **Information:** you see your opponents' actions first.\n- **Control:** you can check behind to take a free card, or bet when they show weakness.\n- **Pot size:** in position you decide whether the pot stays small or grows.\n\nThe practical result: **play more hands in late position and fewer in early position.** From UTG, several players still act behind you, so someone is more likely to hold a strong hand, and you'll be out of position for the rest of the hand against most of them.",
+     "quiz": [
+      {
+       "prompt": "Which seat acts last on the flop, turn and river?",
+       "choices": [
+        "Under the gun",
+        "The button",
+        "The big blind",
+        "The small blind"
+       ],
+       "answer": 1,
+       "explain": "Postflop action starts left of the button, so the button always acts last."
+      },
+      {
+       "prompt": "Why should you play fewer hands under the gun?",
+       "choices": [
+        "UTG has to post a blind",
+        "More players act after you and you'll usually be out of position",
+        "UTG cards are dealt last",
+        "You can't raise from UTG"
+       ],
+       "answer": 1,
+       "explain": "More opponents behind means more strong hands possible, and positional disadvantage."
+      },
+      {
+       "prompt": "The blinds act last preflop. Are they good positions overall?",
+       "choices": [
+        "Only the small blind is bad",
+        "No, they act first on every later street",
+        "Yes, the best at the table",
+        "Yes, because they already invested money"
+       ],
+       "answer": 1,
+       "explain": "Being first to act on three streets outweighs acting last preflop."
+      }
+     ]
+    },
+    {
+     "id": "poker-u2-l2",
+     "title": "Tight-Aggressive Play",
+     "body": "Most winning beginners follow a **tight-aggressive (TAG)** style:\n\n- **Tight:** play relatively few starting hands, focused on strong ones.\n- **Aggressive:** when you play, prefer **raising** to calling.\n\n**Why aggression works:** a bet or raise can win in two ways, by making better hands fold or by winning at showdown. A call can only win at showdown. Raising also builds the pot when you're likely ahead and denies cheap cards to drawing hands.\n\n**Why tight works:** weak hands lose small amounts often and big amounts occasionally, because they make second-best hands. Starting with stronger cards than your opponents is the simplest edge in poker.\n\nThe four basic styles:\n\n| | Calls a lot | Raises a lot |\n|---|---|---|\n| **Plays few hands** | tight-passive (\"rock\") | tight-aggressive |\n| **Plays many hands** | loose-passive (\"calling station\") | loose-aggressive |\n\nAgainst beginners, the most common mistake is **loose-passive** play: calling with too many hands and hoping to hit. A simple rule for your first months: **if a hand is worth playing preflop, open with a raise; don't open by just calling (limping).**",
+     "quiz": [
+      {
+       "prompt": "Why is raising often better than calling?",
+       "choices": [
+        "Calls are illegal preflop",
+        "A raise can win when opponents fold or at showdown; a call only wins at showdown",
+        "Raises guarantee the best hand",
+        "Raising is cheaper"
+       ],
+       "answer": 1,
+       "explain": "Fold equity is a second way to win."
+      },
+      {
+       "prompt": "What does 'tight-aggressive' mean?",
+       "choices": [
+        "Calling with strong hands only",
+        "Playing few hands, but betting and raising with them",
+        "Playing every hand aggressively",
+        "Never bluffing"
+       ],
+       "answer": 1,
+       "explain": "Selective hand choice plus aggressive action."
+      },
+      {
+       "prompt": "What is the most common beginner style mistake?",
+       "choices": [
+        "Loose-passive: calling too many hands",
+        "Folding too many weak hands",
+        "Raising pocket aces",
+        "Playing tight from early position"
+       ],
+       "answer": 0,
+       "explain": "Calling stations pay off strong hands and rarely win pots without showdown."
+      }
+     ]
+    },
+    {
+     "id": "poker-u2-l3",
+     "title": "A Starting Range",
+     "body": "A **range** is a set of hands you play in a given spot. Here is a simple, **tight starting chart for 6-max tables** when everyone has folded to you. It is a sensible beginner default, not a solver-perfect strategy.\n\n- **UTG (about 15%):** 7-7+, A-10 suited+, K-10 suited+, Q-10 suited+, J-10 suited, A-J offsuit+, K-Q offsuit.\n- **HJ:** add 6-6, A-9 suited, A-10 offsuit, K-J offsuit.\n- **CO (about 25-30%):** add 2-2 to 5-5, all suited aces, K-9 suited, Q-9 suited, J-9 suited, 10-9 suited, 9-8 suited, Q-J offsuit.\n- **BTN (about 40%):** add most suited kings, suited connectors down to 5-4 suited, suited one-gappers, A-2 offsuit+ through K-10 offsuit, Q-10 offsuit, J-10 offsuit.\n- **SB:** similar to the cutoff, raise or fold.\n\nNotation: \"7-7+\" means 7-7 and every higher pair. \"A-10 suited+\" means A-10, A-J, A-Q, A-K suited.\n\nNotice the pattern: **ranges widen as you move toward the button**, because fewer players are left to act and you'll more often have position.\n\nFacing a raise, play **tighter** than when opening: a reasonable start is re-raising with 10-10+, A-Q+, and calling with some pairs and suited broadway hands in position.",
+     "quiz": [
+      {
+       "prompt": "Why do opening ranges get wider closer to the button?",
+       "choices": [
+        "The button pays a blind",
+        "Cards are better on the button",
+        "The rules allow more hands",
+        "Fewer players remain to act and you'll more often have position"
+       ],
+       "answer": 3,
+       "explain": "Less risk of a strong hand behind you, plus the positional edge."
+      },
+      {
+       "prompt": "What does 'A-10 suited+' include?",
+       "choices": [
+        "A-10 to A-2 suited",
+        "All aces",
+        "A-10, A-J, A-Q and A-K suited",
+        "Only A-10 suited"
+       ],
+       "answer": 2,
+       "explain": "The plus means all higher kickers of the same type."
+      },
+      {
+       "prompt": "Facing a raise, should your range be wider or tighter than when opening?",
+       "choices": [
+        "The same",
+        "Wider",
+        "It doesn't matter",
+        "Tighter"
+       ],
+       "answer": 3,
+       "explain": "A raiser shows strength, so you need stronger hands to continue."
+      }
+     ]
+    },
+    {
+     "id": "poker-u2-l4",
+     "title": "Hand Strength Preflop",
+     "body": "Why are some starting hands better than others? Three qualities:\n\n1. **High cards.** Pairs and kickers with high cards beat lower ones. A-K makes top pair with the best kicker.\n2. **Pairs.** A pocket pair is already made. Small pairs mainly win by flopping three of a kind (about 1 in 8.5), so they want cheap flops and deep stacks.\n3. **Suited and connected.** Suited cards make flushes and connected cards make straights. Suitedness adds only a few percent of equity, though: you flop a flush with a suited hand less than 1% of the time.\n\n**Preflop matchups** (all-in, five cards to come) teach realistic expectations:\n\n- A higher pair against a lower pair is about **4 to 1** (around 80%).\n- A pair against two higher cards is roughly a **coin flip** (the pair is a small favourite).\n- A hand that **dominates** another (A-K against A-Q, sharing the ace) is around **70-75%**.\n\nEven the best hand, A-A, loses roughly one time in five against K-K. Nothing preflop is a lock. The equities below were computed with a hand evaluator by simulation.",
+     "quiz": [
+      {
+       "prompt": "All-in preflop, A♥ A♦ against K♥ K♣. Roughly what is the equity of A♥ A♦?",
+       "choices": [
+        "About 94%",
+        "About 82%",
+        "About 52%",
+        "About 67%"
+       ],
+       "answer": 1,
+       "explain": "Simulated with a hand evaluator, A♥ A♦ wins or splits about 82% of the time."
+      },
+      {
+       "prompt": "All-in preflop, A♣ K♦ against Q♥ Q♠. Roughly what is the equity of A♣ K♦?",
+       "choices": [
+        "About 58%",
+        "About 28%",
+        "About 43%",
+        "About 13%"
+       ],
+       "answer": 2,
+       "explain": "Simulated with a hand evaluator, A♣ K♦ wins or splits about 43% of the time."
+      },
+      {
+       "prompt": "All-in preflop, A♣ K♦ against A♥ Q♠. Roughly what is the equity of A♣ K♦?",
+       "choices": [
+        "About 44%",
+        "About 59%",
+        "About 89%",
+        "About 74%"
+       ],
+       "answer": 3,
+       "explain": "Simulated with a hand evaluator, A♣ K♦ wins or splits about 74% of the time."
+      },
+      {
+       "prompt": "Why do small pocket pairs like 3-3 prefer cheap flops?",
+       "choices": [
+        "They mostly win by flopping three of a kind, which happens only about 1 time in 8.5",
+        "They win most hands unimproved",
+        "They are the strongest hands",
+        "They can't make sets"
+       ],
+       "answer": 0,
+       "explain": "You pay a small price many times for the occasional big hand."
+      }
+     ]
+    },
+    {
+     "id": "poker-u2-l5",
+     "title": "Domination and Kickers",
+     "body": "A hand is **dominated** when it shares a card with a better hand. A-Q against A-K, or K-J against K-Q, are classic examples. The dominated hand needs to pair its *other* card to win, and it has only three cards to do it.\n\nDomination is why some hands that look good are traps:\n\n- **Weak aces** (A-2 to A-8 offsuit) look strong but often run into better aces. When you make a pair of aces, your kicker loses.\n- **Offsuit \"picture\" hands** like K-J or Q-J are dominated by A-K, A-Q, K-Q, A-J.\n\n**Why it matters more against raises:** an opponent who raises from early position holds strong hands. If your hand is dominated by a lot of their range, you are often drawing to just three outs.\n\n**Rules of thumb:**\n\n- Against early-position raises, fold hands like A-J offsuit and K-Q offsuit more often than feels natural.\n- Suited and connected hands (like 7-6 suited) are rarely dominated; when they win, they win with straights and flushes.\n- Kickers matter most in heads-up pots and unraised pots, where top pair often wins.",
+     "quiz": [
+      {
+       "prompt": "What makes A-Q 'dominated' by A-K?",
+       "choices": [
+        "A-K is always suited",
+        "They have the same suit",
+        "They share an ace, and A-K's king outranks the queen",
+        "A-Q has no pair"
+       ],
+       "answer": 2,
+       "explain": "A-Q must pair the queen to win; pairing the ace isn't enough."
+      },
+      {
+       "prompt": "Why are weak offsuit aces risky against an early-position raise?",
+       "choices": [
+        "They are illegal to open",
+        "The raiser's range holds many better aces",
+        "Aces can't make straights",
+        "They make too many flushes"
+       ],
+       "answer": 1,
+       "explain": "When both pair the ace, your weak kicker loses."
+      },
+      {
+       "prompt": "All-in preflop, A♥ K♥ against A♣ Q♣. Roughly what is the equity of A♥ K♥?",
+       "choices": [
+        "About 56%",
+        "About 86%",
+        "About 71%",
+        "About 41%"
+       ],
+       "answer": 2,
+       "explain": "Simulated with a hand evaluator, A♥ K♥ wins or splits about 71% of the time."
+      }
+     ]
+    },
+    {
+     "id": "poker-u2-l6",
+     "title": "Sizing Your Preflop Raise",
+     "body": "Preflop bet sizes are expressed in **big blinds (bb)**. Standard online sizes:\n\n- **Open raise:** 2 to 3 bb. In a $1/$2 game, raise to $5 or $6. In live games with many callers, 3-4 bb plus 1 bb per player who limped in.\n- **Re-raise (3-bet):** about **3 times** the open in position, about **4 times** out of position. Facing a raise to $6, re-raise to around $18-24.\n- **4-bet:** about **2.2-2.5 times** the 3-bet.\n\n**Keep sizes consistent** across hands of different strength in the same spot. If you raise big with aces and small with suited connectors, observant opponents read your hand from the bet size.\n\n**Stack depth** is measured in big blinds too. A \"100 bb\" stack in a $1/$2 game is $200. Deeper stacks reward hands that make big hands (pairs, suited connectors); shallower stacks reward high cards.\n\n**Don't limp.** Opening by just calling the big blind gives the blinds a cheap look and wins nothing immediately. Raise or fold when you're first in.",
+     "quiz": [
+      {
+       "prompt": "In a $1/$2 game, which is a standard open raise?",
+       "choices": [
+        "$1",
+        "$6",
+        "$2",
+        "$20"
+       ],
+       "answer": 1,
+       "explain": "2-3 big blinds is the usual opening size: $4-6."
+      },
+      {
+       "prompt": "Why use the same raise size with strong and weaker hands?",
+       "choices": [
+        "So the size doesn't reveal your hand strength",
+        "Bigger raises are illegal",
+        "Small raises lose more",
+        "To confuse the dealer"
+       ],
+       "answer": 0,
+       "explain": "Consistent sizing denies opponents information."
+      },
+      {
+       "prompt": "Your bankroll is $600 and each buy-in is $200. How many buy-ins do you have?",
+       "choices": [
+        "1.5",
+        "13",
+        "6",
+        "3"
+       ],
+       "answer": 3,
+       "explain": "$600 / $200 = 3 buy-ins."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "poker-u3-math",
+   "title": "The Maths Core",
+   "order": 3,
+   "difficulty": 3,
+   "lessons": [
+    {
+     "id": "poker-u3-l1",
+     "title": "Counting Outs",
+     "body": "An **out** is an unseen card that improves your hand to one you expect to win.\n\nAfter the flop you see **5 cards** (your two plus three on the board), so **47** are unseen. You don't know your opponents' cards, so you count against all 47.\n\nCommon draws:\n\n- **Flush draw** (four cards of a suit): 13 - 4 = **9 outs**.\n- **Open-ended straight draw** (like 9-8 on 7-6-2): two ranks complete it, 4 × 2 = **8 outs**.\n- **Gutshot** (inside straight draw, like 9-8 on 10-6-2, needing a 7): **4 outs**.\n- **Pocket pair to three of a kind:** **2 outs**.\n- **Two overcards** to a pair on the board: about **6 outs**, but only if pairing them wins.\n\n**Don't double-count.** With a flush draw and an open-ended straight draw together, two of the straight cards are also flush cards: 9 + 8 - 2 = **15 outs**.\n\n**Discount dirty outs.** An out that also gives your opponent a better hand (a flush card that pairs the board when they might fill up) isn't really an out.\n\nThe questions below were counted with a hand evaluator, card by card.",
+     "quiz": [
+      {
+       "prompt": "You hold 9♥ 8♥ and the flop is K♥ 4♥ 2♣. How many of the 47 unseen cards give you a flush or better on the turn?",
+       "choices": [
+        "10",
+        "9",
+        "11",
+        "8"
+       ],
+       "answer": 1,
+       "explain": "Counting every unseen turn card with the evaluator, 9 of them make a flush or better."
+      },
+      {
+       "prompt": "You hold 9♠ 8♦ and the flop is 7♣ 6♥ 2♠. How many of the 47 unseen cards give you a straight or better on the turn?",
+       "choices": [
+        "7",
+        "8",
+        "9",
+        "10"
+       ],
+       "answer": 1,
+       "explain": "Counting every unseen turn card with the evaluator, 8 of them make a straight or better."
+      },
+      {
+       "prompt": "You hold 9♠ 8♦ and the flop is 10♣ 6♥ 2♠. How many of the 47 unseen cards give you a straight or better on the turn?",
+       "choices": [
+        "4",
+        "5",
+        "6",
+        "3"
+       ],
+       "answer": 0,
+       "explain": "Counting every unseen turn card with the evaluator, 4 of them make a straight or better."
+      },
+      {
+       "prompt": "You hold A♥ K♥ and the flop is Q♥ J♥ 5♣. How many of the 47 unseen cards give you a straight or better on the turn?",
+       "choices": [
+        "13",
+        "14",
+        "11",
+        "12"
+       ],
+       "answer": 3,
+       "explain": "Counting every unseen turn card with the evaluator, 12 of them make a straight or better."
+      }
+     ]
+    },
+    {
+     "id": "poker-u3-l2",
+     "title": "The Rule of 2 and 4",
+     "body": "Turning outs into a percentage quickly is the most used skill in poker maths.\n\n**The rule of 4:** on the flop, if you'll see **both** the turn and the river (for example, you're all-in), multiply your outs by **4**.\n\n**The rule of 2:** with **one card to come** (on the turn, or on the flop if you only consider the next card), multiply your outs by **2**.\n\n| Draw | Outs | One card (×2) | Two cards (×4) |\n|---|---|---|---|\n| Flush draw | 9 | 18% (exact 19.1%) | 36% (exact 35.0%) |\n| Open-ended straight | 8 | 16% (17.0%) | 32% (31.5%) |\n| Gutshot | 4 | 8% (8.5%) | 16% (16.5%) |\n\nThe rule of 4 **overestimates** for big draws: with 15 outs it says 60%, while the exact figure is about 54%. A common fix above 8 outs is to subtract (outs - 8) from the ×4 answer.\n\n**Careful with the rule of 4:** it assumes you'll see two cards for one price. If your opponent can bet again on the turn, you only know you'll see *one* card, so use the rule of 2 for your current call.",
+     "quiz": [
+      {
+       "prompt": "You are all-in on the flop with 9 outs, so you will see the turn and the river. What does the rule of 4 estimate for your chance to hit?",
+       "choices": [
+        "72%",
+        "18%",
+        "36%",
+        "9%"
+       ],
+       "answer": 2,
+       "explain": "With two cards to come, multiply outs by 4: 9 × 4 = 36%."
+      },
+      {
+       "prompt": "On the turn you have 8 outs with one card to come. What does the rule of 2 estimate for your chance to hit on the river?",
+       "choices": [
+        "8%",
+        "16%",
+        "24%",
+        "32%"
+       ],
+       "answer": 1,
+       "explain": "With one card to come, multiply outs by 2: 8 × 2 = 16%."
+      },
+      {
+       "prompt": "You are all-in on the flop with 4 outs, so you will see the turn and the river. What does the rule of 4 estimate for your chance to hit?",
+       "choices": [
+        "16%",
+        "32%",
+        "4%",
+        "8%"
+       ],
+       "answer": 0,
+       "explain": "With two cards to come, multiply outs by 4: 4 × 4 = 16%."
+      },
+      {
+       "prompt": "When is it wrong to use the rule of 4 for a call on the flop?",
+       "choices": [
+        "When you're in position",
+        "When you have a flush draw",
+        "When the pot is small",
+        "When your opponent can bet again on the turn, so you're only guaranteed one card"
+       ],
+       "answer": 3,
+       "explain": "The ×4 shortcut assumes both cards are seen for this one price."
+      }
+     ]
+    },
+    {
+     "id": "poker-u3-l3",
+     "title": "Exact Odds",
+     "body": "The rules of 2 and 4 are estimates. Here's how to compute the exact numbers, which is good probability training.\n\n**One card to come (turn to river):** 46 cards are unseen, so with N outs the chance is simply **N / 46**.\n\n**Two cards to come (flop to river):** it's easiest to compute the chance of **missing twice** and subtract from 1.\n\n- Cards that miss: 47 - N.\n- Ways to choose 2 missing cards: C(47 - N, 2). All ways: C(47, 2) = 1,081.\n- P(hit at least once) = 1 - C(47 - N, 2) / 1,081.\n\nFor a flush draw (N = 9): C(38, 2) = 703, so P = 1 - 703/1081 = **35.0%**.\n\nThe \"probability of the complement\" trick (computing the chance of *not* happening) is useful everywhere: it avoids double-counting the cases where both cards are outs.\n\nIf you know an opponent's exact cards (as in some quiz questions), remove them too: on the turn there are then **44** unseen cards.\n\n\"Clean outs\" means outs that definitely win if they come.",
+     "quiz": [
+      {
+       "prompt": "You are all-in on the flop with 9 clean outs among 47 unseen cards. What is the exact chance that at least one out arrives by the river?",
+       "choices": [
+        "35%",
+        "44.3%",
+        "19.1%",
+        "9.6%"
+       ],
+       "answer": 0,
+       "explain": "1 − C(38,2)/C(47,2) = 1 − 703/1081 = 35%."
+      },
+      {
+       "prompt": "You are all-in on the flop with 8 clean outs among 47 unseen cards. What is the exact chance that at least one out arrives by the river?",
+       "choices": [
+        "17%",
+        "31.5%",
+        "8.5%",
+        "40%"
+       ],
+       "answer": 1,
+       "explain": "1 − C(39,2)/C(47,2) = 1 − 741/1081 = 31.5%."
+      },
+      {
+       "prompt": "On the turn you have 9 clean outs among 46 unseen cards. What is the exact chance of hitting on the river?",
+       "choices": [
+        "19.6%",
+        "36%",
+        "17.3%",
+        "39.1%"
+       ],
+       "answer": 0,
+       "explain": "9 good cards out of 46: 9/46 = 19.6%."
+      }
+     ]
+    },
+    {
+     "id": "poker-u3-l4",
+     "title": "Pot Odds",
+     "body": "**Pot odds** compare the price of a call with what you can win.\n\nSuppose the pot is $100 and your opponent bets $50. The pot is now $150, and you must call $50. If you call, the final pot is $200, and your $50 is **25%** of it. So you need to win **more than 25%** of the time for the call to profit.\n\nThe formula: **required equity = call / (pot after your call)** = B / (P + 2B), where P is the pot before the bet and B is the bet.\n\nYou can also express it as a ratio: you're risking $50 to win $150, which is **3 to 1**. 3 to 1 means you need to win 1 time in 4: 25%.\n\n**Common bet sizes and the equity you need to call:**\n\n| Bet (of pot) | Equity needed |\n|---|---|\n| 1/3 pot | 20% |\n| 1/2 pot | 25% |\n| 2/3 pot | 28.6% |\n| Full pot | 33.3% |\n\nBigger bets give worse odds. That's why bet sizing is a weapon: a big bet makes draws pay too much.",
+     "quiz": [
+      {
+       "prompt": "The pot is $100. Your opponent bets $50. What equity do you need to break even on a call?",
+       "choices": [
+        "25%",
+        "50%",
+        "33.3%",
+        "75%"
+       ],
+       "answer": 0,
+       "explain": "You risk $50 to win a final pot of $200, so you need 50/200 = 25%."
+      },
+      {
+       "prompt": "The pot is $60. Your opponent bets $60. What equity do you need to break even on a call?",
+       "choices": [
+        "100%",
+        "50%",
+        "66.7%",
+        "33.3%"
+       ],
+       "answer": 3,
+       "explain": "You risk $60 to win a final pot of $180, so you need 60/180 = 33.3%."
+      },
+      {
+       "prompt": "The pot is $90. Your opponent bets $30. What equity do you need to break even on a call?",
+       "choices": [
+        "25%",
+        "33.3%",
+        "20%",
+        "80%"
+       ],
+       "answer": 2,
+       "explain": "You risk $30 to win a final pot of $150, so you need 30/150 = 20%."
+      }
+     ]
+    },
+    {
+     "id": "poker-u3-l5",
+     "title": "Call or Fold?",
+     "body": "Now combine outs and pot odds into a decision. The question is always: **is my equity greater than the equity the price requires?**\n\n**The process:**\n\n1. **Count outs** (clean ones).\n2. **Convert to equity** for the cards you're guaranteed to see. Facing a bet on the flop with more betting possible, that's one card: rule of 2.\n3. **Compute pot odds:** call / (pot after the call).\n4. **Compare.** Equity higher than the requirement: call. Lower: fold (unless implied odds change it, next lesson).\n\n**Example:** you have a flush draw on the turn (9 outs, about 19.6% exact). The pot is $60 and your opponent bets $60. Pot odds: 60 / 180 = 33.3%. You need 33.3% but have about 20%. **Fold** (without implied odds).\n\n**Same draw, smaller bet:** pot $60, bet $15. Pot odds: 15 / 90 = 16.7%. You have about 20%. **Call.**\n\nLearn this as a reflex. Most money lost by beginners comes from calling big bets with draws that the price doesn't justify.",
+     "quiz": [
+      {
+       "prompt": "Your equity is 20% and the pot odds require 33%. Without implied odds, what is correct?",
+       "choices": [
+        "Call",
+        "Fold",
+        "Raise all-in always",
+        "It's break-even"
+       ],
+       "answer": 1,
+       "explain": "Calling for 33% with only 20% equity loses money on average."
+      },
+      {
+       "prompt": "The pot is $60. Your opponent bets $15. What equity do you need to break even on a call?",
+       "choices": [
+        "16.7%",
+        "83.3%",
+        "25%",
+        "20%"
+       ],
+       "answer": 0,
+       "explain": "You risk $15 to win a final pot of $90, so you need 15/90 = 16.7%."
+      },
+      {
+       "prompt": "On the turn you have 8 clean outs among 46 unseen cards. What is the exact chance of hitting on the river?",
+       "choices": [
+        "17.4%",
+        "15.4%",
+        "34.8%",
+        "32%"
+       ],
+       "answer": 0,
+       "explain": "8 good cards out of 46: 8/46 = 17.4%."
+      },
+      {
+       "prompt": "Facing a flop bet with more betting to come, which estimate should you use for your draw?",
+       "choices": [
+        "Three cards",
+        "None; draws don't matter on the flop",
+        "Two cards (rule of 4)",
+        "One card (rule of 2)"
+       ],
+       "answer": 3,
+       "explain": "You're only guaranteed to see the turn for this price."
+      }
+     ]
+    },
+    {
+     "id": "poker-u3-l6",
+     "title": "Implied Odds and Reverse Implied Odds",
+     "body": "Pot odds only count the money in the pot **now**. **Implied odds** add the money you expect to win **later** when you hit.\n\nIf you call with a draw that's slightly too expensive by pot odds, you can still profit if, when you hit, your opponent pays you off with more bets. Implied odds are high when:\n\n- **Stacks are deep** (there's money left to win).\n- **Your draw is hidden.** A gutshot or a set is hard to see; a flush on a board with four hearts is obvious and gets fewer calls.\n- **Your opponent tends to pay off** big bets.\n\n**Reverse implied odds** are the opposite: when you make your hand, you sometimes **lose a big pot** to an even better one. Drawing to a low flush, or making a low straight when a higher one is possible, has reverse implied odds. So does top pair with a weak kicker.\n\n**Discipline check:** implied odds are the most abused idea in poker. \"He'll pay me off\" justifies almost any call. Before using implied odds, ask how much extra you'd need to win, and whether that is realistic. If you'd need their whole stack, fold.",
+     "quiz": [
+      {
+       "prompt": "When are implied odds highest?",
+       "choices": [
+        "Short stacks",
+        "An obvious draw on a scary board",
+        "When you are all-in",
+        "Deep stacks, a hidden draw, and an opponent who pays off"
+       ],
+       "answer": 3,
+       "explain": "Implied odds need money left to win and a hand that gets paid."
+      },
+      {
+       "prompt": "What are reverse implied odds?",
+       "choices": [
+        "When your opponent folds",
+        "When making your hand often loses a big pot to a better hand",
+        "Implied odds for the opponent's draw only",
+        "Odds computed backwards"
+       ],
+       "answer": 1,
+       "explain": "A low flush or weak top pair can win small and lose big."
+      },
+      {
+       "prompt": "On the turn you have 4 clean outs among 46 unseen cards. What is the exact chance of hitting on the river?",
+       "choices": [
+        "16%",
+        "7.7%",
+        "17.4%",
+        "8.7%"
+       ],
+       "answer": 3,
+       "explain": "4 good cards out of 46: 4/46 = 8.7%."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "poker-u4-ev",
+   "title": "Equity and Expected Value",
+   "order": 4,
+   "difficulty": 3,
+   "lessons": [
+    {
+     "id": "poker-u4-l1",
+     "title": "Equity",
+     "body": "**Equity** is your share of the pot based on how often you'd win if all the cards were dealt out with no more betting. If you have 40% equity in a $100 pot, your \"fair share\" is $40.\n\nEquity depends on **both hands and the board**. Some intuitions:\n\n- **Made hand vs draw on the flop:** a bare flush draw has roughly 37% against one pair (two cards to come). With a straight draw too, it can be a favourite.\n- **Overpair vs set:** around 9% for the overpair with two cards to come. Sets are crushing.\n- **Equity changes every street.** A draw with 35% on the flop drops to about 20% on the turn if it misses, and to 0% on a missed river.\n\nIn real hands you don't know your opponent's exact cards, so you think in terms of **equity against their range**: averaged over everything they could have.\n\n**Equity is not the whole story.** A hand with 40% equity out of position may realise less of it, because it often has to fold to bets before seeing all the cards. Hands that play well (in position, with draws to the nuts) realise more equity.\n\nThe question below asks for an exact figure, computed over all 44 possible river cards.",
+     "quiz": [
+      {
+       "prompt": "You hold A♥ K♥, your opponent holds Q♠ Q♣, and the turn board is J♥ 7♥ 2♣ 5♠. What is your exact chance to win outright on the river?",
+       "choices": [
+        "30%",
+        "34.1%",
+        "65.9%",
+        "32.6%"
+       ],
+       "answer": 1,
+       "explain": "Of the 44 unseen river cards, 15 give you the better hand: 15/44 = 34.1%."
+      },
+      {
+       "prompt": "You hold 9♠ 8♠, your opponent holds A♣ A♦, and the turn board is 7♠ 6♦ 2♥ K♣. What is your exact chance to win outright on the river?",
+       "choices": [
+        "18.2%",
+        "17.4%",
+        "81.8%",
+        "16%"
+       ],
+       "answer": 0,
+       "explain": "Of the 44 unseen river cards, 8 give you the better hand: 8/44 = 18.2%."
+      },
+      {
+       "prompt": "Your flush draw misses on the turn. What happens to its equity with one card left?",
+       "choices": [
+        "It stays at 35%",
+        "It rises",
+        "It drops, to roughly 20%",
+        "It becomes zero"
+       ],
+       "answer": 2,
+       "explain": "Fewer cards to come means fewer chances to hit."
+      }
+     ]
+    },
+    {
+     "id": "poker-u4-l2",
+     "title": "Expected Value",
+     "body": "**Expected value (EV)** is the average result of a decision if you could repeat it many times. It's the single most important idea in poker, and it applies everywhere: investing, insurance, health choices.\n\n**EV = (chance of winning × amount won) - (chance of losing × amount lost).**\n\n**Calling example:** the pot is $100, your opponent bets $50, and your equity is 30%.\n\n- If you call and win (30%), you win the $150 in the middle.\n- If you call and lose (70%), you lose your $50.\n- EV = 0.30 × 150 - 0.70 × 50 = 45 - 35 = **+$10**.\n\nA positive EV call makes money on average, even though you lose this particular hand 70% of the time.\n\n**Folding has EV 0** from this point: you neither win nor lose more. So any call with EV > 0 beats folding.\n\nImportant habits:\n\n- Think about **the average**, not this hand.\n- Money already in the pot is **not yours**. It's part of what you can win, not something to \"protect\".\n- A decision with tiny positive EV and huge variance may still be wrong for your bankroll (unit 6).",
+     "quiz": [
+      {
+       "prompt": "The pot is $100 and your opponent bets $50. Your equity is 30%. What is the expected value of calling, ignoring later betting?",
+       "choices": [
+        "-$5",
+        "+$10",
+        "-$35",
+        "+$45"
+       ],
+       "answer": 1,
+       "explain": "EV = 30% × $150 − 70% × $50 = +$10."
+      },
+      {
+       "prompt": "The pot is $80 and your opponent bets $40. Your equity is 20%. What is the expected value of calling, ignoring later betting?",
+       "choices": [
+        "+$24",
+        "-$8",
+        "-$16",
+        "-$32"
+       ],
+       "answer": 1,
+       "explain": "EV = 20% × $120 − 80% × $40 = -$8."
+      },
+      {
+       "prompt": "What is the EV of folding, measured from the current decision?",
+       "choices": [
+        "Zero",
+        "It can't be computed",
+        "Minus the money you put in earlier",
+        "The whole pot"
+       ],
+       "answer": 0,
+       "explain": "Folding risks nothing more and wins nothing more; past bets are sunk."
+      }
+     ]
+    },
+    {
+     "id": "poker-u4-l3",
+     "title": "Bluffing Maths",
+     "body": "A **bluff** is a bet with a hand that would usually lose at showdown, made to win the pot by getting a fold.\n\n**Break-even fold rate:** if you bet B into a pot P, you risk B to win P. The bluff breaks even when the opponent folds **B / (P + B)** of the time.\n\n- Bet half pot: break even at 33% folds.\n- Bet full pot: 50%.\n- Bet a third of the pot: 25%.\n\n**A semi-bluff** is a bluff with a draw. It wins when they fold *and* sometimes when called and you hit. That second way to win makes semi-bluffs much more profitable than pure bluffs, and it's why good players bet draws aggressively.\n\n**Who to bluff:** players who can fold. Beginners and \"calling stations\" rarely fold, so against them, **bluff less and value bet more**. Bluffing someone who never folds isn't brave; it's just negative EV.\n\n**Story check:** a good bluff tells a believable story. If your actions throughout the hand are consistent with a strong hand, a bet on the river is credible. If not, it rarely works.",
+     "quiz": [
+      {
+       "prompt": "You bet $50 into a $100 pot as a pure bluff that never wins when called. How often must your opponent fold for the bet to break even?",
+       "choices": [
+        "25%",
+        "66.7%",
+        "33.3%",
+        "50%"
+       ],
+       "answer": 2,
+       "explain": "You risk $50 to win $100, so folds must happen 50/(100+50) = 33.3% of the time."
+      },
+      {
+       "prompt": "You bet $90 into a $90 pot as a pure bluff that never wins when called. How often must your opponent fold for the bet to break even?",
+       "choices": [
+        "33.3%",
+        "25%",
+        "100%",
+        "50%"
+       ],
+       "answer": 3,
+       "explain": "You risk $90 to win $90, so folds must happen 90/(90+90) = 50% of the time."
+      },
+      {
+       "prompt": "Why is a semi-bluff usually better than a pure bluff?",
+       "choices": [
+        "It also wins sometimes when called, by hitting the draw",
+        "It's always all-in",
+        "It never gets called",
+        "It doesn't risk money"
+       ],
+       "answer": 0,
+       "explain": "Two ways to win: fold equity and draw equity."
+      },
+      {
+       "prompt": "Your opponent almost never folds. How should you adjust?",
+       "choices": [
+        "Bluff more",
+        "Only play all-in",
+        "Bluff less and value bet more",
+        "Never bet"
+       ],
+       "answer": 2,
+       "explain": "A bluff needs folds; a calling station pays off value bets instead."
+      }
+     ]
+    },
+    {
+     "id": "poker-u4-l4",
+     "title": "Thinking in Ranges",
+     "body": "Strong players don't put opponents on one hand. They assign a **range**: all the hands the opponent could have, given their actions.\n\n**Building a range, street by street:**\n\n1. **Preflop:** what does this player open from this position? A tight player raising UTG might have 15% of hands; a loose player on the button, 50%.\n2. **Flop:** which hands from that range would bet, check or call on this board? Remove the hands that would act differently.\n3. **Turn and river:** narrow further with each action.\n\n**Use combinations.** If you think a player has \"a set or top pair\", count: on a K-7-2 board, there are 3 combos each of K-K, 7-7, 2-2 (9 sets), but A-K alone has 12 combos (with one king on the board, 3 kings × 4 aces). Top pair is far more common than a set.\n\n**Then decide against the range:** compute your equity against the whole range, not the scariest hand in it. Folding because they \"might have the nuts\" every time is as wrong as calling because they \"might be bluffing\".\n\nThis is probabilistic thinking in practice: weighing many possibilities by how likely they are.",
+     "quiz": [
+      {
+       "prompt": "On a K-7-2 board, why is A-K more likely than K-K for an opponent?",
+       "choices": [
+        "A-K was dealt first",
+        "K-K is always folded",
+        "A-K has 12 combos left but K-K only 3",
+        "A-K is suited"
+       ],
+       "answer": 2,
+       "explain": "With one king on the board: 3 kings × 4 aces = 12 vs C(3,2) = 3."
+      },
+      {
+       "prompt": "What does putting a player on a 'range' mean?",
+       "choices": [
+        "Guessing their exact cards",
+        "Considering every hand they could have, weighted by likelihood",
+        "Their seat position",
+        "Counting their chips"
+       ],
+       "answer": 1,
+       "explain": "Ranges replace single guesses with a distribution."
+      },
+      {
+       "prompt": "How many card combinations are there for A-K suited?",
+       "choices": [
+        "12",
+        "1",
+        "4",
+        "6"
+       ],
+       "answer": 2,
+       "explain": "Enumerating all pairs of cards from a 52-card deck gives 4."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "poker-u5-postflop",
+   "title": "Postflop Play",
+   "order": 5,
+   "difficulty": 4,
+   "lessons": [
+    {
+     "id": "poker-u5-l1",
+     "title": "Board Texture",
+     "body": "**Board texture** describes how the flop interacts with likely hands.\n\n- **Dry boards** have few draws: K-7-2 with three suits (\"rainbow\"). Hands rarely change on later streets. Whoever has the stronger hand now usually has it at the river.\n- **Wet boards** have many draws: J-10-8 with two hearts. Straights, flushes and two-pair are all possible, and equities run close.\n- **Paired boards** (8-8-3) reduce the chance anyone hit; full houses and trips become possible.\n- **Monotone boards** (three of one suit) make flushes possible on the flop.\n\n**Whose board is it?** The preflop raiser's range has more big cards (A-A, K-K, A-K), so **high, dry boards favour the raiser**. A caller's range has more middle pairs and suited connectors, so **low, connected boards** hit the caller more.\n\n**What texture changes:**\n\n- On dry boards, small bets work well: few hands can continue.\n- On wet boards, bet bigger with strong hands to charge draws, and be more careful with one-pair hands.\n\nBefore every postflop decision, name the texture and ask: \"Which hands does this board help, mine or theirs?\"",
+     "quiz": [
+      {
+       "prompt": "Which flop is the driest?",
+       "choices": [
+        "9♣ 8♣ 7♣",
+        "Q♦ J♦ 10♠",
+        "K♠ 7♦ 2♣",
+        "J♥ 10♥ 8♠"
+       ],
+       "answer": 2,
+       "explain": "No flush draw and no connected cards: few draws."
+      },
+      {
+       "prompt": "Which flop usually favours the preflop raiser?",
+       "choices": [
+        "A board with three small cards of one suit",
+        "Every board equally",
+        "A low connected board like 7-6-5 two-tone",
+        "A high, dry board like A-8-3 rainbow"
+       ],
+       "answer": 3,
+       "explain": "The raiser holds more big pairs and big aces."
+      },
+      {
+       "prompt": "The board is J♥ 10♥ 9♠ 2♣ 3♦ and you hold K♣ Q♦. What is your best five-card hand?",
+       "choices": [
+        "Three of a kind",
+        "Flush",
+        "Full house",
+        "Straight"
+       ],
+       "answer": 3,
+       "explain": "Your best five cards make straight."
+      }
+     ]
+    },
+    {
+     "id": "poker-u5-l2",
+     "title": "The Continuation Bet",
+     "body": "A **continuation bet (c-bet)** is a flop bet by the player who raised preflop. It \"continues\" the story of strength.\n\n**Why it works:** most of the time, nobody hits the flop. A random unpaired hand misses (pairs neither hole card) about two-thirds of the time. The raiser, with the stronger range, can often take the pot right away.\n\n**When to c-bet often:**\n\n- **Dry boards that favour your range** (A-high, K-high rainbow).\n- **Heads-up** (one opponent). Every extra opponent makes it more likely someone hit.\n- **In position.**\n\n**When to c-bet less:**\n\n- **Wet, low boards** that hit the caller's range (8-7-6 with a flush draw).\n- **Multiway pots.**\n- When your hand has **showdown value** but can't stand a raise; checking keeps the pot small.\n\n**Sizing:** on dry boards a small c-bet (about 1/3 pot) achieves the same folds for less risk. On wet boards use larger sizes (2/3 to full pot) with strong hands and draws.\n\n**Don't c-bet on autopilot.** If your opponent calls flop bets with any pair, a c-bet bluff on a board that hit them is just a donation.",
+     "quiz": [
+      {
+       "prompt": "Who makes a continuation bet?",
+       "choices": [
+        "Any player who checks",
+        "The last caller",
+        "The big blind",
+        "The preflop raiser, betting the flop"
+       ],
+       "answer": 3,
+       "explain": "It continues the aggression shown preflop."
+      },
+      {
+       "prompt": "In which spot is a c-bet most likely to succeed?",
+       "choices": [
+        "When you're out of position against three players",
+        "Four-way on a wet, low board",
+        "Heads-up on a dry, high board",
+        "Against a player who never folds"
+       ],
+       "answer": 2,
+       "explain": "Fewer opponents and a board that favours your range."
+      },
+      {
+       "prompt": "You bet $20 into a $60 pot as a pure bluff that never wins when called. How often must your opponent fold for the bet to break even?",
+       "choices": [
+        "33.3%",
+        "25%",
+        "20%",
+        "75%"
+       ],
+       "answer": 1,
+       "explain": "You risk $20 to win $60, so folds must happen 20/(60+20) = 25% of the time."
+      }
+     ]
+    },
+    {
+     "id": "poker-u5-l3",
+     "title": "Bet Sizing",
+     "body": "Every bet has a **purpose**, and the purpose decides the size.\n\n**Value bets** want calls from worse hands. Size them to what worse hands will pay: bigger against players who call too much, smaller when only weak hands can call.\n\n**Protection / denial:** on wet boards, a bigger bet makes draws pay more than their equity. A draw with 20% equity facing a pot-sized bet (33% needed) makes a mistake by calling.\n\n**Bluffs** want folds at the lowest price. The smaller the bet, the less often it needs to work (see the bluffing maths lesson), but the easier it is to call.\n\n**Standard sizes as fractions of the pot:**\n\n- **1/3 pot:** dry boards, range c-bets, thin value.\n- **1/2 to 2/3 pot:** the default on most boards.\n- **Full pot or more (overbet):** very strong hands or bluffs on boards where your range has the nuts and theirs doesn't.\n\n**Plan the stack.** If you want to get all the money in by the river with a strong hand, bets of about 2/3 pot on each street grow the pot geometrically. Small early bets make it impossible to get stacks in later.\n\nKeep sizes balanced: don't bet big only with monsters.",
+     "quiz": [
+      {
+       "prompt": "Why bet larger on a wet board with a strong hand?",
+       "choices": [
+        "To make draws pay more than their equity",
+        "Because small bets are illegal",
+        "To get more folds from worse hands",
+        "To build a smaller pot"
+       ],
+       "answer": 0,
+       "explain": "A bigger price exceeds the draw's chance to hit."
+      },
+      {
+       "prompt": "The pot is $100. Your opponent bets $100. What equity do you need to break even on a call?",
+       "choices": [
+        "66.7%",
+        "33.3%",
+        "50%",
+        "100%"
+       ],
+       "answer": 1,
+       "explain": "You risk $100 to win a final pot of $300, so you need 100/300 = 33.3%."
+      },
+      {
+       "prompt": "The pot is $90. Your opponent bets $30. What equity do you need to break even on a call?",
+       "choices": [
+        "25%",
+        "33.3%",
+        "20%",
+        "80%"
+       ],
+       "answer": 2,
+       "explain": "You risk $30 to win a final pot of $150, so you need 30/150 = 20%."
+      }
+     ]
+    },
+    {
+     "id": "poker-u5-l4",
+     "title": "Value Betting",
+     "body": "The biggest source of profit against beginners isn't bluffing. It's **value betting**: betting when you're ahead so worse hands pay you.\n\n**The key question:** \"If I bet and get called, am I usually ahead?\" If yes, it's a value bet.\n\n**Common mistakes:**\n\n- **Slowplaying too much.** Checking a strong hand \"to trap\" often lets the pot stay tiny. Most opponents call bets more than they bet themselves.\n- **Not betting the river** with a good hand because \"they probably missed\". If they missed, they fold to any bet; if they have something worse, they pay. Checking wins nothing either way.\n- **Value betting into strength.** If the action says they have a strong hand (they raised a dry board twice), your top pair may not be good.\n\n**Thin value:** betting a medium-strength hand that's only slightly ahead of the calling range. It earns a lot against loose players, but needs reads.\n\n**A useful exercise:** after each hand you win at showdown, ask, \"Could I have gotten one more bet in?\" Missed value is invisible, so you have to look for it deliberately.",
+     "quiz": [
+      {
+       "prompt": "What makes a bet a value bet?",
+       "choices": [
+        "Your opponent folds",
+        "When called, you are usually ahead of the hands that call",
+        "It is a small bet",
+        "It is made on the river"
+       ],
+       "answer": 1,
+       "explain": "Value bets profit from worse hands calling."
+      },
+      {
+       "prompt": "Why is slowplaying often a mistake against beginners?",
+       "choices": [
+        "Slowplaying is against the rules",
+        "Beginners never bet",
+        "It always gives away your hand",
+        "They call bets more than they bet, so checking keeps the pot small"
+       ],
+       "answer": 3,
+       "explain": "You win more by betting into players who like to call."
+      },
+      {
+       "prompt": "You hold a strong hand on the river and your opponent probably missed their draw. Should you bet?",
+       "choices": [
+        "Never bet the river",
+        "Usually yes: missed draws fold anyway, worse made hands may call",
+        "Only all-in",
+        "No, they'll fold"
+       ],
+       "answer": 1,
+       "explain": "Checking wins nothing more; betting can win more from any worse hand that calls."
+      }
+     ]
+    },
+    {
+     "id": "poker-u5-l5",
+     "title": "Pot Control and Folding",
+     "body": "Not every hand wants a big pot. **Pot control** means keeping the pot small with medium-strength hands that beat bluffs but lose to strong hands.\n\n**Medium hands** (middle pair, top pair weak kicker) play best by **checking some streets**, especially in position. You still get to showdown and win against bluffs, without building a pot you'd hate to lose.\n\n**Big pots for big hands.** A simple guideline: don't play for your whole stack with one pair, unless stacks are short or your opponent is very loose.\n\n**Folding well.** The hardest skill is folding a hand that's good but probably beaten. Signals that one pair is behind:\n\n- A **passive player suddenly raises**. Players who rarely raise usually have it when they do.\n- **Multiple streets of large bets** on a board where draws completed.\n- A **check-raise on the turn or river** from a careful player.\n\nFold equity works on you too: a fold costs only what's already in the pot, which is no longer yours. Wins and losses on the hands you *don't* call can't be seen, so good folds feel bad even when they're right.",
+     "quiz": [
+      {
+       "prompt": "Which hand is a good candidate for pot control?",
+       "choices": [
+        "A full house",
+        "Middle pair",
+        "A missed draw",
+        "The nut flush"
+       ],
+       "answer": 1,
+       "explain": "Medium hands beat bluffs but lose to strong value hands."
+      },
+      {
+       "prompt": "A player who rarely raises suddenly raises your river bet. What does it usually mean?",
+       "choices": [
+        "They often have a strong hand",
+        "They're bluffing",
+        "Nothing; ignore it",
+        "They misclicked"
+       ],
+       "answer": 0,
+       "explain": "Passive players' raises are weighted toward strength."
+      },
+      {
+       "prompt": "On the turn you have 2 clean outs among 46 unseen cards. What is the exact chance of hitting on the river?",
+       "choices": [
+        "8.7%",
+        "3.8%",
+        "4.3%",
+        "8%"
+       ],
+       "answer": 2,
+       "explain": "2 good cards out of 46: 2/46 = 4.3%."
+      }
+     ]
+    },
+    {
+     "id": "poker-u5-l6",
+     "title": "River Decisions",
+     "body": "The river is where hands end, so decisions there are pure: **no more cards are coming.** Your hand is either good or not.\n\n**Facing a river bet, ask:**\n\n1. **What hands would they bet like this?** List the value hands and the bluffs (usually missed draws).\n2. **Do I beat their bluffs and lose to their value?** Then it's a **bluff-catching** decision.\n3. **Compare with the pot odds.** If the bet is half pot, you need to win 25% of the time. If at least a quarter of their betting range is bluffs, calling profits.\n\n**Betting the river, ask:**\n\n- **Value:** will worse hands call? Then bet.\n- **Bluff:** will better hands fold? Missed draws are the natural bluffs, because they have no showdown value.\n- Medium hands that beat bluffs but lose to calls: usually **check**.\n\n**Showdown value:** a hand that can win if checked down shouldn't usually be turned into a bluff. Bluff with your weakest hands.\n\nOn the river, as everywhere, the decision is judged by its EV against their range, not by what they turn over this time.",
+     "quiz": [
+      {
+       "prompt": "The pot is $100. Your opponent bets $50. What equity do you need to break even on a call?",
+       "choices": [
+        "25%",
+        "50%",
+        "33.3%",
+        "75%"
+       ],
+       "answer": 0,
+       "explain": "You risk $50 to win a final pot of $200, so you need 50/200 = 25%."
+      },
+      {
+       "prompt": "Which hands make the best river bluffs?",
+       "choices": [
+        "Any hand that beat the flop",
+        "Missed draws with no showdown value",
+        "The nuts",
+        "Medium pairs"
+       ],
+       "answer": 1,
+       "explain": "Hands that can't win at showdown lose nothing by bluffing."
+      },
+      {
+       "prompt": "You beat all their bluffs and lose to all their value bets. What kind of decision is this?",
+       "choices": [
+        "Semi-bluffing",
+        "Bluff-catching",
+        "Slowplaying",
+        "Value betting"
+       ],
+       "answer": 1,
+       "explain": "Your call depends on how often they bluff versus pot odds."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "poker-u6-bankroll",
+   "title": "Bankroll and Variance",
+   "order": 6,
+   "difficulty": 4,
+   "lessons": [
+    {
+     "id": "poker-u6-l1",
+     "title": "Living With Variance",
+     "body": "**Variance** is the short-term swing between your results and your expected results. In poker it's huge.\n\nConsider a 4-to-1 favourite (A-A against K-K preflop wins about 80%). You lose 1 time in 5. The chance of losing it **twice in a row** is 4%; across thousands of hands, that happens often. Over a single evening, a skilled player can easily lose many buy-ins and a weak player can win.\n\n**How big are the swings?** Even for consistently winning players, **downswings of 10, 20 or more buy-ins** happen. A winning player can go tens of thousands of hands without making money. That isn't bad luck in an unusual way; it's what the maths predicts for a game with this much randomness.\n\n**Consequences:**\n\n- **Short-term results say almost nothing about skill.** It takes a very large sample, many tens of thousands of hands, to know whether you're a winning player.\n- **Most players lose.** After the house's cut (the rake), the majority of players lose money in the long run. Being a winning player is a hard, uncommon achievement. Be honest with yourself about which group you're in.\n- **Track results** in hands played, not in sessions.",
+     "quiz": [
+      {
+       "prompt": "You win three sessions in a row. What does that tell you about your skill?",
+       "choices": [
+        "Your opponents are bad",
+        "You should move up in stakes",
+        "Very little; the sample is far too small",
+        "You're a winning player"
+       ],
+       "answer": 2,
+       "explain": "Poker variance is large; meaningful samples take tens of thousands of hands."
+      },
+      {
+       "prompt": "Do most poker players win money in the long run?",
+       "choices": [
+        "Everyone breaks even",
+        "Yes, most win",
+        "No, most lose, especially after rake",
+        "Only online players lose"
+       ],
+       "answer": 2,
+       "explain": "The rake removes money from the game, and winners are a minority."
+      },
+      {
+       "prompt": "Can a winning player have a 20-buy-in downswing?",
+       "choices": [
+        "Yes, swings like that are normal even for winners",
+        "Only in tournaments",
+        "No, only losing players",
+        "Only if they play badly"
+       ],
+       "answer": 0,
+       "explain": "Large downswings are a mathematical certainty over enough hands."
+      }
+     ]
+    },
+    {
+     "id": "poker-u6-l2",
+     "title": "Bankroll Management",
+     "body": "A **bankroll** is money set aside only for poker, separate from rent, food and savings. Bankroll management is how you survive variance.\n\n**The idea:** if you play stakes too big for your bankroll, a normal downswing can wipe you out, even if you're a winning player. Playing small relative to your roll means bad runs are survivable.\n\n**A common rule of thumb for cash games:** have **20 to 40 buy-ins** for the stake you play. More if you're unsure whether you win, if you play in tough games, or if losing the money would hurt. Tournaments swing much more and need far more buy-ins (often 100+).\n\nThese are guidelines, not laws. No buy-in count makes a *losing* player safe: if your EV is negative, a bigger bankroll only slows down the losses.\n\n**Rules that matter more than the exact number:**\n\n- **Never play with money you can't afford to lose.**\n- **Never borrow to play** or \"top up\" from living money after losses.\n- **Move down in stakes** when your roll drops below your limit. Moving down isn't failure; it's what keeps you in the game.",
+     "quiz": [
+      {
+       "prompt": "Your poker bankroll is $4000. You follow a 40-buy-in rule for cash games. What is the largest buy-in you should play?",
+       "choices": [
+        "$100",
+        "$200",
+        "$400",
+        "$50"
+       ],
+       "answer": 0,
+       "explain": "$4000 / 40 = $100 per buy-in."
+      },
+      {
+       "prompt": "Your poker bankroll is $3000. You follow a 30-buy-in rule for cash games. What is the largest buy-in you should play?",
+       "choices": [
+        "$50",
+        "$200",
+        "$100",
+        "$300"
+       ],
+       "answer": 2,
+       "explain": "$3000 / 30 = $100 per buy-in."
+      },
+      {
+       "prompt": "You are a losing player with a very large bankroll. Does the bankroll protect you?",
+       "choices": [
+        "Yes, if you play more hands",
+        "No, it only delays the losses",
+        "Yes, a big bankroll guarantees profit",
+        "Only in tournaments"
+       ],
+       "answer": 1,
+       "explain": "Bankroll management handles variance, not a negative edge."
+      },
+      {
+       "prompt": "Your bankroll falls below your buy-in rule for your current stake. What should you do?",
+       "choices": [
+        "Add money from your rent",
+        "Keep playing the same stake",
+        "Move down to a smaller stake",
+        "Move up to win it back faster"
+       ],
+       "answer": 2,
+       "explain": "Moving down is how you survive the swing."
+      }
+     ]
+    },
+    {
+     "id": "poker-u6-l3",
+     "title": "The Rake and Your Edge",
+     "body": "The **rake** is the fee the house takes from each pot (often around 5%, with a cap) or charges per hour. It changes the maths of poker.\n\n**Poker is a game between players.** Whatever winners win, losers lose, minus the rake. So the total of all players' results is **negative**: the rake drains money out of the game every hand.\n\n**What that means for you:**\n\n- To win in the long run you have to beat your opponents **by more than the rake**. Being slightly better than average isn't enough.\n- At **small stakes**, the rake is a large share of each pot, so it's hardest to beat there.\n- Playing **fewer, better hands** (tight-aggressive) matters partly because many small pots are raked heavily without much skill edge.\n\n**Your win rate** is usually measured in big blinds per 100 hands (bb/100). A solid small-stakes winner might make a few bb/100 after rake, and the uncertainty around that figure stays large even after 50,000 hands.\n\nHonest self-assessment: if you can't show a profit over a big sample, assume you're not beating the game yet, and treat poker as entertainment with a cost, plus a training ground for thinking.",
+     "quiz": [
+      {
+       "prompt": "Why is the total of all players' poker results negative?",
+       "choices": [
+        "Bluffs cost money",
+        "Blinds disappear",
+        "The rake removes money from every pot",
+        "Players lose cards"
+       ],
+       "answer": 2,
+       "explain": "Winners' gains equal losers' losses minus the house's fee."
+      },
+      {
+       "prompt": "Where is the rake hardest to beat?",
+       "choices": [
+        "At small stakes, where it's a larger share of the pot",
+        "At high stakes",
+        "It's the same everywhere",
+        "In heads-up pots only"
+       ],
+       "answer": 0,
+       "explain": "Caps and fixed fees weigh more on small pots."
+      },
+      {
+       "prompt": "Your bankroll is $2000 and each buy-in is $100. How many buy-ins do you have?",
+       "choices": [
+        "30",
+        "20",
+        "10",
+        "40"
+       ],
+       "answer": 1,
+       "explain": "$2000 / $100 = 20 buy-ins."
+      }
+     ]
+    },
+    {
+     "id": "poker-u6-l4",
+     "title": "Sample Size and Self-Assessment",
+     "body": "How do you know if you're actually good? Not from how you feel, and not from last week.\n\n**Sample size:** results converge to your true win rate only slowly. Because the standard deviation of a hold'em win rate is large (often 80-100 bb/100 hands), the uncertainty after 10,000 hands is roughly ±16-20 bb/100. That's far bigger than any realistic win rate. After 100,000 hands it shrinks to around ±5-6 bb/100, still bigger than a typical edge.\n\n**So use other evidence too:**\n\n- **Process review:** go through hands you played. Were your decisions sound by the principles you've learned (pot odds, position, ranges)?\n- **Leak hunting:** look for patterns, like calling too much on the river or playing too many hands from early position.\n- **Feedback:** discuss hands with stronger players or use study tools.\n\n**Beware the stories you tell yourself.** After winning, people credit skill; after losing, they blame luck. Both are mostly noise in the short run. A decision journal (what you decided and why, before seeing the result) is the cure.\n\nThis applies far beyond poker: judge processes, not outcomes.",
+     "quiz": [
+      {
+       "prompt": "After 10,000 hands, how reliable is your win rate as a measure of skill?",
+       "choices": [
+        "Perfectly reliable",
+        "Reliable within 1 bb/100",
+        "Reliable if you're winning",
+        "Not reliable; the uncertainty is much bigger than any realistic edge"
+       ],
+       "answer": 3,
+       "explain": "Hold'em variance is large; 10k hands is a small sample."
+      },
+      {
+       "prompt": "What is the best evidence of skill over a short period?",
+       "choices": [
+        "How confident you feel",
+        "Your biggest pot won",
+        "Reviewing whether your decisions were sound",
+        "Your results this week"
+       ],
+       "answer": 2,
+       "explain": "Decision quality can be checked even when results are noisy."
+      },
+      {
+       "prompt": "What is a decision journal?",
+       "choices": [
+        "A list of opponents' names",
+        "A log of your wins",
+        "Your bankroll balance",
+        "A record of what you decided and why, written before knowing the result"
+       ],
+       "answer": 3,
+       "explain": "It prevents hindsight from rewriting your reasons."
+      }
+     ]
+    },
+    {
+     "id": "poker-u6-l5",
+     "title": "Risk of Ruin",
+     "body": "**Risk of ruin** is the chance of losing your entire bankroll before your edge pays off. It depends on three things:\n\n1. **Your edge** (win rate). A bigger edge lowers the risk.\n2. **Your variance.** Wild, high-variance games raise the risk.\n3. **Your bankroll in buy-ins.** More buy-ins lower the risk sharply.\n\nWith a **negative edge**, risk of ruin is **100%** in the long run, whatever your bankroll. With a small positive edge and a short bankroll, it can still be high.\n\n**Practical lessons:**\n\n- **Play within your roll.** Taking a shot at higher stakes should be a planned, limited risk (a set number of buy-ins), with a rule to move back down.\n- **Don't chase losses.** Moving up to \"win it back\" increases both variance and the chance of ruin at exactly the wrong moment.\n- **Protect your life finances.** Poker money that you'd miss isn't a bankroll; it's a risk to your life.\n\n**When to stop:** if poker stops being fun, starts feeling compulsive, or you're spending money you need, stop and seek help. Problem gambling is common and treatable. Many countries have free helplines and self-exclusion tools on poker sites.",
+     "quiz": [
+      {
+       "prompt": "What is the long-run risk of ruin for a player with a negative edge?",
+       "choices": [
+        "About 50%",
+        "It depends only on luck",
+        "100%, whatever the bankroll",
+        "0% with enough buy-ins"
+       ],
+       "answer": 2,
+       "explain": "Negative expected value guarantees losses over enough time."
+      },
+      {
+       "prompt": "You're down for the month. Is moving up in stakes to win it back a good idea?",
+       "choices": [
+        "Only on weekends",
+        "Yes, bigger pots recover faster",
+        "Yes, if you feel lucky",
+        "No, it raises variance and risk of ruin at the worst time"
+       ],
+       "answer": 3,
+       "explain": "Chasing losses is one of the most dangerous poker habits."
+      },
+      {
+       "prompt": "Which reduces risk of ruin the most for a winning player?",
+       "choices": [
+        "Playing higher stakes",
+        "Playing more aggressively",
+        "Playing more tables while tired",
+        "Having more buy-ins for the stake played"
+       ],
+       "answer": 3,
+       "explain": "More buy-ins absorb normal downswings."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "poker-u7-discipline",
+   "title": "Discipline and Tilt",
+   "order": 7,
+   "difficulty": 5,
+   "lessons": [
+    {
+     "id": "poker-u7-l1",
+     "title": "What Tilt Is",
+     "body": "**Tilt** is any emotional state that makes you play worse than you normally do. It's usually triggered by losses, but not only.\n\n**Common forms:**\n\n- **Bad-beat tilt:** you get your money in as a favourite and lose, then play recklessly.\n- **Revenge tilt:** wanting to beat a specific player who \"got lucky\" against you.\n- **Losing tilt:** trying to win back losses quickly.\n- **Winning tilt:** overconfidence after a good run, playing hands you'd normally fold.\n- **Boredom tilt:** playing marginal hands just to be involved.\n\n**Signs you're tilting:** playing faster, calling more, feeling physical tension, replaying a hand in your head, thinking \"I deserve to win this one\".\n\n**Why it costs so much:** tilt makes you abandon exactly the disciplines that create your edge: tight ranges, pot odds, folding medium hands to strength. A good player on tilt can easily become a losing player.\n\nKnowing about variance helps. A bad beat isn't an insult; it's the 20% you already accepted when you got your money in at 80%. If you got your money in good, you made money on average.",
+     "quiz": [
+      {
+       "prompt": "Which of these is a form of tilt?",
+       "choices": [
+        "Playing loose after a good run because you feel unbeatable",
+        "Taking a break when tired",
+        "Folding a weak hand",
+        "Reviewing a hand after a session"
+       ],
+       "answer": 0,
+       "explain": "Winning tilt is still tilt: emotions changing your decisions."
+      },
+      {
+       "prompt": "Your A-A loses to K-K all-in preflop. How should you view it?",
+       "choices": [
+        "A sign you played it wrong",
+        "A normal result within the ~20% you accepted; the decision made money on average",
+        "Proof the game is rigged",
+        "A reason to play more hands"
+       ],
+       "answer": 1,
+       "explain": "You got your money in as a big favourite, which is the goal."
+      },
+      {
+       "prompt": "Which is a warning sign of tilt?",
+       "choices": [
+        "Playing faster and calling more than usual",
+        "Ending a session on schedule",
+        "Taking notes on opponents",
+        "Sticking to your starting chart"
+       ],
+       "answer": 0,
+       "explain": "Speed and looseness after losses are classic signals."
+      }
+     ]
+    },
+    {
+     "id": "poker-u7-l2",
+     "title": "Stop-Loss and Session Rules",
+     "body": "Willpower in the moment is unreliable. **Rules decided in advance** work better.\n\n**Session rules to set before you sit down:**\n\n- **Stop-loss:** quit for the day after losing a fixed amount, such as 2-3 buy-ins. The amount matters less than respecting it.\n- **Time limit:** fatigue degrades decisions. Set a maximum session length.\n- **Quit triggers:** leave when you notice tilt signs, feel angry, or start thinking about a previous hand.\n- **No chasing:** never add money from outside your bankroll during a session.\n\n**Why stop-losses help even though \"it's all one long session\":** in theory, each hand's EV doesn't care when you started. In practice, players play worse after big losses. A stop-loss removes you from the table during the time you're most likely to be playing badly.\n\n**Write the rules down.** A rule you can renegotiate in the moment isn't a rule. Some players tell a friend, or use site tools like loss limits and session timers.\n\nThis is the \"discipline\" part of the mind pillar: designing your environment so that good choices are easy and bad ones are hard.",
+     "quiz": [
+      {
+       "prompt": "Why set a stop-loss if each hand's EV is independent?",
+       "choices": [
+        "It guarantees a profit",
+        "It changes the odds of the next hand",
+        "Because people play worse after big losses, and the rule removes you at that time",
+        "Casinos require it"
+       ],
+       "answer": 2,
+       "explain": "The rule protects you from your own degraded decisions."
+      },
+      {
+       "prompt": "When is the best time to decide your session rules?",
+       "choices": [
+        "Halfway through",
+        "Before the session starts",
+        "After a big loss",
+        "When you feel lucky"
+       ],
+       "answer": 1,
+       "explain": "Decisions made calmly in advance are more reliable."
+      },
+      {
+       "prompt": "Your bankroll is $600 and each buy-in is $200. How many buy-ins do you have?",
+       "choices": [
+        "1.5",
+        "13",
+        "6",
+        "3"
+       ],
+       "answer": 3,
+       "explain": "$600 / $200 = 3 buy-ins."
+      }
+     ]
+    },
+    {
+     "id": "poker-u7-l3",
+     "title": "Results-Oriented Thinking",
+     "body": "**Results-oriented thinking** is judging a decision by its outcome instead of its quality. It's the most common thinking error in poker and in life.\n\n**Examples:**\n\n- \"I called with a gutshot getting terrible odds and hit. Good call!\" No: it was a losing decision that happened to win.\n- \"I folded and the river would have made my hand. I should have called.\" Not if the price was wrong.\n- \"I got all-in with A-A and lost. I should play it slower.\" No: getting all-in preflop with A-A is almost always correct.\n\n**The fix: separate the four boxes.**\n\n| | Good result | Bad result |\n|---|---|---|\n| **Good decision** | deserved win | bad luck |\n| **Bad decision** | dumb luck | deserved loss |\n\nOnly the rows are in your control. Judge yourself on the rows.\n\n**Practice:** after a session, pick three hands you lost and three you won. For each, ask only: \"Given what I knew, was this the best decision?\" Then ask what you'd do next time. Ignore what the next card was.\n\nBeing able to say \"I made the right decision and lost\" without frustration is a sign of real maturity in decision-making.",
+     "quiz": [
+      {
+       "prompt": "You call with a gutshot at bad odds and hit. How should you judge the call?",
+       "choices": [
+        "A bad decision with a lucky result",
+        "A good decision",
+        "It can't be judged",
+        "A good decision with a bad result"
+       ],
+       "answer": 0,
+       "explain": "The price was wrong regardless of the card that came."
+      },
+      {
+       "prompt": "Which part of the 'four boxes' is under your control?",
+       "choices": [
+        "Both equally",
+        "Decision quality",
+        "Neither",
+        "The result"
+       ],
+       "answer": 1,
+       "explain": "You choose decisions; results include luck."
+      },
+      {
+       "prompt": "The pot is $90 and your opponent bets $30. Your equity is 25%. What is the expected value of calling, ignoring later betting?",
+       "choices": [
+        "-$22.5",
+        "$0",
+        "+$7.5",
+        "+$30"
+       ],
+       "answer": 2,
+       "explain": "EV = 25% × $120 − 75% × $30 = +$7.5."
+      }
+     ]
+    },
+    {
+     "id": "poker-u7-l4",
+     "title": "Building a Study Habit",
+     "body": "Improvement in poker comes from **deliberate practice**, not just playing more.\n\n**A simple weekly routine:**\n\n1. **Play** a fixed number of sessions, following your session rules.\n2. **Mark hands** during play that felt difficult (use the site's tagging feature or a note).\n3. **Review** those hands: compute the pot odds, list the opponent's range, and decide what the best play was. Write down the conclusion.\n4. **Study one topic** a week: a bet-sizing idea, a type of board, a preflop spot.\n5. **Drill the maths:** outs, pot odds and EV calculations until they're instant (the quizzes in this app are built for that).\n\n**Keep a leak list:** recurring mistakes you've found (e.g. \"calling river raises with one pair\"). Review it before each session.\n\n**Study more than you play** early on. An hour of review on ten hard hands teaches more than an hour of autopilot play.\n\n**Quality over volume:** a few focused sessions with full attention beat many distracted ones. This is the same principle as the chess and go puzzles: slow, honest calculation builds the skill.",
+     "quiz": [
+      {
+       "prompt": "Which activity improves your poker most per hour for a beginner?",
+       "choices": [
+        "Playing more tables at once",
+        "Watching highlight videos",
+        "Playing while tired",
+        "Reviewing difficult hands and working out the best play"
+       ],
+       "answer": 3,
+       "explain": "Deliberate review fixes mistakes; autopilot play repeats them."
+      },
+      {
+       "prompt": "What is a 'leak list'?",
+       "choices": [
+        "A written list of your recurring mistakes",
+        "A list of opponents who bluff",
+        "The rake schedule",
+        "Your bankroll history"
+       ],
+       "answer": 0,
+       "explain": "Naming leaks makes them easier to catch at the table."
+      },
+      {
+       "prompt": "On the turn you have 9 outs with one card to come. What does the rule of 2 estimate for your chance to hit on the river?",
+       "choices": [
+        "36%",
+        "18%",
+        "27%",
+        "9%"
+       ],
+       "answer": 1,
+       "explain": "With one card to come, multiply outs by 2: 9 × 2 = 18%."
+      }
+     ]
+    },
+    {
+     "id": "poker-u7-l5",
+     "title": "Poker Thinking Beyond Poker",
+     "body": "The tools in this course apply well beyond cards.\n\n- **Expected value:** good choices maximise the average outcome, not the best case. A career move, an investment or a health decision can be framed as EV: probabilities times consequences.\n- **Pot odds:** \"How likely is success, and what does it cost to find out?\" A small, cheap experiment with a low chance of success can still be worth it if the payoff is large.\n- **Ranges:** don't decide on the single scariest or most hopeful story. Weigh all the plausible scenarios by likelihood.\n- **Variance and bankroll:** never take a risk that can knock you out of the game entirely, even if it has positive EV. Survival comes first.\n- **Tilt:** emotions after a loss make the next decision worse. Pause before acting.\n- **Results vs decisions:** judge yourself on the quality of your decisions, given what you knew.\n\n**A final word on gambling:** poker is a skill game, but it's still gambling. Most players lose. Treat real-money play as optional and capped, and keep the skills: calm calculation, honest probability estimates, and discipline under pressure.",
+     "quiz": [
+      {
+       "prompt": "Which poker idea warns against taking a risk that could wipe you out, even with positive EV?",
+       "choices": [
+        "Bankroll and risk of ruin",
+        "C-betting",
+        "Pot odds",
+        "The rule of 4"
+       ],
+       "answer": 0,
+       "explain": "Survival comes before maximising average profit."
+      },
+      {
+       "prompt": "How does 'thinking in ranges' apply outside poker?",
+       "choices": [
+        "Always assume the worst case",
+        "Always assume the best case",
+        "Weigh all plausible scenarios by likelihood instead of one story",
+        "Ignore probabilities"
+       ],
+       "answer": 2,
+       "explain": "Ranges replace single stories with weighted possibilities."
+      },
+      {
+       "prompt": "The pot is $150 and your opponent bets $50. Your equity is 40%. What is the expected value of calling, ignoring later betting?",
+       "choices": [
+        "+$50",
+        "+$80",
+        "+$30",
+        "-$30"
+       ],
+       "answer": 0,
+       "explain": "EV = 40% × $200 − 60% × $50 = +$50."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
