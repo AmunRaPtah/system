@@ -3,7 +3,7 @@ import SwiftData
 import Observation
 
 struct SystemAlert: Identifiable, Equatable {
-    enum Style: Equatable { case quest, levelUp, rankUp, penalty, info }
+    enum Style: Equatable { case quest, levelUp, rankUp, penalty, info, achievement }
     let id = UUID()
     var style: Style
     var title: String
@@ -94,6 +94,7 @@ final class SystemStore {
         save()
         refresh()
         reschedule()
+        checkAchievements()
     }
 
     func requestNotificationsIfNeeded() {
@@ -296,6 +297,7 @@ final class SystemStore {
                                               "Title acquired: \(player.rank.title)",
                                               "Harder quests are now available."]))
         }
+        checkAchievements()
         reschedule()
     }
 
@@ -694,6 +696,7 @@ final class SystemStore {
         deleteAll(CheckIn.self); deleteAll(WorkoutLog.self); deleteAll(SetLog.self)
         deleteAll(DrillResult.self); deleteAll(LessonRecord.self); deleteAll(LadderRecord.self)
         deleteAll(AssessmentRecord.self); deleteAll(Claim.self)
+        resetAchievements()
         save()
         for k in [DefaultsKey.start, DefaultsKey.lastEval] { defaults.removeObject(forKey: k) }
         for d in DrillKind.allCases { defaults.removeObject(forKey: DefaultsKey.drillLevel(d)) }

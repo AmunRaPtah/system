@@ -11,6 +11,7 @@ struct StatsView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
                     VStack(alignment: .leading, spacing: 10) {
+                        PlayerTitleLine()
                         HStack(alignment: .firstTextBaseline) {
                             Text("LV \(p.level)").font(Theme.mono(30, .heavy)).foregroundStyle(Theme.cyan).glow()
                             Spacer()
@@ -41,10 +42,10 @@ struct StatsView: View {
 
                     VStack(alignment: .leading, spacing: 8) {
                         BracketHeader(title: "Status", size: 13)
-                        StatRadar(values: Stat.allCases.map { Double(p.points($0)) })
+                        StatRadar(values: Stat.allCases.map { Double(p.points($0) + store.titleBonus($0)) })
                             .frame(height: 260)
                         ForEach(Stat.allCases) { s in
-                            StatBarRow(stat: s, points: p.points(s), xp: p.xp(s), maxPoints: Stat.allCases.map { p.points($0) }.max() ?? 10)
+                            StatBarRow(stat: s, points: p.points(s) + store.titleBonus(s), xp: p.xp(s), maxPoints: Stat.allCases.map { p.points($0) + store.titleBonus($0) }.max() ?? 10)
                         }
                     }
                     .systemPanel()
