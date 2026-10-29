@@ -30,6 +30,12 @@ targets:
         embed: true
     entitlements:
       path: Support/System.entitlements
+      # XcodeGen rewrites the file from these properties on every generate.
+      properties:
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access: []
+        com.apple.security.application-groups:
+          - group.org.zyco.system
     info:
       path: Support/Info.plist
       properties:
@@ -68,6 +74,9 @@ targets:
       - path: System/Shared/WidgetSnapshot.swift
     entitlements:
       path: Support/SystemWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.org.zyco.system
     info:
       path: Support/Widget-Info.plist
       properties:
