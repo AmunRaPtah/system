@@ -231,5 +231,6 @@ enum Schema_ {
         AssessmentRecord.self, Claim.self,
         AchievementUnlock.self,
         PokerDrillRecord.self,
+        PlayResult.self, SavedPlayGame.self,
     ]
 }
