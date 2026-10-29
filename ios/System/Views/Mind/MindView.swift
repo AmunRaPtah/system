@@ -28,6 +28,7 @@ struct MindView: View {
                         NavigationLink { GameLessonsView(game: game) } label: { GameRow(game: game) }
                             .buttonStyle(.plain)
                     }
+                    NavigationLink { PokerTrainerView() } label: { PokerTrainerRow() }.buttonStyle(.plain)
                 }
                 .padding()
             }

@@ -230,5 +230,6 @@ enum Schema_ {
         SetLog.self, DrillResult.self, LessonRecord.self, LadderRecord.self,
         AssessmentRecord.self, Claim.self,
         AchievementUnlock.self,
+        PokerDrillRecord.self,
     ]
 }
