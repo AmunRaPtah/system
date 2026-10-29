@@ -299,6 +299,13 @@ final class SystemStore {
         reschedule()
     }
 
+    /// Public XP entry for self-contained trainers (poker): award, save, raise alerts.
+    func awardXP(_ awards: [(Stat, Int)], source: String, note: String, title: String, lines: [String]) {
+        let b = begin()
+        for (s, a) in awards { addXP(s, a, source: source, note: note) }
+        finish(b, title: title, lines: lines)
+    }
+
     func claimed(_ key: String) -> Bool {
         var d = FetchDescriptor<Claim>(predicate: #Predicate<Claim> { $0.key == key })
         d.fetchLimit = 1
@@ -694,6 +701,7 @@ final class SystemStore {
         deleteAll(CheckIn.self); deleteAll(WorkoutLog.self); deleteAll(SetLog.self)
         deleteAll(DrillResult.self); deleteAll(LessonRecord.self); deleteAll(LadderRecord.self)
         deleteAll(AssessmentRecord.self); deleteAll(Claim.self)
+        deleteAll(PokerDrillRecord.self); PokerDrill.resetLevels(defaults)
         save()
         for k in [DefaultsKey.start, DefaultsKey.lastEval] { defaults.removeObject(forKey: k) }
         for d in DrillKind.allCases { defaults.removeObject(forKey: DefaultsKey.drillLevel(d)) }
