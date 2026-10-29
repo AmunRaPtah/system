@@ -389,6 +389,14 @@ final class SystemStore {
         finish(b, title: q.isEmpty ? "[DRILL COMPLETE]" : "[QUEST COMPLETE]", lines: lines)
     }
 
+    /// XP entry point for features that live in their own files (Play vs engine).
+    /// Insert any records into `context` first; this saves, refreshes and raises alerts.
+    func awardXP(_ stat: Stat, _ amount: Int, source: String, note: String, title: String, lines: [String]) {
+        let b = begin()
+        addXP(stat, amount, source: source, note: note)
+        finish(b, title: title, lines: lines)
+    }
+
     func drillLevel(_ k: DrillKind) -> Int { max(1, defaults.integer(forKey: DefaultsKey.drillLevel(k))) }
     func setDrillLevel(_ k: DrillKind, _ v: Int) { defaults.set(max(1, min(20, v)), forKey: DefaultsKey.drillLevel(k)) }
 
@@ -694,6 +702,7 @@ final class SystemStore {
         deleteAll(CheckIn.self); deleteAll(WorkoutLog.self); deleteAll(SetLog.self)
         deleteAll(DrillResult.self); deleteAll(LessonRecord.self); deleteAll(LadderRecord.self)
         deleteAll(AssessmentRecord.self); deleteAll(Claim.self)
+        deleteAll(PlayResult.self); deleteAll(SavedPlayGame.self)
         save()
         for k in [DefaultsKey.start, DefaultsKey.lastEval] { defaults.removeObject(forKey: k) }
         for d in DrillKind.allCases { defaults.removeObject(forKey: DefaultsKey.drillLevel(d)) }

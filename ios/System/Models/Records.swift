@@ -229,5 +229,6 @@ enum Schema_ {
         XPEvent.self, QuestCompletion.self, DayPlan.self, CheckIn.self, WorkoutLog.self,
         SetLog.self, DrillResult.self, LessonRecord.self, LadderRecord.self,
         AssessmentRecord.self, Claim.self,
+        PlayResult.self, SavedPlayGame.self,
     ]
 }

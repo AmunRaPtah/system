@@ -211,5 +211,27 @@ do {
     check(g.isOver, "go self-play finished in \(plies) plies, margin \(g.margin(dead: dead)) with \(dead.count) dead")
 }
 
+// MARK: - Go strength: EXPERT (level 4) vs NOVICE (level 1), both colours
+
+do {
+    var strongWins = 0
+    for strongBlack in [true, false] {
+        var g = GoGame(size: 9, handicap: 0)
+        var plies = 0
+        while !g.isOver && plies < 200 {
+            let strong = (g.board.toPlay == GoStone.black) == strongBlack
+            let lvl = GoLevel.preset(strong ? 4 : 1, size: 9)
+            let res = GoMCTS(board: g.board, komi: g.komi, seed: UInt64(plies * 7 + 3)).search(level: lvl, opponentPassed: g.lastWasPass)
+            if let m = res.move { if g.play(m) == nil { g.pass() } } else { g.pass() }
+            plies += 1
+        }
+        let m = g.margin(dead: GoMCTS.suggestDead(g.board, komi: g.komi))
+        let won = (m > 0) == strongBlack
+        if won { strongWins += 1 }
+        print("     strong as \(strongBlack ? "black" : "white"): \(plies) plies, margin B\(m >= 0 ? "+" : "")\(m)")
+    }
+    check(strongWins == 2, "go level 4 beats level 1 with both colours (\(strongWins)/2)")
+}
+
 print(failures == 0 ? "ALL ENGINE TESTS PASSED" : "\(failures) ENGINE TEST(S) FAILED")
 exit(failures == 0 ? 0 : 1)

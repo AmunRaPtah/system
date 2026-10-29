@@ -28,6 +28,12 @@ struct MindView: View {
                         NavigationLink { GameLessonsView(game: game) } label: { GameRow(game: game) }
                             .buttonStyle(.plain)
                     }
+
+                    BracketHeader(title: "Play vs Engine", size: 13).padding(.top, 6)
+                    ForEach([Game.chess, Game.go]) { game in
+                        NavigationLink { PlayHubView(game: game) } label: { PlayRow(game: game) }
+                            .buttonStyle(.plain)
+                    }
                 }
                 .padding()
             }
