@@ -26,6 +26,11 @@ jobs:
         with:
           xcode-version: 'latest-stable'
 
+      - name: Engine self-tests (chess perft vs python-chess, go rules)
+        run: |
+          swiftc -O ios/System/Services/Engines/*.swift ios/EngineTests/*.swift -o "$RUNNER_TEMP/enginetests"
+          "$RUNNER_TEMP/enginetests"
+
       - name: Install XcodeGen
         run: brew install xcodegen
 
