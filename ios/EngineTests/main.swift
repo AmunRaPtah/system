@@ -172,17 +172,18 @@ do {
 // MARK: - Go engine sanity
 
 do {
-    // Black to play can capture a large white group in atari at (0,4).
-    let b = goBoard([
-        "XOOO.....",
-        "XOOOX....",
-        "XXXX.....",
-        ".........", ".........", ".........", ".........", ".........", ".........",
+    // Capturing race: black's row-1 string is in atari, but black to move can capture
+    // either white string (or extend). Any of points 8, 17, 26 wins the race.
+    var bb = goBoard([
+        "OOOOOOOO.",
+        "XXXXXXXX.",
+        "OOOOOOOO.",
+        "XXXXXXXXX",
+        ".........", ".........", ".........", ".........", ".........",
     ])
-    var bb = b
     bb.toPlay = GoStone.black
     let r = GoMCTS(board: bb, komi: 7.5, seed: 42).search(level: GoLevel(level: 3, playouts: 3000, seconds: 10), opponentPassed: false)
-    check(r.move == 4, "MCTS captures the group in atari (got \(r.move.map(String.init) ?? "pass"), \(r.playouts) playouts)")
+    check(r.move.map { [8, 17, 26].contains($0) } ?? false, "MCTS wins the capturing race (got \(r.move.map(String.init) ?? "pass"), \(r.playouts) playouts, wr \(String(format: "%.2f", r.winRate)))")
 
     for lvl in 1...5 {
         let t0 = Date()
@@ -200,6 +201,13 @@ do {
         plies += 1
     }
     let dead = GoMCTS.suggestDead(g.board, komi: g.komi)
+    for r in 0..<9 {
+        print("     " + (0..<9).map { c -> String in
+            let p = r * 9 + c, v = g.board.cells[p]
+            return v == 0 ? "." : (dead.contains(p) ? (v == 1 ? "x" : "o") : (v == 1 ? "X" : "O"))
+        }.joined())
+    }
+    print("     moves: \(g.moves.map(String.init).joined(separator: " "))")
     check(g.isOver, "go self-play finished in \(plies) plies, margin \(g.margin(dead: dead)) with \(dead.count) dead")
 }
 

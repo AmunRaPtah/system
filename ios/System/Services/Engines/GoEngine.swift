@@ -425,8 +425,14 @@ final class GoMCTS {
     private func expand(_ node: Node, _ b: inout GoBoard) {
         node.expanded = true
         let c = b.toPlay
+        let o = GoStone.other(c)
         for p in 0..<b.points where b.cells[p] == 0 && !b.isEye(p, c) && b.isLegal(p, c) {
-            node.children.append(Node(move: p, colour: c, parent: node))
+            let child = Node(move: p, colour: c, parent: node)
+            // Prior: captures and atari escapes start with a few virtual wins.
+            var urgent = false
+            for x in b.nbr[p] where b.cells[x] != 0 && b.liberties(x, limit: 2) == 1 { urgent = urgent || b.cells[x] == o || b.cells[x] == c }
+            if urgent { child.visits = 6; child.wins = 5 }
+            node.children.append(child)
         }
         node.children.append(Node(move: passMove, colour: c, parent: node))
     }
