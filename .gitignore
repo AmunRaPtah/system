@@ -5,4 +5,5 @@ build/
 .DS_Store
 xcuserdata/
 ios/Support/Info.plist
+ios/Support/Widget-Info.plist
 __pycache__/

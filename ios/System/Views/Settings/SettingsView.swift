@@ -25,6 +25,7 @@ struct SettingsView: View {
                     Text("Week \(pos.week) · day \(pos.dayInWeek + 1)\(pos.isDeload ? " · deload" : "")")
                         .font(Theme.mono(12)).foregroundStyle(Theme.dim)
                 }
+                HealthSettingsSection()
                 Section("Content") {
                     let status = ContentLibrary.shared.status
                     ForEach(status.keys.sorted(), id: \.self) { k in

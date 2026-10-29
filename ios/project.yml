@@ -25,6 +25,11 @@ targets:
       - path: System/Resources/Content
         type: folder
         buildPhase: resources
+    dependencies:
+      - target: SystemWidget
+        embed: true
+    entitlements:
+      path: Support/System.entitlements
     info:
       path: Support/Info.plist
       properties:
@@ -42,6 +47,7 @@ targets:
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
         UIUserInterfaceStyle: Dark
+        NSHealthShareUsageDescription: "System reads your steps, active energy, sleep and workouts (read-only, on this device) to auto-complete body quests and soften penalties after a short night."
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.zyco.system
@@ -51,6 +57,32 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         TARGETED_DEVICE_FAMILY: "1"
         ENABLE_PREVIEWS: YES
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: ""
+        DEVELOPMENT_TEAM: ""
+  SystemWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: SystemWidget
+      - path: System/Shared/WidgetSnapshot.swift
+    entitlements:
+      path: Support/SystemWidget.entitlements
+    info:
+      path: Support/Widget-Info.plist
+      properties:
+        CFBundleDisplayName: System
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: org.zyco.system.widget
+        PRODUCT_NAME: SystemWidget
+        TARGETED_DEVICE_FAMILY: "1"
+        SKIP_INSTALL: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
         CODE_SIGN_STYLE: Manual
         CODE_SIGN_IDENTITY: ""
         DEVELOPMENT_TEAM: ""
