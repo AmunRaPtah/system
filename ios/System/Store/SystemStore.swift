@@ -95,6 +95,7 @@ final class SystemStore {
         refresh()
         reschedule()
         checkAchievements()
+        syncHealth()
     }
 
     func requestNotificationsIfNeeded() {
@@ -147,6 +148,7 @@ final class SystemStore {
         snap.bestStreak = s.1
         player = snap
         revision += 1
+        publishWidgetSnapshot()
     }
 
     func bestBenchmarks() -> Benchmarks {
@@ -242,7 +244,7 @@ final class SystemStore {
     }
 
     func penaltyHalved(_ key: String = DayKey.today) -> Bool {
-        (plan(key, create: false)?.penaltyStrained ?? false) || (checkIn(key)?.isStrained ?? false)
+        (plan(key, create: false)?.penaltyStrained ?? false) || (checkIn(key)?.isStrained ?? false) || healthStrained(key)
     }
 
     func displayDetail(_ q: Quest, on key: String = DayKey.today) -> String {
@@ -510,6 +512,7 @@ final class SystemStore {
         // Never stacks: one penalty quest at most, one deduction per issue.
         guard !tp.penaltyIssued else { return }
         let strained = (checkIn(missedDay)?.isStrained ?? false) || (checkIn(today)?.isStrained ?? false)
+            || healthStrained(missedDay) || healthStrained(today)
         var amount = strained ? QuestEngine.penaltyXP / 2 : QuestEngine.penaltyXP
         // Hard but safe: a penalty never costs a level.
         amount = min(amount, max(0, player.totalXP - Leveling.floor(of: player.level)))

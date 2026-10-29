@@ -61,7 +61,18 @@ jobs:
           test -n "$APP" || { echo "No .app found"; find dd/Build/Products -name '*.app'; exit 1; }
           rm -rf Payload && mkdir -p Payload
           cp -R "$APP" Payload/
+          # Widget must be embedded; ad-hoc sign both bundles with their
+          # entitlements so SideStore/AltStore see HealthKit + the App Group
+          # (an unsigned build carries no entitlements at all).
+          SUP="$GITHUB_WORKSPACE/ios/Support"
+          test -d Payload/System.app/PlugIns/SystemWidget.appex || { echo "SystemWidget.appex not embedded"; exit 1; }
+          grep -q healthkit "$SUP/System.entitlements" || { echo "System.entitlements is empty"; exit 1; }
+          grep -q group.org.zyco.system "$SUP/SystemWidget.entitlements" || { echo "SystemWidget.entitlements is empty"; exit 1; }
+          codesign --force --sign - --entitlements "$SUP/SystemWidget.entitlements" Payload/System.app/PlugIns/SystemWidget.appex
+          codesign --force --sign - --entitlements "$SUP/System.entitlements" Payload/System.app
+          codesign -d --entitlements - Payload/System.app 2>&1 | grep -E 'healthkit|application-groups' || true
           zip -qry System.ipa Payload
+          unzip -l System.ipa | grep -E 'SystemWidget.appex/(SystemWidget|Info.plist)$'
           ls -lh System.ipa
 
       - uses: actions/upload-artifact@v4

@@ -88,6 +88,7 @@ struct DailyBoard: View {
             .systemPanel()
 
             if store.checkIn(today) == nil { CheckInCard() }
+            HealthTodayCard()
 
             ForEach(quests) { q in
                 QuestCard(quest: q, done: store.isDone(q, on: today))
