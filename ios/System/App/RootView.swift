@@ -4,6 +4,7 @@ struct RootView: View {
     @Environment(SystemStore.self) private var store
     @Environment(\.scenePhase) private var scenePhase
     @State private var showSettings = false
+    @State private var awakening = false
 
     var body: some View {
         ZStack {
@@ -28,8 +29,10 @@ struct RootView: View {
         }
         .animation(.easeOut(duration: 0.22), value: store.alerts.first?.id)
         .sheet(isPresented: $showSettings) { SettingsView() }
+        .fullScreenCover(isPresented: $awakening) { AwakeningView() }
         .onAppear {
-            store.requestNotificationsIfNeeded()
+            // A fresh install asks for notifications inside the Awakening instead.
+            if store.needsAwakening() { awakening = true } else { store.requestNotificationsIfNeeded() }
             store.tick()
         }
         .onChange(of: scenePhase) { _, phase in
@@ -88,6 +91,7 @@ struct SystemAlertOverlay: View {
             case .levelUp, .rankUp: Haptics.levelUp()
             case .penalty: Haptics.error()
             case .info: Haptics.impact()
+            case .achievement: Haptics.levelUp()
             }
         }
     }
@@ -99,6 +103,7 @@ struct SystemAlertOverlay: View {
         case .rankUp: return "crown.fill"
         case .penalty: return "exclamationmark.triangle.fill"
         case .info: return "info.circle.fill"
+        case .achievement: return "rosette"
         }
     }
 }

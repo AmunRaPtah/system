@@ -9,6 +9,7 @@ struct SettingsView: View {
     @State private var start = Date()
     @State private var confirmReset = false
     @State private var loaded = false
+    @State private var replayAwakening = false
 
     var body: some View {
         NavigationStack {
@@ -35,6 +36,9 @@ struct SettingsView: View {
                         }
                     }
                 }
+                Section("Player") {
+                    Button("Replay the Awakening") { replayAwakening = true }
+                }
                 Section {
                     Button("Reset all progress", role: .destructive) { confirmReset = true }
                 }
@@ -56,6 +60,10 @@ struct SettingsView: View {
                 }
             }
             .onAppear(perform: load)
+            // The Awakening can move the start date; keep Done from reverting it.
+            .fullScreenCover(isPresented: $replayAwakening, onDismiss: { start = DayKey.date(store.startKey) }) {
+                AwakeningView(replay: true)
+            }
         }
         .preferredColorScheme(.dark)
     }

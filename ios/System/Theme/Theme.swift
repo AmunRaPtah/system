@@ -42,6 +42,7 @@ enum Theme {
         case .levelUp: return gold
         case .rankUp: return violet
         case .penalty: return red
+        case .achievement: return green
         }
     }
 }
