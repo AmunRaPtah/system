@@ -288,6 +288,7 @@ struct SystemBar: View {
 struct SystemButtonStyle: ButtonStyle {
     var color: Color = Theme.cyan
     var filled = false
+    @Environment(\.isEnabled) private var isEnabled
     func makeBody(configuration: Configuration) -> some View {
         let shape = Chamfer(cut: 7)
         configuration.label
@@ -305,6 +306,8 @@ struct SystemButtonStyle: ButtonStyle {
             .shadow(color: color.opacity(configuration.isPressed ? 0.9 : 0.35), radius: configuration.isPressed ? 12 : 5)
             .scaleEffect(configuration.isPressed ? 0.97 : 1)
             .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
+            .saturation(isEnabled ? 1 : 0)
+            .opacity(isEnabled ? 1 : 0.4)
     }
 }
 
