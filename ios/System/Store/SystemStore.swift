@@ -3,7 +3,7 @@ import SwiftData
 import Observation
 
 struct SystemAlert: Identifiable, Equatable {
-    enum Style: Equatable { case quest, levelUp, rankUp, penalty, info, achievement }
+    enum Style: Equatable { case quest, levelUp, rankUp, penalty, info, achievement, arise }
     let id = UUID()
     var style: Style
     var title: String
@@ -95,6 +95,7 @@ final class SystemStore {
         refresh()
         reschedule()
         checkAchievements()
+        checkShadows()
         syncHealth()
     }
 
@@ -206,7 +207,8 @@ final class SystemStore {
         let ls = ladderState()
         return QuestContext(dayKey: key, startKey: startKey, allowedDifficulty: player.rank.allowedDifficulty,
                             ladderStep: ls.step, ladderProgress: ls.count,
-                            completedLessonIDs: completedLessonIDs())
+                            completedLessonIDs: completedLessonIDs(),
+                            preparationTier: preparationTier)
     }
 
     // MARK: - Plans and quests
@@ -248,15 +250,22 @@ final class SystemStore {
     }
 
     func displayDetail(_ q: Quest, on key: String = DayKey.today) -> String {
-        q.kind == .penalty ? QuestEngine.penaltyDetail(halved: penaltyHalved(key)) : q.detail
+        var d: String
+        switch q.kind {
+        case .penalty: d = QuestEngine.penaltyDetail(tier: QuestEngine.tier(of: q), halved: penaltyHalved(key) || fatigue(key).high)
+        case .preparation: d = preparationDetail(q, on: key)
+        default: d = q.detail
+        }
+        if eyePrecautions && q.pillar == .body { d += "\n" + Self.precautionNote }
+        return d
     }
 
     // MARK: - XP plumbing
 
-    private typealias Before = (level: Int, rank: Rank)
-    private func begin() -> Before { (player.level, player.rank) }
+    typealias Before = (level: Int, rank: Rank)
+    func begin() -> Before { (player.level, player.rank) }
 
-    private func addXP(_ stat: Stat, _ amount: Int, source: String, note: String, key: String = DayKey.today) {
+    func addXP(_ stat: Stat, _ amount: Int, source: String, note: String, key: String = DayKey.today) {
         guard amount != 0 else { return }
         context.insert(XPEvent(dayKey: key, stat: stat, amount: amount, source: source, note: note))
     }
@@ -279,10 +288,13 @@ final class SystemStore {
         guard !claimed(ck) else { return nil }
         context.insert(Claim(key: ck))
         addXP(.SOV, 25, source: "daily-clear", note: "All dailies cleared", key: key)
+        if isComebackDay(key) {
+            return "DAILY QUEST CLEARED  +25 XP SOV\n[HIDDEN QUEST COMPLETE] Courage of the Weak: you came back."
+        }
         return "DAILY QUEST CLEARED  +25 XP SOV"
     }
 
-    private func finish(_ b: Before, style: SystemAlert.Style = .quest, title: String, lines: [String]) {
+    func finish(_ b: Before, style: SystemAlert.Style = .quest, title: String, lines: [String]) {
         save()
         refresh()
         if !lines.isEmpty || !title.isEmpty {
@@ -300,6 +312,7 @@ final class SystemStore {
                                               "Harder quests are now available."]))
         }
         checkAchievements()
+        checkShadows()
         reschedule()
     }
 
@@ -328,7 +341,18 @@ final class SystemStore {
             if c >= step.repeats { lines.append("Ladder step conquered. Next step unlocked.") }
             else { lines.append("Ladder \(c)/\(step.repeats)") }
         }
-        if q.kind == .penalty { lines.append("Penalty cleared. Discipline restored.") }
+        if q.kind == .penalty { lines.append("You survived the Penalty Zone. The chain holds.") }
+        if q.kind == .preparation {
+            let clears = preparationClears()
+            let tier = PreparationLoad.tier(clears: clears)
+            if tier > QuestEngine.tier(of: q) {
+                let next = PreparationLoad.at(tier: tier)
+                lines.append("Tier \(tier) unlocked. Tomorrow: \(next.reps) reps each · \(Fmt.num(next.km)) km.")
+            } else if tier < PreparationLoad.maxTier {
+                let left = PreparationLoad.clearsPerTier - clears % PreparationLoad.clearsPerTier
+                lines.append("\(left) more clear\(left == 1 ? "" : "s") to the next tier.")
+            }
+        }
         if let bonus = dailyBonusLine(key) { lines.append(bonus) }
         finish(b, style: q.kind == .penalty ? .info : .quest, title: "[QUEST COMPLETE]", lines: lines)
     }
@@ -461,7 +485,10 @@ final class SystemStore {
             lines.append("Sleep \(Fmt.num(sleep)) h · Soreness \(soreness)/5 · Mood \(mood)/5  +5 XP VIT")
         }
         if sleep < 6 || soreness >= 4 {
-            lines.append("Recovery flagged. Penalty load is halved today. Train smart.")
+            lines.append("Recovery flagged. Daily Quest and penalty loads are halved today. Train smart.")
+        }
+        if sleep < 7 {
+            lines.append("Sleep is the first stat. Anchor tonight: same lights-out time, screens away 30 min before.")
         }
         finish(b, style: .info, title: "[STATUS]", lines: lines)
     }
@@ -519,11 +546,18 @@ final class SystemStore {
         guard !tp.penaltyIssued else { return }
         let strained = (checkIn(missedDay)?.isStrained ?? false) || (checkIn(today)?.isStrained ?? false)
             || healthStrained(missedDay) || healthStrained(today)
-        var amount = strained ? QuestEngine.penaltyXP / 2 : QuestEngine.penaltyXP
+        // Never miss twice: a single miss costs no XP. Consecutive misses do.
+        var run = 0
+        var k = missedDay
+        while run < 60, plan(k, create: false)?.missed ?? false {
+            run += 1
+            k = DayKey.add(-1, to: k)
+        }
+        var amount = run < 2 ? 0 : (strained ? QuestEngine.penaltyXP / 2 : QuestEngine.penaltyXP)
         // Hard but safe: a penalty never costs a level.
         amount = min(amount, max(0, player.totalXP - Leveling.floor(of: player.level)))
         var qs = tp.quests
-        qs.append(QuestEngine.penaltyQuest(day: today))
+        qs.append(QuestEngine.penaltyQuest(day: today, tier: preparationTier))
         tp.quests = qs
         tp.penaltyIssued = true
         tp.penaltyDeduction = amount
@@ -533,8 +567,14 @@ final class SystemStore {
         }
         var lines = [count > 1 ? "Daily Quests were not completed on \(count) days." :
                         "Daily Quest for \(DayKey.pretty(missedDay)) was not completed."]
-        if amount > 0 { lines.append("−\(amount) XP WIL") }
-        lines.append("A Penalty Quest has been added to today.")
+        if run < 2 {
+            lines.append("No XP lost. One miss is an accident. Never miss twice.")
+        } else {
+            lines.append("\(run) days missed in a row. Two is the start of a pattern.")
+            if amount > 0 { lines.append("−\(amount) XP WIL") }
+            lines.append("[HIDDEN QUEST] Courage of the Weak: clear today's Daily Quest.")
+        }
+        lines.append("PENALTY QUEST: Survive has been added to today.")
         if strained { lines.append("Recovery flagged: penalty load halved.") }
         save()
         refresh()
@@ -604,7 +644,13 @@ final class SystemStore {
         let comps = fetchAll(QuestCompletion.self).filter { inBlock($0.dayKey) }
         let socialSov = comps.filter { $0.pillar == Pillar.social.rawValue || $0.pillar == Pillar.sovereign.rawValue }.count
         let ladder = fetchAll(LadderRecord.self).filter { inBlock($0.dayKey) }.count
-        let boss = fetchAll(AssessmentRecord.self).contains { inBlock($0.dayKey) }
+        // The boss falls only to a new record in at least one benchmark. The very
+        // first assessment sets the baseline and counts on its own.
+        let assessments = fetchAll(AssessmentRecord.self)
+        let before = assessments.filter { $0.dayKey < first }
+        let boss = assessments.filter { inBlock($0.dayKey) }.contains { a in
+            before.isEmpty || Self.improves(a, on: before)
+        }
         var steps = [
             DungeonStep(id: "train", title: "Clear 10 training sessions", current: workouts, goal: 10),
             DungeonStep(id: "perceive", title: "Complete 12 perception drills", current: drills, goal: 12),
@@ -620,6 +666,18 @@ final class SystemStore {
                             weekInBlock: pos.weekInBlock, firstKey: first, lastKey: last, steps: steps,
                             bossUnlocked: pos.weekInBlock == every, bossDone: boss,
                             claimed: claimed("dungeon-\(pos.block)"))
+    }
+
+    static func improves(_ a: AssessmentRecord, on prior: [AssessmentRecord]) -> Bool {
+        let run = prior.map(\.run1kSec).filter { $0 > 0 }.min()
+        let push = prior.map(\.pushups).filter { $0 > 0 }.max()
+        let plank = prior.map(\.plankSec).filter { $0 > 0 }.max()
+        let react = prior.map(\.reactionMs).filter { $0 > 0 }.min()
+        if a.run1kSec > 0, a.run1kSec < (run ?? .max) { return true }
+        if a.pushups > (push ?? 0) { return true }
+        if a.plankSec > (plank ?? 0) { return true }
+        if a.reactionMs > 0, a.reactionMs < (react ?? .max) { return true }
+        return false
     }
 
     func claimDungeon(_ d: DungeonState) {
@@ -715,6 +773,7 @@ final class SystemStore {
         resetAchievements()
         deleteAll(PokerDrillRecord.self); PokerDrill.resetLevels(defaults)
         deleteAll(PlayResult.self); deleteAll(SavedPlayGame.self)
+        deleteAll(VowLog.self)
         save()
         for k in [DefaultsKey.start, DefaultsKey.lastEval] { defaults.removeObject(forKey: k) }
         for d in DrillKind.allCases { defaults.removeObject(forKey: DefaultsKey.drillLevel(d)) }

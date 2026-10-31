@@ -62,7 +62,7 @@ struct SystemAlertOverlay: View {
                     Text("NOTIFICATION").font(Theme.mono(11, .bold)).foregroundStyle(Theme.dim).tracking(2)
                 }
                 Text(alert.title)
-                    .font(Theme.mono(alert.style == .levelUp || alert.style == .rankUp ? 26 : 20, .heavy))
+                    .font(Theme.mono(alert.style == .levelUp || alert.style == .rankUp || alert.style == .arise ? 26 : 20, .heavy))
                     .foregroundStyle(color)
                     .glow(color, radius: 10)
                     .multilineTextAlignment(.center)
@@ -91,7 +91,7 @@ struct SystemAlertOverlay: View {
             case .levelUp, .rankUp: Haptics.levelUp()
             case .penalty: Haptics.error()
             case .info: Haptics.impact()
-            case .achievement: Haptics.levelUp()
+            case .achievement, .arise: Haptics.levelUp()
             }
         }
     }
@@ -104,6 +104,7 @@ struct SystemAlertOverlay: View {
         case .penalty: return "exclamationmark.triangle.fill"
         case .info: return "info.circle.fill"
         case .achievement: return "rosette"
+        case .arise: return "moon.stars.fill"
         }
     }
 }

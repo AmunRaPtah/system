@@ -21,6 +21,7 @@ enum AchievementMetric: String {
     case workouts, cardioMinutes, assessments, pushups, plankSec, run1kSec, checkIns, ladder
     case drills, drillLevel, reactionMs, lessons, chessLessons, goLessons, pokerLessons, puzzles, perfectQuizzes
     case socialDone, sovereignDone
+    case preparation, preparationTier, comebacks, shadows, vowDays
 
     /// Benchmarks where a smaller number is the better result.
     var lowerIsBetter: Bool { self == .run1kSec || self == .reactionMs }
@@ -102,9 +103,24 @@ enum AchievementCatalog {
         Achievement(id: "sys-rank-a", name: "Above the Many", detail: "Earn A-Rank.",
                     pillar: nil, symbol: "shield.fill", metric: .rank, goal: Rank.A.rawValue,
                     title: PlayerTitle(name: "Lord of the High Gates", stat: .STR, bonus: 3)),
+        Achievement(id: "sys-comeback", name: "Courage of the Weak", detail: "Hidden quest: clear the Daily Quest after missing two days or more.",
+                    pillar: nil, symbol: "arrow.uturn.up.circle.fill", metric: .comebacks, goal: 1,
+                    title: PlayerTitle(name: "The One Who Overcame Adversity", stat: .WIL, bonus: 2)),
+        Achievement(id: "sys-arise", name: "Arise", detail: "Extract your first shadow.",
+                    pillar: nil, symbol: "moon.stars", metric: .shadows, goal: 1),
+        Achievement(id: "sys-army", name: "Shadow Army", detail: "Extract all seven shadows.",
+                    pillar: nil, symbol: "moon.stars.fill", metric: .shadows, goal: Shadow.all.count,
+                    title: PlayerTitle(name: "Monarch of Shadows", stat: .SOV, bonus: 3)),
     ]
 
     static let body: [Achievement] = [
+        Achievement(id: "body-prep-1", name: "Preparation Begins", detail: "Clear Preparation to Become Powerful once.",
+                    pillar: .body, symbol: "figure.strengthtraining.functional", metric: .preparation, goal: 1),
+        Achievement(id: "body-prep-tier-6", name: "Half the Road", detail: "Reach Daily Quest tier 6: 40 reps each and 4 km.",
+                    pillar: .body, symbol: "figure.walk", metric: .preparationTier, goal: 6),
+        Achievement(id: "body-prep-canon", name: "Preparation Complete", detail: "Reach the canon load: 100 push-ups, 100 sit-ups, 100 squats, 10 km.",
+                    pillar: .body, symbol: "bolt.fill", metric: .preparationTier, goal: PreparationLoad.maxTier,
+                    title: PlayerTitle(name: "The One Who Became Powerful", stat: .STR, bonus: 3)),
         Achievement(id: "body-workout-1", name: "First Rep", detail: "Log your first workout.",
                     pillar: .body, symbol: "dumbbell", metric: .workouts, goal: 1),
         Achievement(id: "body-workout-10", name: "Iron Habit", detail: "Log 10 workouts.",
@@ -172,6 +188,11 @@ enum AchievementCatalog {
     ]
 
     static let sovereign: [Achievement] = [
+        Achievement(id: "sov-vow-7", name: "Detoxification", detail: "Keep a vow on 7 days.",
+                    pillar: .sovereign, symbol: "leaf", metric: .vowDays, goal: 7),
+        Achievement(id: "sov-vow-100", name: "Poison Immunity", detail: "Keep a vow on 100 days.",
+                    pillar: .sovereign, symbol: "leaf.fill", metric: .vowDays, goal: 100,
+                    title: PlayerTitle(name: "The Unpoisoned", stat: .WIL, bonus: 2)),
         Achievement(id: "sov-1", name: "Self-Ruled", detail: "Complete a sovereign challenge.",
                     pillar: .sovereign, symbol: "crown", metric: .sovereignDone, goal: 1),
         Achievement(id: "sov-40", name: "Own Court", detail: "Complete 40 sovereign challenges.",

@@ -27,6 +27,16 @@ struct SettingsView: View {
                         .font(Theme.mono(12)).foregroundStyle(Theme.dim)
                 }
                 HealthSettingsSection()
+                VowSettingsSection()
+                Section {
+                    Toggle("Eye-pressure precautions", isOn: Binding(
+                        get: { store.eyePrecautions },
+                        set: { store.setEyePrecautions($0) }))
+                } header: {
+                    Text("Precautions")
+                } footer: {
+                    Text("For glaucoma or raised eye pressure. Adds breathing cues to every body quest: exhale on effort, no breath-holding, head above heart. Check with your eye doctor what is safe for you.")
+                }
                 Section("Content") {
                     let status = ContentLibrary.shared.status
                     ForEach(status.keys.sorted(), id: \.self) { k in
@@ -94,4 +104,40 @@ struct SettingsView: View {
         if DayKey.key(start) != store.startKey { store.setStart(start) }
         store.reschedule()
     }
+}
+
+/// Choose the vows shown on the Daily board. Stored on this device only.
+struct VowSettingsSection: View {
+    @Environment(SystemStore.self) private var store
+    @State private var custom = ""
+
+    var body: some View {
+        Section {
+            ForEach(VowPreset.presets) { v in
+                Toggle(isOn: Binding(
+                    get: { store.activeVowIDs.contains(v.id) },
+                    set: { store.setVow(v.id, active: $0) })) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(v.title)
+                        Text(v.detail).font(.caption).foregroundStyle(Theme.dim)
+                    }
+                }
+            }
+            TextField("Your own vow", text: $custom)
+                .onSubmit(commit)
+            Toggle("Use my own vow", isOn: Binding(
+                get: { store.activeVowIDs.contains(VowPreset.custom) },
+                set: { on in
+                    commit()
+                    store.setVow(VowPreset.custom, active: on && !store.customVowText.isEmpty)
+                }))
+        } header: {
+            Text("Vows")
+        } footer: {
+            Text("Mark each vow kept or slipped on the Daily board. A slip never costs XP or the Detoxification skill, only the streak.")
+        }
+        .onAppear { custom = store.customVowText }
+    }
+
+    func commit() { store.setCustomVow(custom) }
 }

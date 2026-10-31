@@ -141,6 +141,13 @@ extension SystemStore {
         m[.pokerLessons] = lessons.filter { $0.game == Game.poker.rawValue }.count
         m[.puzzles] = lessons.reduce(0) { $0 + $1.puzzlesSolved }
         m[.perfectQuizzes] = lessons.filter { $0.quizTotal > 0 && $0.quizCorrect >= $0.quizTotal }.count
+
+        let prep = comps.filter { $0.kind == QuestKind.preparation.rawValue }.count
+        m[.preparation] = prep
+        m[.preparationTier] = PreparationLoad.tier(clears: prep)
+        m[.comebacks] = comebackCount()
+        m[.shadows] = claims.filter { $0.hasPrefix("shadow-") }.count
+        m[.vowDays] = fetchAll(VowLog.self).filter { $0.judged && $0.kept }.count
         return m
     }
 

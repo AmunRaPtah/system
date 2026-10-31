@@ -40,7 +40,7 @@ enum Theme {
         switch s {
         case .quest, .info: return cyan
         case .levelUp: return gold
-        case .rankUp: return violet
+        case .rankUp, .arise: return violet
         case .penalty: return red
         case .achievement: return green
         }

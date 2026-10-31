@@ -32,6 +32,27 @@ struct StatsView: View {
                             Text("BEST \(p.bestStreak)").foregroundStyle(Theme.dim)
                         }
                         .font(Theme.mono(12, .bold))
+                        let f = store.fatigue()
+                        let job = store.job
+                        VStack(alignment: .leading, spacing: 6) {
+                            HStack {
+                                Text("JOB  \(job.uppercased())").foregroundStyle(job == "None" ? Theme.dim : Theme.violet)
+                                Spacer()
+                                Text("FATIGUE \(f.value) · \(f.label)").foregroundStyle(f.high ? Theme.red : Theme.dim)
+                            }
+                            .font(Theme.mono(12, .bold))
+                            if job == "None" {
+                                Text(store.jobRequirement).font(Theme.mono(10)).foregroundStyle(Theme.dim)
+                            }
+                            if !f.reasons.isEmpty {
+                                Text("Fatigue: " + f.reasons.joined(separator: ", ") + (f.high ? ". Load halved." : "."))
+                                    .font(Theme.mono(10)).foregroundStyle(f.high ? Theme.red : Theme.dim)
+                            }
+                            NavigationLink { ShadowArmyView() } label: {
+                                Text("[SHADOW ARMY · \(store.extractedShadowIDs().count)/\(Shadow.all.count)] ›")
+                                    .font(Theme.mono(12, .bold)).foregroundStyle(Theme.violet)
+                            }
+                        }
                         if let t = p.trialPending {
                             NavigationLink { AssessmentView() } label: {
                                 Text("[RANK-UP TRIAL AVAILABLE: \(t.letter)]").font(Theme.mono(12, .bold)).foregroundStyle(Theme.red)

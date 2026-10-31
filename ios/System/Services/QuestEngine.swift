@@ -8,6 +8,8 @@ struct QuestContext {
     var ladderStep: LadderStep?
     var ladderProgress: Int
     var completedLessonIDs: Set<String>
+    /// Tier of the canon daily, from the number of times it has been cleared.
+    var preparationTier: Int = 0
 }
 
 enum QuestEngine {
@@ -45,7 +47,12 @@ enum QuestEngine {
                                 pillar: .body, stat: .VIT, xp: 20, refID: "recovery", proof: "check", minutes: 40))
         }
 
-        // BODY 2: discomfort ladder.
+        // BODY 2: the canon Daily Quest. Skipped on boss day; the assessment is enough.
+        if !pos.isAssessmentDay {
+            quests.append(preparationQuest(day: d, tier: ctx.preparationTier))
+        }
+
+        // BODY 3: discomfort ladder.
         if let step = ctx.ladderStep {
             quests.append(Quest(id: "\(d)-ladder-\(step.id)", kind: .ladder,
                                 title: step.title,
@@ -114,19 +121,49 @@ enum QuestEngine {
         }
     }
 
-    // MARK: penalty
+    // MARK: preparation
 
-    static func penaltyQuest(day: String) -> Quest {
-        Quest(id: "\(day)-penalty", kind: .penalty, title: "PENALTY QUEST: Make-up Set",
-              detail: penaltyDetail(halved: false), pillar: .body, stat: .WIL, xp: 20,
-              refID: "penalty", proof: "check", minutes: 25)
+    static func preparationQuest(day: String, tier: Int) -> Quest {
+        Quest(id: "\(day)-prep", kind: .preparation, title: "Preparation to Become Powerful",
+              detail: preparationDetail(PreparationLoad.at(tier: tier), tier: tier, reduced: nil),
+              pillar: .body, stat: .STR, xp: 25, refID: "prep-\(tier)", proof: "check", minutes: 30)
     }
 
-    static func penaltyDetail(halved: Bool) -> String {
-        if halved {
-            return "Load halved (poor sleep or high soreness logged): 25 push-ups (any sets, knees allowed), 25 air squats, 90 s total plank, 10-min brisk walk."
+    /// The tier a quest was issued at. Older plans have no tier and read as 0.
+    static func tier(of q: Quest) -> Int {
+        Int(q.refID.split(separator: "-").last ?? "") ?? 0
+    }
+
+    static func preparationDetail(_ load: PreparationLoad, tier: Int, reduced: String?) -> String {
+        var s = "\(load.reps) push-ups · \(load.reps) sit-ups · \(load.reps) squats · \(Fmt.num(load.km)) km walk or run. "
+            + "Any sets, any order, spread across the day. Knee push-ups count; walking counts."
+        if let r = reduced { s += "\nLoad halved: \(r)." }
+        if tier >= PreparationLoad.maxTier {
+            s += "\nCanon load reached: 100 · 100 · 100 · 10 km."
+        } else {
+            s += "\nTier \(tier)/\(PreparationLoad.maxTier). The load rises every \(PreparationLoad.clearsPerTier) clears."
         }
-        return "50 push-ups (any sets, knees allowed), 50 air squats, 3 min total plank, 15-min brisk walk."
+        return s
+    }
+
+    // MARK: penalty
+
+    static func penaltyQuest(day: String, tier: Int) -> Quest {
+        Quest(id: "\(day)-penalty", kind: .penalty, title: "PENALTY QUEST: Survive",
+              detail: penaltyDetail(tier: tier, halved: false), pillar: .body, stat: .WIL, xp: 20,
+              refID: "penalty-\(tier)", proof: "check", minutes: 25)
+    }
+
+    /// Half a Daily Quest's reps (a quarter when strained) plus a brisk walk. At the
+    /// canon tier that is the old 50-rep make-up set; at the start it is 10 reps.
+    static func penaltyDetail(tier: Int, halved: Bool) -> String {
+        let reps = PreparationLoad.at(tier: tier).reps
+        if halved {
+            let r = max(5, reps / 4)
+            return "The Penalty Zone, load halved (poor sleep, soreness or fatigue logged): \(r) push-ups, \(r) sit-ups, \(r) squats, then a 10-minute brisk walk. Any sets, knees allowed."
+        }
+        let r = max(10, reps / 2)
+        return "The Penalty Zone. Survive it: \(r) push-ups, \(r) sit-ups, \(r) squats, then a 15-minute brisk walk. Any sets, knees allowed. Hard, not punishing."
     }
 
     static let penaltyXP = 40

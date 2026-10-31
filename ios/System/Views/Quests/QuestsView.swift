@@ -54,6 +54,12 @@ struct PlayerHeader: View {
                 Spacer()
                 Text("STREAK \(p.streak)d").font(Theme.mono(11, .bold)).foregroundStyle(p.streak > 0 ? Theme.cyan : Theme.dim)
             }
+            let f = store.fatigue()
+            HStack(spacing: 8) {
+                Text("FATIGUE").font(Theme.mono(10, .bold)).foregroundStyle(Theme.dim)
+                SystemBar(value: Double(f.value) / 100, color: f.high ? Theme.red : (f.value >= 30 ? Theme.gold : Theme.green), height: 4)
+                Text("\(f.value) \(f.label)").font(Theme.mono(10, .bold)).foregroundStyle(f.high ? Theme.red : Theme.dim)
+            }
             if let trial = p.trialPending {
                 Text("Rank-up trial open: \(trial.letter)-Rank. Pass the benchmarks on Train → Assessment.")
                     .font(Theme.mono(11)).foregroundStyle(Theme.gold)
@@ -89,6 +95,7 @@ struct DailyBoard: View {
 
             if store.checkIn(today) == nil { CheckInCard() }
             HealthTodayCard()
+            VowCard()
 
             ForEach(quests) { q in
                 QuestCard(quest: q, done: store.isDone(q, on: today))
@@ -96,7 +103,7 @@ struct DailyBoard: View {
             if quests.isEmpty {
                 Text("Generating quests…").font(Theme.mono(12)).foregroundStyle(Theme.dim)
             }
-            Text("Missed dailies are judged when you next open the app. One Penalty Quest at most, never on deload weeks.")
+            Text("Missed dailies are judged when you next open the app. One Penalty Quest at most, never on deload weeks. A single miss costs no XP: never miss twice.")
                 .font(Theme.mono(10)).foregroundStyle(Theme.dim).multilineTextAlignment(.center)
         }
     }
@@ -149,12 +156,26 @@ struct QuestCard: View {
     let done: Bool
     @State private var note = ""
 
-    var color: Color { quest.kind == .penalty ? Theme.red : (quest.kind == .assessment ? Theme.gold : Theme.color(quest.pillar)) }
+    var color: Color {
+        switch quest.kind {
+        case .penalty: return Theme.red
+        case .assessment, .preparation: return Theme.gold
+        default: return Theme.color(quest.pillar)
+        }
+    }
+
+    var tag: String {
+        switch quest.kind {
+        case .penalty: return "PENALTY"
+        case .preparation: return "DAILY QUEST"
+        default: return quest.pillar.label
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 6) {
-                Tag(text: quest.kind == .penalty ? "PENALTY" : quest.pillar.label, color: color)
+                Tag(text: tag, color: color)
                 Tag(text: quest.stat.rawValue, color: Theme.dim)
                 if quest.minutes > 0 { Tag(text: "\(quest.minutes) MIN", color: Theme.dim) }
                 Spacer()
@@ -205,6 +226,61 @@ struct QuestCard: View {
                 Button("COMPLETE") { store.complete(quest, note: note) }
                     .buttonStyle(.system(color, filled: true))
                     .disabled((quest.proof == "note" || quest.proof == "count") && note.trimmingCharacters(in: .whitespaces).isEmpty)
+            }
+        }
+    }
+}
+
+// MARK: - Vows
+
+/// Today's vows: mark each kept or slipped, and log cravings resisted.
+struct VowCard: View {
+    @Environment(SystemStore.self) private var store
+
+    var body: some View {
+        let vows = store.activeVows()
+        if !vows.isEmpty {
+            let detox = store.detoxification()
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    BracketHeader(title: "Vows", color: Theme.violet, size: 12)
+                    Spacer()
+                    Text("DETOXIFICATION LV. \(detox.level)").font(Theme.mono(10, .bold)).foregroundStyle(Theme.violet)
+                }
+                ForEach(vows) { v in row(v) }
+                Text("Skills, once learned, are not lost. A slip resets the streak, never the skill.")
+                    .font(Theme.mono(10)).foregroundStyle(Theme.dim)
+            }
+            .systemPanel(Theme.violet)
+        }
+    }
+
+    func row(_ v: VowPreset) -> some View {
+        let log = store.vowLog(v.id)
+        let streak = store.vowStreak(v.id)
+        return VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text(v.title).font(Theme.mono(13, .bold)).foregroundStyle(Theme.text)
+                Spacer()
+                Text("\(streak.current)d · BEST \(streak.best)d").font(Theme.mono(10)).foregroundStyle(Theme.dim)
+            }
+            Text(v.detail).font(.system(size: 12)).foregroundStyle(Theme.dim)
+            HStack(spacing: 8) {
+                if let l = log, l.judged {
+                    Text(l.kept ? "KEPT" : "SLIPPED").font(Theme.mono(11, .bold))
+                        .foregroundStyle(l.kept ? Theme.green : Theme.dim)
+                    Button(l.kept ? "UNDO: SLIPPED" : "UNDO: KEPT") { store.judgeVow(v, kept: !l.kept) }
+                        .buttonStyle(.system(Theme.dim))
+                } else {
+                    Button("KEPT") { store.judgeVow(v, kept: true) }.buttonStyle(.system(Theme.green, filled: true))
+                    Button("SLIPPED") { store.judgeVow(v, kept: false) }.buttonStyle(.system(Theme.dim))
+                }
+            }
+            if v.craving {
+                Button("I RESISTED A CRAVING" + ((log?.cravingsResisted ?? 0) > 0 ? " (\(log?.cravingsResisted ?? 0))" : "")) {
+                    store.resistCraving(v)
+                }
+                .buttonStyle(.system(Theme.violet))
             }
         }
     }
@@ -281,7 +357,7 @@ struct DungeonBoard: View {
                     Image(systemName: "flame.fill").foregroundStyle(Theme.red).glow(Theme.red)
                     Text("BOSS: ASSESSMENT DAY").font(Theme.mono(15, .heavy)).foregroundStyle(Theme.red)
                 }
-                Text("Last day of week \(store.lib.training.deloadEvery). 1 km run for time, push-up max, plank max, reaction baseline.")
+                Text("Last day of week \(store.lib.training.deloadEvery). 1 km run for time, push-up max, plank max, reaction baseline. The boss falls only to a new record in at least one of them.")
                     .font(.system(size: 13)).foregroundStyle(Theme.dim)
                 if d.bossDone {
                     Text("BOSS DEFEATED").font(Theme.mono(13, .bold)).foregroundStyle(Theme.green)
