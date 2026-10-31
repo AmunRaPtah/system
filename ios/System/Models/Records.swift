@@ -233,5 +233,6 @@ enum Schema_ {
         PokerDrillRecord.self,
         PlayResult.self, SavedPlayGame.self,
         VowLog.self,
+        MindLog.self,
     ]
 }

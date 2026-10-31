@@ -3,17 +3,21 @@ import SwiftUI
 struct MindView: View {
     @Environment(SystemStore.self) private var store
     private let lib = ContentLibrary.shared
+    @State private var showBreath = DemoMode.screen == "breath"
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 14) {
-                    BracketHeader(title: "Perception", size: 13)
+                    MentalTrainingSection()
+
+                    BracketHeader(title: "Perception", size: 13).padding(.top, 6)
                     ForEach(DrillKind.allCases) { kind in
                         NavigationLink { DrillHostView(kind: kind) } label: { DrillRow(kind: kind) }
                             .buttonStyle(.plain)
                     }
-                    Text("Audio direction drill: not in v1.").font(Theme.mono(10)).foregroundStyle(Theme.dim)
+                    Text("Drills sharpen the drill itself. Transfer to everyday attention is limited, so treat the levels as a game, not a brain scan.")
+                        .font(Theme.mono(10)).foregroundStyle(Theme.dim)
 
                     BracketHeader(title: "Strategy", size: 13).padding(.top, 6)
                     if lib.availableGames.isEmpty {
@@ -39,6 +43,7 @@ struct MindView: View {
                 .padding()
             }
             .systemScreen("MIND")
+            .navigationDestination(isPresented: $showBreath) { PracticeView(practice: .breath) }
         }
     }
 }

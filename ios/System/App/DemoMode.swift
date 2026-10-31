@@ -43,7 +43,10 @@ extension SystemStore {
                                                pillar: Pillar.body.rawValue, stat: Stat.STR.rawValue))
             }
             if i <= 12 { context.insert(Claim(key: "daily-\(k)")) }
-            if i <= 32 { context.insert(CheckIn(dayKey: k, sleepHours: 7.5, soreness: 2, mood: 4)) }
+            if i <= 32 { context.insert(CheckIn(dayKey: k, sleepHours: 7.5, soreness: 2, mood: 2 + (i * 5) % 4)) }
+            if i <= 24, i % 4 != 0 {
+                context.insert(MindLog(dayKey: k, practice: MindPractice.forDay(i), minutes: 10, entries: []))
+            }
             if let s = strength, i % 3 == 0 {
                 let w = WorkoutLog(dayKey: k, sessionID: s.id, sessionTitle: s.title, week: 1, type: "strength")
                 w.rpe = 7
@@ -57,7 +60,7 @@ extension SystemStore {
                 context.insert(v)
             }
         }
-        context.insert(CheckIn(dayKey: today, sleepHours: 6.5, soreness: 3, mood: 3))
+        context.insert(CheckIn(dayKey: today, sleepHours: 6.5, soreness: 3, mood: DemoMode.screen == "support" ? 1 : 3))
         _ = plan(today)
         save()
         refresh()

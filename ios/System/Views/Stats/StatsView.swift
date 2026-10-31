@@ -3,6 +3,7 @@ import Charts
 
 struct StatsView: View {
     @Environment(SystemStore.self) private var store
+    @State private var showShadows = DemoMode.screen == "shadows"
 
     var body: some View {
         let p = store.player
@@ -113,6 +114,7 @@ struct StatsView: View {
                 .padding()
             }
             .systemScreen("STATUS")
+            .navigationDestination(isPresented: $showShadows) { ShadowArmyView() }
         }
     }
 }

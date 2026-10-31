@@ -60,6 +60,8 @@ jobs:
           shot 4-stats -tab 3
           shot 5-shadows -tab 3 -screen shadows
           shot 6-arise -tab 0 -alert
+          shot 7-breath -tab 2 -screen breath
+          shot 8-support -tab 0 -screen support
           ls -l shots
 
       - uses: actions/upload-artifact@v4

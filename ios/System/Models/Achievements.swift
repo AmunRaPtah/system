@@ -22,6 +22,7 @@ enum AchievementMetric: String {
     case drills, drillLevel, reactionMs, lessons, chessLessons, goLessons, pokerLessons, puzzles, perfectQuizzes
     case socialDone, sovereignDone
     case preparation, preparationTier, comebacks, shadows, vowDays
+    case practiceDays, focusBlocks
 
     /// Benchmarks where a smaller number is the better result.
     var lowerIsBetter: Bool { self == .run1kSec || self == .reactionMs }
@@ -175,6 +176,16 @@ enum AchievementCatalog {
                     pillar: .mind, symbol: "puzzlepiece.fill", metric: .puzzles, goal: 20),
         Achievement(id: "mind-quiz-10", name: "Flawless Recall", detail: "Ace 10 lesson quizzes.",
                     pillar: .mind, symbol: "checkmark.seal", metric: .perfectQuizzes, goal: 10),
+        Achievement(id: "mind-practice-1", name: "Still Water", detail: "Log a mental training practice.",
+                    pillar: .mind, symbol: "wind", metric: .practiceDays, goal: 1),
+        Achievement(id: "mind-practice-30", name: "Tenacity", detail: "Train the mind on 30 days.",
+                    pillar: .mind, symbol: "flame", metric: .practiceDays, goal: 30,
+                    title: PlayerTitle(name: "The Unbroken", stat: .WIL, bonus: 2)),
+        Achievement(id: "mind-practice-100", name: "Iron Mind", detail: "Train the mind on 100 days.",
+                    pillar: .mind, symbol: "flame.fill", metric: .practiceDays, goal: 100),
+        Achievement(id: "mind-focus-20", name: "Instant Dungeon", detail: "Clear 20 focus blocks.",
+                    pillar: .mind, symbol: "door.left.hand.open", metric: .focusBlocks, goal: 20,
+                    title: PlayerTitle(name: "Dungeon Diver", stat: .INT, bonus: 2)),
     ]
 
     static let social: [Achievement] = [

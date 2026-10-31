@@ -10,6 +10,7 @@ enum QuestKind: String, Codable {
     case penalty      // make-up set after a missed day, manual
     case assessment   // boss: benchmark day, completes when an assessment is logged
     case preparation  // canon daily: push-ups, sit-ups, squats, distance at the player's tier, manual
+    case practice     // mental training, completes when any mind practice is logged
 }
 
 /// A single daily quest. Plans are generated once per day and persisted, so the

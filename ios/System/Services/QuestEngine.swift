@@ -79,6 +79,13 @@ enum QuestEngine {
                                 proof: "drill", minutes: 3))
         }
 
+        // MIND 2: mental training. Any practice clears it; the named one is today's suggestion.
+        let p = MindPractice.forDay(pos.dayIndex)
+        quests.append(Quest(id: "\(d)-practice", kind: .practice, title: "Mental Training: \(p.title)",
+                            detail: p.detail + " Any practice in the Mind tab clears this quest.",
+                            pillar: .mind, stat: .WIL, xp: 20, refID: p.rawValue, proof: "practice",
+                            minutes: max(5, p.minutes)))
+
         // SOCIAL and SOVEREIGN from challenges.json.
         for pillar in [Pillar.social, .sovereign] {
             if let c = pickChallenge(pillar: pillar, maxDifficulty: ctx.allowedDifficulty, rng: &rng) {

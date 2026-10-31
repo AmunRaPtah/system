@@ -424,6 +424,35 @@ final class SystemStore {
         finish(b, title: q.isEmpty ? "[DRILL COMPLETE]" : "[QUEST COMPLETE]", lines: lines)
     }
 
+    /// Logs a mental-training practice. XP is paid once per practice per day so the
+    /// tool is never farmed, and any practice clears today's Mental Training quest.
+    func logPractice(_ p: MindPractice, minutes: Int, entries: [String], feelingBefore: Int = -1, feelingAfter: Int = -1) {
+        let key = DayKey.today
+        let b = begin()
+        let firstDay = !practiceDayKeys().contains(key)
+        context.insert(MindLog(dayKey: key, practice: p, minutes: minutes, entries: entries,
+                               feelingBefore: feelingBefore, feelingAfter: feelingAfter))
+        var lines: [String] = []
+        let ck = "practice-\(key)-\(p.rawValue)"
+        if !claimed(ck) {
+            context.insert(Claim(key: ck))
+            addXP(p.stat, 10, source: "practice", note: p.title)
+            lines.append("\(p.title) complete.  +10 XP \(p.stat.rawValue)")
+        } else {
+            lines.append("\(p.title) complete.")
+        }
+        if feelingBefore >= 0, feelingAfter >= 0 {
+            let d = feelingBefore - feelingAfter
+            lines.append(d > 0 ? "Intensity \(feelingBefore) → \(feelingAfter). It moved." : "Intensity \(feelingBefore) → \(feelingAfter). Logged honestly; that counts.")
+        }
+        if firstDay {
+            let t = tenacity()
+            lines.append("Tenacity Lv. \(t.level) · \(t.days) day\(t.days == 1 ? "" : "s") of training")
+        }
+        lines += autoComplete(.practice, ref: nil)
+        finish(b, title: "[MENTAL TRAINING]", lines: lines)
+    }
+
     /// XP entry point for features that live in their own files (Play vs engine).
     /// Insert any records into `context` first; this saves, refreshes and raises alerts.
     func awardXP(_ stat: Stat, _ amount: Int, source: String, note: String, title: String, lines: [String]) {
@@ -553,12 +582,16 @@ final class SystemStore {
             run += 1
             k = DayKey.add(-1, to: k)
         }
-        var amount = run < 2 ? 0 : (strained ? QuestEngine.penaltyXP / 2 : QuestEngine.penaltyXP)
+        // Low mood is never punished. A hard day gets support, not a deduction.
+        let lowMood = (checkIn(missedDay)?.mood ?? 3) <= 2 || (checkIn(today)?.mood ?? 3) <= 1
+        var amount = run < 2 || lowMood ? 0 : (strained ? QuestEngine.penaltyXP / 2 : QuestEngine.penaltyXP)
         // Hard but safe: a penalty never costs a level.
         amount = min(amount, max(0, player.totalXP - Leveling.floor(of: player.level)))
-        var qs = tp.quests
-        qs.append(QuestEngine.penaltyQuest(day: today, tier: preparationTier))
-        tp.quests = qs
+        if !lowMood {
+            var qs = tp.quests
+            qs.append(QuestEngine.penaltyQuest(day: today, tier: preparationTier))
+            tp.quests = qs
+        }
         tp.penaltyIssued = true
         tp.penaltyDeduction = amount
         tp.penaltyStrained = strained
@@ -567,18 +600,26 @@ final class SystemStore {
         }
         var lines = [count > 1 ? "Daily Quests were not completed on \(count) days." :
                         "Daily Quest for \(DayKey.pretty(missedDay)) was not completed."]
-        if run < 2 {
+        if lowMood {
+            lines.append("Your status showed a hard day. No XP lost.")
+            lines.append("Rest counts. Tomorrow, one small step is enough.")
+        } else if run < 2 {
             lines.append("No XP lost. One miss is an accident. Never miss twice.")
         } else {
             lines.append("\(run) days missed in a row. Two is the start of a pattern.")
             if amount > 0 { lines.append("−\(amount) XP WIL") }
             lines.append("[HIDDEN QUEST] Courage of the Weak: clear today's Daily Quest.")
         }
-        lines.append("PENALTY QUEST: Survive has been added to today.")
-        if strained { lines.append("Recovery flagged: penalty load halved.") }
+        if lowMood {
+            lines.append("No Penalty Quest today. If things feel heavy, the Mind tab has gentle practices and support.")
+        } else {
+            lines.append("PENALTY QUEST: Survive has been added to today.")
+            if strained { lines.append("Recovery flagged: penalty load halved.") }
+        }
         save()
         refresh()
-        alerts.append(SystemAlert(style: .penalty, title: "[PENALTY]", lines: lines))
+        alerts.append(lowMood ? SystemAlert(style: .info, title: "[STATUS]", lines: lines)
+                              : SystemAlert(style: .penalty, title: "[PENALTY]", lines: lines))
     }
 
     // MARK: - Weekly and monthly
@@ -773,7 +814,7 @@ final class SystemStore {
         resetAchievements()
         deleteAll(PokerDrillRecord.self); PokerDrill.resetLevels(defaults)
         deleteAll(PlayResult.self); deleteAll(SavedPlayGame.self)
-        deleteAll(VowLog.self)
+        deleteAll(VowLog.self); deleteAll(MindLog.self)
         save()
         for k in [DefaultsKey.start, DefaultsKey.lastEval] { defaults.removeObject(forKey: k) }
         for d in DrillKind.allCases { defaults.removeObject(forKey: DefaultsKey.drillLevel(d)) }

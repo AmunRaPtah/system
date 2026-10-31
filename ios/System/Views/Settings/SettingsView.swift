@@ -37,6 +37,7 @@ struct SettingsView: View {
                 } footer: {
                     Text("For glaucoma or raised eye pressure. Adds breathing cues to every body quest: exhale on effort, no breath-holding, head above heart. Check with your eye doctor what is safe for you.")
                 }
+                SupportSettingsSection()
                 Section("Content") {
                     let status = ContentLibrary.shared.status
                     ForEach(status.keys.sorted(), id: \.self) { k in
@@ -140,4 +141,35 @@ struct VowSettingsSection: View {
     }
 
     func commit() { store.setCustomVow(custom) }
+}
+
+struct SupportSettingsSection: View {
+    @Environment(SystemStore.self) private var store
+    @State private var name = ""
+    @State private var phone = ""
+
+    var body: some View {
+        Section {
+            TextField("Someone you trust (name)", text: $name)
+                .onSubmit(commit)
+            TextField("Their phone number", text: $phone)
+                .keyboardType(.phonePad)
+                .onSubmit(commit)
+            Toggle(isOn: Binding(get: { store.moodPatternAlerts }, set: { store.setMoodPatternAlerts($0) })) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Mood and sleep pattern alerts")
+                    Text("A gentle note when very high mood and under 6 h sleep repeat on 3 of 4 days.")
+                        .font(.caption).foregroundStyle(Theme.dim)
+                }
+            }
+        } header: {
+            Text("Support")
+        } footer: {
+            Text("Stays on this device. When your morning status shows a low stretch, the Daily board offers this contact and a helpline finder. Low mood never costs XP. This app is not a substitute for professional care.")
+        }
+        .onAppear { name = store.supportName; phone = store.supportPhone }
+        .onDisappear(perform: commit)
+    }
+
+    func commit() { store.setSupport(name: name, phone: phone) }
 }

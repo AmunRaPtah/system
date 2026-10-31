@@ -9,6 +9,7 @@ struct NotificationDay {
 
 enum Notifier {
     static func requestPermission() {
+        guard !DemoMode.isOn else { return }
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
     }
 

@@ -39,25 +39,30 @@ struct PlayerHeader: View {
     var body: some View {
         let p = store.player
         let prog = Leveling.progress(for: p.totalXP)
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(alignment: .firstTextBaseline) {
-                Text("Lv. \(p.level)").font(Theme.mono(26, .heavy)).foregroundStyle(Theme.text).glow(Theme.blue, radius: 6)
-                Spacer()
-                VStack(alignment: .trailing, spacing: 2) {
-                    Text("\(p.rank.letter)-RANK").font(Theme.mono(16, .heavy)).foregroundStyle(Theme.gold).glow(Theme.gold, radius: 4)
-                    Text(p.rank.title.uppercased()).font(Theme.mono(10)).foregroundStyle(Theme.dim)
+        let f = store.fatigue()
+        let fColor = f.high ? Theme.red : (f.value >= 30 ? Theme.gold : Theme.green)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(alignment: .center, spacing: 14) {
+                LevelEmblem(level: p.level, progress: Double(prog.into) / Double(max(1, prog.span)))
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 6) {
+                        Text("\(p.rank.letter)-RANK").font(Theme.mono(18, .heavy)).foregroundStyle(Theme.gold).glow(Theme.gold, radius: 5)
+                        Spacer(minLength: 0)
+                        Label("\(p.streak)", systemImage: "flame.fill")
+                            .font(Theme.mono(13, .heavy))
+                            .foregroundStyle(p.streak > 0 ? Theme.gold : Theme.dim)
+                            .glow(p.streak > 0 ? Theme.gold : .clear, radius: 4)
+                    }
+                    Text(p.rank.title.uppercased()).font(Theme.mono(10, .bold)).tracking(1).foregroundStyle(Theme.dim)
+                    HStack(spacing: 14) {
+                        Readout(label: "Job", value: store.job.uppercased(), color: store.job == "None" ? Theme.dim : Theme.violet)
+                        Readout(label: "XP", value: "\(prog.into)/\(prog.span)", color: Theme.cyan)
+                    }
                 }
             }
-            SystemBar(value: Double(prog.into) / Double(max(1, prog.span)))
-            HStack {
-                Text("XP \(prog.into)/\(prog.span)").font(Theme.mono(11)).foregroundStyle(Theme.dim)
-                Spacer()
-                Text("STREAK \(p.streak)d").font(Theme.mono(11, .bold)).foregroundStyle(p.streak > 0 ? Theme.cyan : Theme.dim)
-            }
-            let f = store.fatigue()
             HStack(spacing: 8) {
-                Text("FATIGUE").font(Theme.mono(10, .bold)).foregroundStyle(Theme.dim)
-                SystemBar(value: Double(f.value) / 100, color: f.high ? Theme.red : (f.value >= 30 ? Theme.gold : Theme.green), height: 4)
+                Text("FATIGUE").font(Theme.mono(9, .bold)).tracking(1).foregroundStyle(Theme.dim)
+                SystemBar(value: Double(f.value) / 100, color: fColor, height: 4)
                 Text("\(f.value) \(f.label)").font(Theme.mono(10, .bold)).foregroundStyle(f.high ? Theme.red : Theme.dim)
             }
             if let trial = p.trialPending {
@@ -66,6 +71,32 @@ struct PlayerHeader: View {
             }
         }
         .systemPanel()
+    }
+}
+
+/// The level inside a ring that fills with XP towards the next level.
+struct LevelEmblem: View {
+    var level: Int
+    var progress: Double
+    var size: CGFloat = 78
+    var body: some View {
+        ZStack {
+            Circle().fill(RadialGradient(colors: [Theme.blue.opacity(0.35), Theme.bg.opacity(0.2)], center: .center, startRadius: 2, endRadius: size / 2))
+            Circle().stroke(Theme.blue.opacity(0.2), lineWidth: 4)
+            Circle()
+                .trim(from: 0, to: max(0.001, min(1, progress)))
+                .stroke(AngularGradient(colors: [Theme.blue, Theme.cyan, .white], center: .center),
+                        style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                .rotationEffect(.degrees(-90))
+                .glow(Theme.cyan, radius: 5)
+            Circle().stroke(Theme.cyan.opacity(0.35), style: StrokeStyle(lineWidth: 1, dash: [2, 4])).padding(8)
+            VStack(spacing: -2) {
+                Text("LV").font(Theme.mono(10, .bold)).tracking(2).foregroundStyle(Theme.dim)
+                Text("\(level)").font(Theme.mono(level >= 100 ? 22 : 28, .heavy)).foregroundStyle(Theme.text).glow(Theme.cyan, radius: 6)
+            }
+        }
+        .frame(width: size, height: size)
+        .animation(.easeOut(duration: 0.8), value: progress)
     }
 }
 
@@ -94,6 +125,7 @@ struct DailyBoard: View {
             .systemPanel()
 
             if store.checkIn(today) == nil { CheckInCard() }
+            if let signal = store.supportSignal() { SupportCard(signal: signal) }
             HealthTodayCard()
             VowCard()
 
@@ -173,26 +205,41 @@ struct QuestCard: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        let accent = done ? Theme.green : color
+        VStack(alignment: .leading, spacing: 9) {
             HStack(spacing: 6) {
                 Tag(text: tag, color: color)
                 Tag(text: quest.stat.rawValue, color: Theme.dim)
-                if quest.minutes > 0 { Tag(text: "\(quest.minutes) MIN", color: Theme.dim) }
+                if quest.minutes > 0 && !done { Tag(text: "\(quest.minutes) MIN", color: Theme.dim) }
                 Spacer()
-                Text("+\(quest.xp) XP").font(Theme.mono(12, .bold)).foregroundStyle(Theme.gold)
+                Text(done ? "CLEARED" : "+\(quest.xp) XP")
+                    .font(Theme.mono(12, .heavy))
+                    .foregroundStyle(done ? Theme.green : Theme.gold)
+                    .glow(done ? Theme.green : Theme.gold, radius: 3)
             }
-            HStack(alignment: .top) {
+            HStack(alignment: .top, spacing: 10) {
                 Image(systemName: done ? "checkmark.square.fill" : "square")
-                    .foregroundStyle(done ? Theme.green : color).glow(done ? Theme.green : color, radius: 3)
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(accent).glow(accent, radius: 3)
+                    .contentTransition(.symbolEffect(.replace))
                 Text(quest.title).font(Theme.mono(15, .bold)).foregroundStyle(done ? Theme.dim : Theme.text)
                     .strikethrough(done, color: Theme.dim)
             }
-            Text(store.displayDetail(quest))
-                .font(.system(size: 13)).foregroundStyle(Theme.dim)
-                .fixedSize(horizontal: false, vertical: true)
-            if !done { action }
+            if !done {
+                Text(store.displayDetail(quest))
+                    .font(.system(size: 13.5)).foregroundStyle(Theme.text.opacity(0.72))
+                    .lineSpacing(2)
+                    .fixedSize(horizontal: false, vertical: true)
+                action
+            }
         }
-        .systemPanel(done ? Theme.green.opacity(0.6) : color)
+        .padding(.leading, 6)
+        .overlay(alignment: .leading) {
+            Rectangle().fill(accent).frame(width: 2).glow(accent, radius: 4).padding(.vertical, 2).offset(x: -4)
+        }
+        .systemPanel(done ? Theme.green.opacity(0.45) : color)
+        .opacity(done ? 0.8 : 1)
+        .animation(.easeOut(duration: 0.3), value: done)
     }
 
     @ViewBuilder var action: some View {
@@ -212,6 +259,10 @@ struct QuestCard: View {
             }
         case .assessment:
             NavigationLink { AssessmentView() } label: { Text("ENTER THE BOSS ROOM ›") }
+                .buttonStyle(.system(color))
+        case .practice:
+            let p = MindPractice(rawValue: quest.refID) ?? .breath
+            NavigationLink { PracticeView(practice: p) } label: { Text("BEGIN ›") }
                 .buttonStyle(.system(color))
         default:
             VStack(alignment: .leading, spacing: 8) {

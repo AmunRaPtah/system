@@ -148,6 +148,8 @@ extension SystemStore {
         m[.comebacks] = comebackCount()
         m[.shadows] = claims.filter { $0.hasPrefix("shadow-") }.count
         m[.vowDays] = fetchAll(VowLog.self).filter { $0.judged && $0.kept }.count
+        m[.practiceDays] = practiceDayKeys().count
+        m[.focusBlocks] = fetchAll(MindLog.self).filter { $0.practice == MindPractice.focus.rawValue }.count
         return m
     }
 
