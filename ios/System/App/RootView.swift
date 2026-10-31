@@ -5,17 +5,22 @@ struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var showSettings = false
     @State private var awakening = false
+    @State private var tab = DemoMode.tab
 
     var body: some View {
         ZStack {
-            TabView {
+            TabView(selection: $tab) {
                 QuestsView(showSettings: $showSettings)
+                    .tag(0)
                     .tabItem { Label("Quests", systemImage: "scroll.fill") }
                 TrainView()
+                    .tag(1)
                     .tabItem { Label("Train", systemImage: "figure.run") }
                 MindView()
+                    .tag(2)
                     .tabItem { Label("Mind", systemImage: "brain.head.profile") }
                 StatsView()
+                    .tag(3)
                     .tabItem { Label("Stats", systemImage: "chart.bar.xaxis") }
             }
             if let alert = store.alerts.first {
@@ -32,11 +37,11 @@ struct RootView: View {
         .fullScreenCover(isPresented: $awakening) { AwakeningView() }
         .onAppear {
             // A fresh install asks for notifications inside the Awakening instead.
-            if store.needsAwakening() { awakening = true } else { store.requestNotificationsIfNeeded() }
-            store.tick()
+            if !DemoMode.isOn, store.needsAwakening() { awakening = true } else { store.requestNotificationsIfNeeded() }
+            if !DemoMode.isOn { store.tick() }
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active { store.tick() }
+            if phase == .active, !DemoMode.isOn { store.tick() }
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
             store.tick()

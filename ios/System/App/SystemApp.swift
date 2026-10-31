@@ -9,14 +9,19 @@ struct SystemApp: App {
     init() {
         let schema = Schema(Schema_.models)
         let c: ModelContainer
-        do {
+        if DemoMode.isOn {
+            DemoMode.prepareDefaults()
+            c = try! ModelContainer(for: schema, configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
+        } else { do {
             c = try ModelContainer(for: schema, configurations: [ModelConfiguration(schema: schema)])
         } catch {
             // Never brick the app on a store problem: fall back to memory.
             c = try! ModelContainer(for: schema, configurations: [ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)])
-        }
+        } }
         container = c
-        _store = State(initialValue: SystemStore(context: c.mainContext))
+        let store = SystemStore(context: c.mainContext)
+        if DemoMode.isOn { store.seedDemo() }
+        _store = State(initialValue: store)
 
         let tab = UITabBarAppearance()
         tab.configureWithOpaqueBackground()
