@@ -234,5 +234,6 @@ enum Schema_ {
         PlayResult.self, SavedPlayGame.self,
         VowLog.self,
         MindLog.self,
+        Campaign.self, CampaignGate.self, OwnerQuest.self, DayGate.self,
     ]
 }

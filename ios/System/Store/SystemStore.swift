@@ -815,6 +815,7 @@ final class SystemStore {
         deleteAll(PokerDrillRecord.self); PokerDrill.resetLevels(defaults)
         deleteAll(PlayResult.self); deleteAll(SavedPlayGame.self)
         deleteAll(VowLog.self); deleteAll(MindLog.self)
+        deleteAll(Campaign.self); deleteAll(CampaignGate.self); deleteAll(OwnerQuest.self); deleteAll(DayGate.self)
         save()
         for k in [DefaultsKey.start, DefaultsKey.lastEval] { defaults.removeObject(forKey: k) }
         for d in DrillKind.allCases { defaults.removeObject(forKey: DefaultsKey.drillLevel(d)) }
