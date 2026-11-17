@@ -38,6 +38,7 @@ struct SettingsView: View {
                     Text("For glaucoma or raised eye pressure. Adds breathing cues to every body quest: exhale on effort, no breath-holding, head above heart. Check with your eye doctor what is safe for you.")
                 }
                 SupportSettingsSection()
+                ArchitectSettingsSection()
                 Section("Content") {
                     let status = ContentLibrary.shared.status
                     ForEach(status.keys.sorted(), id: \.self) { k in
@@ -172,4 +173,55 @@ struct SupportSettingsSection: View {
     }
 
     func commit() { store.setSupport(name: name, phone: phone) }
+}
+
+/// Optional link to the owner's architect server. Empty fields keep the app fully offline.
+struct ArchitectSettingsSection: View {
+    @Environment(SystemStore.self) private var store
+    @State private var url = ""
+    @State private var token = ""
+    @State private var status: String?
+    private var client: ArchitectClient { ArchitectClient.shared }
+
+    var body: some View {
+        Section {
+            TextField("http://10.66.66.1:3380", text: $url)
+                .keyboardType(.URL)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .onSubmit(commit)
+            SecureField("Token", text: $token)
+                .textInputAutocapitalization(.never)
+                .autocorrectionDisabled()
+                .onSubmit(commit)
+            Button("Test and sync now") {
+                commit()
+                status = "Testing…"
+                Task { @MainActor in
+                    status = await client.test()
+                    client.syncSoon(store)
+                }
+            }
+            .disabled(url.isEmpty || token.isEmpty)
+            if let status { Text(status).font(Theme.mono(11)).foregroundStyle(Theme.dim) }
+            if let last = client.lastSync {
+                Text("Last sync \(last.formatted(date: .abbreviated, time: .shortened))")
+                    .font(Theme.mono(11)).foregroundStyle(Theme.dim)
+            }
+            if let err = client.lastError {
+                Text(err).font(Theme.mono(11)).foregroundStyle(Theme.red)
+            }
+        } header: {
+            Text("Architect")
+        } footer: {
+            Text("Your own server on the private network. It receives a snapshot on foreground and after each gate, and suggests gates from your trackers. Leave empty to stay offline.")
+        }
+        .onAppear { url = client.urlString; token = client.token }
+        .onDisappear(perform: commit)
+    }
+
+    func commit() {
+        client.urlString = url
+        client.token = token
+    }
 }

@@ -196,13 +196,10 @@ extension SystemStore {
     /// owner quests on today return to the backlog.
     func completeMorningGate(energy: Int, intention: String, accepted: Set<String>) {
         let key = DayKey.today
-        for q in fetchAll(OwnerQuest.self) where !q.done {
-            if accepted.contains(q.uid) {
-                if q.dayKey != key { _ = scheduleNoCommit(q, key) }
-            } else if q.dayKey == key {
-                q.dayKey = ""
-            }
-        }
+        let open = fetchAll(OwnerQuest.self).filter { !$0.done }
+        // Release first so the Ambition cap counts only what stays on today.
+        for q in open where q.dayKey == key && !accepted.contains(q.uid) { q.dayKey = "" }
+        for q in open where accepted.contains(q.uid) && q.dayKey != key { _ = scheduleNoCommit(q, key) }
         let total = ownerQuests(on: key).count
         upsertGate(key, .morning, energy: energy, line: intention, done: 0, total: total)
         commitV3()

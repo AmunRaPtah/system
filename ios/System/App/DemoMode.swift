@@ -61,6 +61,7 @@ extension SystemStore {
             }
         }
         context.insert(CheckIn(dayKey: today, sleepHours: 6.5, soreness: 3, mood: DemoMode.screen == "support" ? 1 : 3))
+        seedDemoCampaigns(today)
         _ = plan(today)
         save()
         refresh()
@@ -72,5 +73,37 @@ extension SystemStore {
                                       lines: ["\(igris.name), \(igris.epithet), has been sworn in.", igris.lore,
                                               "+\(Shadow.extractionXP) XP \(igris.stat.rawValue)"]))
         }
+    }
+}
+
+extension SystemStore {
+    /// Sample campaigns for screenshots only; real installs start empty.
+    func seedDemoCampaigns(_ today: String) {
+        let specs: [(String, String, [(String, Int, Bool)], Int)] = [
+            ("Ship the novel", "Finished draft to the editor", [("Draft act two", -6, true), ("Full draft", 12, false)], 1),
+            ("Postdoc applications", "Two strong applications out", [("Research statement", 9, false)], 3),
+            ("Strength base", "Squat bodyweight for 5", [("Assessment day", 20, false)], 2),
+            ("Kitchen rebuild", "", [("Order cabinets", 30, false)], 40),
+        ]
+        for (title, goal, gates, idle) in specs {
+            let c = Campaign(title: title, goal: goal)
+            c.created = Calendar.current.date(byAdding: .day, value: -60, to: .now) ?? .now
+            context.insert(c)
+            for (g, offset, done) in gates {
+                let gate = CampaignGate(campaignID: c.uid, title: g, dateKey: DayKey.add(offset, to: today))
+                gate.done = done
+                if done { gate.doneDate = Calendar.current.date(byAdding: .day, value: -idle, to: .now) }
+                context.insert(gate)
+            }
+            let q = OwnerQuest(title: "Move \(title.lowercased())", domain: .ambition, campaignID: c.uid, dayKey: DayKey.add(-idle, to: today))
+            q.done = true
+            q.doneKey = q.dayKey
+            q.doneDate = Calendar.current.date(byAdding: .day, value: -idle, to: .now)
+            context.insert(q)
+        }
+        context.insert(OwnerQuest(title: "Write 800 words", domain: .ambition, dayKey: today))
+        context.insert(OwnerQuest(title: "Call Mum", domain: .bonds, dayKey: today))
+        context.insert(OwnerQuest(title: "Pay the invoice", domain: .wealth, dayKey: today))
+        context.insert(DayGate(dayKey: today, kind: .morning, energy: 4, line: "One clean page before noon."))
     }
 }

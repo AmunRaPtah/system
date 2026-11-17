@@ -10,18 +10,21 @@ struct RootView: View {
     var body: some View {
         ZStack {
             TabView(selection: $tab) {
-                QuestsView(showSettings: $showSettings)
+                TodayView(showSettings: $showSettings)
                     .tag(0)
-                    .tabItem { Label("Quests", systemImage: "scroll.fill") }
-                TrainView()
+                    .tabItem { Label("Today", systemImage: "sun.horizon.fill") }
+                CampaignsView()
                     .tag(1)
+                    .tabItem { Label("Campaigns", systemImage: "flag.fill") }
+                QuestsView(showSettings: $showSettings)
+                    .tag(2)
+                    .tabItem { Label("Discipline", systemImage: "scroll.fill") }
+                TrainView()
+                    .tag(3)
                     .tabItem { Label("Train", systemImage: "figure.run") }
                 MindView()
-                    .tag(2)
+                    .tag(4)
                     .tabItem { Label("Mind", systemImage: "brain.head.profile") }
-                StatsView()
-                    .tag(3)
-                    .tabItem { Label("Stats", systemImage: "chart.bar.xaxis") }
             }
             if let alert = store.alerts.first {
                 SystemAlertOverlay(alert: alert) {
@@ -39,10 +42,16 @@ struct RootView: View {
             // A fresh install asks for notifications inside the Awakening instead.
             if DemoMode.isOn { return }
             if store.needsAwakening() { awakening = true } else { store.requestNotificationsIfNeeded() }
-            if !DemoMode.isOn { store.tick() }
+            if !DemoMode.isOn {
+                store.tick()
+                ArchitectClient.shared.syncSoon(store)
+            }
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active, !DemoMode.isOn { store.tick() }
+            if phase == .active, !DemoMode.isOn {
+                store.tick()
+                ArchitectClient.shared.syncSoon(store)
+            }
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
             store.tick()

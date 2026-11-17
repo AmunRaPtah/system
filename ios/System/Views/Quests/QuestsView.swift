@@ -24,7 +24,7 @@ struct QuestsView: View {
                 }
                 .padding()
             }
-            .systemScreen("QUESTS")
+            .systemScreen("THE DISCIPLINE")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showSettings = true } label: { Image(systemName: "gearshape") }
