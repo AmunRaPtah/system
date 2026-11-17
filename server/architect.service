@@ -1,0 +1,14 @@
+[Unit]
+Description=architect - System v3 backend (wg0:3380)
+After=network-online.target wg-quick@wg0.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/architect
+ExecStart=/usr/bin/python3 -m uvicorn architect.main:app --host 10.66.66.1 --port 3380
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
