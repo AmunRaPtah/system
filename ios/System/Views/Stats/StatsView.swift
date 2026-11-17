@@ -37,7 +37,7 @@ struct StatsView: View {
                         let job = store.job
                         VStack(alignment: .leading, spacing: 6) {
                             HStack {
-                                Text("JOB  \(job.uppercased())").foregroundStyle(job == "None" ? Theme.dim : Theme.violet)
+                                Text("CALLING  \(job.uppercased())").foregroundStyle(job == "None" ? Theme.dim : Theme.violet)
                                 Spacer()
                                 Text("FATIGUE \(f.value) · \(f.label)").foregroundStyle(f.high ? Theme.red : Theme.dim)
                             }
@@ -50,7 +50,7 @@ struct StatsView: View {
                                     .font(Theme.mono(10)).foregroundStyle(f.high ? Theme.red : Theme.dim)
                             }
                             NavigationLink { ShadowArmyView() } label: {
-                                Text("[SHADOW ARMY · \(store.extractedShadowIDs().count)/\(Shadow.all.count)] ›")
+                                Text("[RETINUE · \(store.extractedShadowIDs().count)/\(Shadow.all.count)] ›")
                                     .font(Theme.mono(12, .bold)).foregroundStyle(Theme.violet)
                             }
                         }

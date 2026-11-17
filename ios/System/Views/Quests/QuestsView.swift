@@ -55,7 +55,7 @@ struct PlayerHeader: View {
                     }
                     Text(p.rank.title.uppercased()).font(Theme.mono(10, .bold)).tracking(1).foregroundStyle(Theme.dim)
                     HStack(spacing: 14) {
-                        Readout(label: "Job", value: store.job.uppercased(), color: store.job == "None" ? Theme.dim : Theme.violet)
+                        Readout(label: "Calling", value: store.job.uppercased(), color: store.job == "None" ? Theme.dim : Theme.violet)
                         Readout(label: "XP", value: "\(prog.into)/\(prog.span)", color: Theme.cyan)
                     }
                 }
@@ -112,7 +112,7 @@ struct DailyBoard: View {
         let done = quests.filter { store.isDone($0, on: today) }.count
         VStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 6) {
-                BracketHeader(title: "Daily Quest")
+                BracketHeader(title: "The Discipline")
                 Text(DayKey.pretty(today).uppercased() + " · WEEK \(pos.week) · \(pos.phase?.title.uppercased() ?? "PROGRAMME")")
                     .font(Theme.mono(11)).foregroundStyle(Theme.dim)
                 if pos.isDeload {
@@ -199,7 +199,7 @@ struct QuestCard: View {
     var tag: String {
         switch quest.kind {
         case .penalty: return "PENALTY"
-        case .preparation: return "DAILY QUEST"
+        case .preparation: return "THE DISCIPLINE"
         default: return quest.pillar.label
         }
     }
@@ -386,7 +386,7 @@ struct DungeonBoard: View {
         let d = store.dungeon()
         VStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 6) {
-                BracketHeader(title: "Dungeon", color: Theme.violet)
+                BracketHeader(title: "Proving", color: Theme.violet)
                 Text(d.title.uppercased()).font(Theme.mono(20, .heavy)).foregroundStyle(Theme.text).glow(Theme.violet, radius: 8)
                 Text("BLOCK \(d.block) · WEEK \(d.weekInBlock)/\(max(1, store.lib.training.deloadEvery)) · \(DayKey.pretty(d.firstKey)) – \(DayKey.pretty(d.lastKey))")
                     .font(Theme.mono(11)).foregroundStyle(Theme.dim)
@@ -421,9 +421,9 @@ struct DungeonBoard: View {
             }
             .systemPanel(Theme.red)
             if d.claimed {
-                Text("[ DUNGEON CLEARED ]").font(Theme.mono(14, .bold)).foregroundStyle(Theme.green)
+                Text("[ PROVING CLEARED ]").font(Theme.mono(14, .bold)).foregroundStyle(Theme.green)
             } else if d.cleared {
-                Button("CLAIM DUNGEON REWARD +250 XP") { store.claimDungeon(d) }.buttonStyle(.system(Theme.gold, filled: true))
+                Button("CLAIM PROVING REWARD +250 XP") { store.claimDungeon(d) }.buttonStyle(.system(Theme.gold, filled: true))
             }
         }
     }

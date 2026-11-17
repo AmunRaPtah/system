@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// First-launch "Player Awakening": accept the call, name, programme start,
+/// First-launch "The Oath": accept the call, name, programme start,
 /// optional initial assessment, notification permission, then the status reveal.
 /// Every step can be skipped; replaying it from Settings changes nothing unless
 /// the player edits something.
@@ -70,7 +70,7 @@ struct AwakeningView: View {
     var callStep: some View {
         window(Theme.cyan) {
             TypewriterText(text: declined == 0
-                           ? "You have acquired the qualifications to be a Player."
+                           ? "The System has judged you fit to take the oath."
                            : "Refusal is not recognised. The System has already chosen you.",
                            font: Theme.mono(15, .bold), color: Theme.text)
             TypewriterText(text: "Will you accept?", font: Theme.mono(20, .heavy), color: Theme.cyan, delay: 1.6)
@@ -89,7 +89,7 @@ struct AwakeningView: View {
 
     var nameStep: some View {
         window(Theme.cyan) {
-            TypewriterText(text: "Identify yourself, Player.", font: Theme.mono(15, .bold), color: Theme.text)
+            TypewriterText(text: "Identify yourself, Aspirant.", font: Theme.mono(15, .bold), color: Theme.text)
             TextField("", text: $name, prompt: Text("NAME").foregroundColor(Theme.dim))
                 .font(Theme.mono(18, .bold))
                 .foregroundStyle(Theme.cyan)
@@ -100,7 +100,7 @@ struct AwakeningView: View {
                 .onSubmit { saveName(); go(.start) }
                 .padding(10)
                 .overlay(RoundedRectangle(cornerRadius: 4).stroke(Theme.cyan.opacity(0.7), lineWidth: 1))
-            Text("Shown on your status window. Leave blank to stay \"Player\".")
+            Text("Shown on your status window. Leave blank to stay \"Aspirant\".")
                 .font(.system(size: 11)).foregroundStyle(Theme.dim)
             Button("CONFIRM") { saveName(); go(.start) }
                 .buttonStyle(.system(Theme.cyan, filled: true))
@@ -110,7 +110,7 @@ struct AwakeningView: View {
     var startStep: some View {
         window(Theme.blue) {
             TypewriterText(text: "Set the day your training begins.", font: Theme.mono(15, .bold), color: Theme.text)
-            Text("The programme runs in weeks of three sessions, with a lighter deload week every few weeks. Daily quests are judged from this day. Days before it are never penalised.")
+            Text("The programme runs in weeks of three sessions, with a lighter deload week every few weeks. The Discipline is judged from this day. Days before it are never penalised.")
                 .font(.system(size: 12)).foregroundStyle(Theme.dim)
             DatePicker("Start", selection: $start, displayedComponents: .date)
                 .font(Theme.mono(13, .bold))
@@ -230,7 +230,7 @@ struct AwakeningReveal: View {
         let p = store.player
         let rows = Stat.allCases
         VStack(alignment: .leading, spacing: 12) {
-            TypewriterText(text: "Welcome, Player.", font: Theme.mono(13, .bold), color: Theme.dim)
+            TypewriterText(text: "Welcome, Aspirant.", font: Theme.mono(13, .bold), color: Theme.dim)
             Text(name).font(Theme.mono(24, .heavy)).foregroundStyle(Theme.cyan).glow(Theme.cyan, radius: 8)
                 .opacity(shown > 0 ? 1 : 0)
             HStack {

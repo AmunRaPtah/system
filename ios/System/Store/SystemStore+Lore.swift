@@ -7,11 +7,11 @@ extension DefaultsKey {
     static let customVow = "system.customVow"
 }
 
-/// Canon systems grounded in training science: the tiered Daily Quest, Fatigue,
+/// Canon systems grounded in training science: the tiered Discipline, Fatigue,
 /// the Shadow Army, Job, vows and the Detoxification skill.
 extension SystemStore {
 
-    // MARK: - Preparation to Become Powerful
+    // MARK: - The Discipline
 
     func preparationClears() -> Int {
         fetchAll(QuestCompletion.self).filter { $0.kind == QuestKind.preparation.rawValue }.count
@@ -78,23 +78,23 @@ extension SystemStore {
         return Fatigue(value: min(100, v), reasons: why)
     }
 
-    // MARK: - Job
+    // MARK: - Calling
 
-    /// Canon: no Job until the Job Change at level 40. Here it also takes three
-    /// extracted shadows, and the full army makes the Shadow Monarch.
+    /// No Calling until level 40. It also takes three sworn
+    /// retainers, and the full Retinue makes the High Warden.
     var job: String {
         let n = extractedShadowIDs().count
         guard player.level >= 40 else { return "None" }
-        if n >= Shadow.all.count { return "Shadow Monarch" }
-        if n >= 3 { return "Necromancer" }
+        if n >= Shadow.all.count { return "High Warden" }
+        if n >= 3 { return "Retinue-Captain" }
         return "None"
     }
 
     var jobRequirement: String {
-        "Job Change: Lv. 40 and 3 shadows (Lv. \(player.level), \(extractedShadowIDs().count) shadows)"
+        "Calling: Lv. 40 and 3 retainers (Lv. \(player.level), \(extractedShadowIDs().count) sworn)"
     }
 
-    // MARK: - Shadow Army
+    // MARK: - Retinue
 
     func shadowProgress() -> [String: Int] {
         _ = revision
@@ -117,8 +117,8 @@ extension SystemStore {
         return Set(fetchAll(Claim.self).map(\.key).filter { $0.hasPrefix("shadow-") }.map { String($0.dropFirst(7)) })
     }
 
-    /// Extracts every shadow whose habit has crossed its threshold. Each one is
-    /// announced once ("ARISE") and keyed by a `shadow-<id>` claim.
+    /// Swears in every retainer whose habit has crossed its threshold. Each one is
+    /// announced once ("SWORN IN") and keyed by a `shadow-<id>` claim.
     func checkShadows() {
         let have = extractedShadowIDs()
         let progress = shadowProgress()
@@ -127,28 +127,28 @@ extension SystemStore {
             let b = begin()
             for s in fresh {
                 context.insert(Claim(key: "shadow-\(s.id)"))
-                addXP(s.stat, Shadow.extractionXP, source: "shadow", note: "Arise: \(s.name)")
+                addXP(s.stat, Shadow.extractionXP, source: "shadow", note: "Sworn in: \(s.name)")
             }
             func lines(_ s: Shadow) -> [String] {
-                ["\(s.name), \(s.epithet), has answered.",
+                ["\(s.name), \(s.epithet), has been sworn in.",
                  s.lore,
                  "\(s.habit): \(progress[s.id] ?? 0) \(s.unit)",
                  "+\(Shadow.extractionXP) XP \(s.stat.rawValue)"]
             }
             for s in fresh.dropLast() {
-                alerts.append(SystemAlert(style: .arise, title: "ARISE", lines: lines(s)))
+                alerts.append(SystemAlert(style: .arise, title: "[SWORN IN]", lines: lines(s)))
             }
             if let last = fresh.last {
-                finish(b, style: .arise, title: "ARISE", lines: lines(last))
+                finish(b, style: .arise, title: "[SWORN IN]", lines: lines(last))
             }
         }
         let j = job
         if j != "None", !claimed("job-\(j)") {
             context.insert(Claim(key: "job-\(j)"))
             save()
-            alerts.append(SystemAlert(style: .arise, title: "[JOB CHANGE]",
-                                      lines: ["Job acquired: \(j).",
-                                              "The shadows you raised are the habits you kept."]))
+            alerts.append(SystemAlert(style: .arise, title: "[CALLING SET]",
+                                      lines: ["Calling taken: \(j).",
+                                              "The retinue you swore in is the habits you kept."]))
             revision += 1
         }
     }
@@ -271,9 +271,9 @@ extension SystemStore {
         return (Detoxification.level(bestStreak: best), best)
     }
 
-    // MARK: - Hidden quest: Courage of the Weak
+    // MARK: - Hidden quest: The Quiet Return
 
-    /// Days the Daily Quest was cleared straight after two or more missed days.
+    /// Days The Discipline was cleared straight after two or more missed days.
     func comebackCount() -> Int {
         let missed = Set(fetchAll(DayPlan.self).filter(\.missed).map(\.dayKey))
         return fetchAll(Claim.self).map(\.key).filter { $0.hasPrefix("daily-") }.filter { k in

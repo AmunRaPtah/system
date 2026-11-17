@@ -163,7 +163,7 @@ struct SmallView: View {
             }
             Text("Lv. \(m.snap.level)").font(W.mono(15, .heavy)).foregroundStyle(W.text)
             Spacer(minLength: 0)
-            Text("DAILY QUEST").font(W.mono(9)).foregroundStyle(W.dim)
+            Text("THE DISCIPLINE").font(W.mono(9)).foregroundStyle(W.dim)
             Text(m.countText).font(W.mono(26, .heavy)).foregroundStyle(m.accent)
                 .shadow(color: m.accent.opacity(0.8), radius: 4)
             Bar(value: m.progress, color: m.accent)
@@ -206,7 +206,7 @@ struct MediumView: View {
                 Bar(value: Double(m.snap.xpInto) / Double(max(1, m.snap.xpSpan)), color: W.blue)
                 Text("XP \(m.snap.xpInto)/\(m.snap.xpSpan)").font(W.mono(9)).foregroundStyle(W.dim)
                 if m.warning {
-                    Text("WARNING: Daily Quest incomplete. Failure to complete it will result in a penalty.")
+                    Text("WARNING: The Discipline is incomplete. Failure to complete it will result in a penalty.")
                         .font(W.mono(9, .bold)).foregroundStyle(W.red).lineLimit(3)
                 } else if m.stale {
                     Text("A new day has begun. Open the System to receive today's quests.")
@@ -285,7 +285,7 @@ struct SystemStatusWidget: Widget {
             StatusWidgetView(entry: entry)
         }
         .configurationDisplayName("System Status")
-        .description("Daily quests, streak, level and penalty warnings.")
+        .description("The Discipline, streak, level and penalty warnings.")
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryCircular, .accessoryRectangular, .accessoryInline])
     }
 }

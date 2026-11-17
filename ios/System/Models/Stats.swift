@@ -55,7 +55,7 @@ enum Rank: Int, CaseIterable, Identifiable, Comparable {
     var allowedDifficulty: Int { min(5, rawValue + 1) }
     var next: Rank? { Rank(rawValue: rawValue + 1) }
     var title: String {
-        ["Awakened", "Initiate", "Hunter", "Veteran", "Elite", "Sovereign"][rawValue]
+        ["Awakened", "Initiate", "Vigilant", "Veteran", "Elite", "Sovereign"][rawValue]
     }
     static func < (a: Rank, b: Rank) -> Bool { a.rawValue < b.rawValue }
 

@@ -1,6 +1,6 @@
 # System
 
-A native SwiftUI iOS 17 app modelled on the System from Solo Leveling. It is a
+A native SwiftUI iOS 17 app in the status-window genre. It is a
 personal quest board for body, mind, social life and sovereignty: daily, weekly
 and monthly quests, nine stats, levels and E-to-S ranks with benchmark trials,
 penalty quests for missed days, a 12-week training programme with a workout

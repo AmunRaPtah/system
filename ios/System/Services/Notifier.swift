@@ -40,18 +40,18 @@ enum Notifier {
 
         for day in days {
             if let m = at(day.dayKey, minutes: morningMinutes) {
-                add("morning-\(day.dayKey)", "[SYSTEM] Daily Quest has arrived",
+                add("morning-\(day.dayKey)", "[SYSTEM] The Discipline awaits",
                     "Your quests for today are ready. Preparation to become strong begins now.", m)
             }
             guard !day.complete else { continue }
             if let e = at(day.dayKey, minutes: eveningMinutes) {
                 let body = day.deload
-                    ? "Daily Quest incomplete. Deload week: no penalty, but finish what you can."
-                    : "Daily Quest incomplete. Failure to complete by midnight will issue a Penalty Quest."
-                add("evening-\(day.dayKey)", "[WARNING] Daily Quest incomplete", body, e)
+                    ? "The Discipline is incomplete. Deload week: no penalty, but finish what you can."
+                    : "The Discipline is incomplete. Failure to complete by midnight will issue a Penalty Quest."
+                add("evening-\(day.dayKey)", "[WARNING] The Discipline is incomplete", body, e)
             }
             if !day.deload, let p = at(day.dayKey, minutes: 5, dayOffset: 1) {
-                add("penalty-\(day.dayKey)", "[PENALTY] Daily Quest failed",
+                add("penalty-\(day.dayKey)", "[PENALTY] The Discipline missed",
                     "Yesterday's quests were not completed. A Penalty Quest awaits. Open the System.", p)
             }
         }

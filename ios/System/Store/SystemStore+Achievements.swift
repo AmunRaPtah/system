@@ -41,7 +41,7 @@ extension SystemStore {
 
     var displayName: String {
         let n = playerName.trimmingCharacters(in: .whitespacesAndNewlines)
-        return n.isEmpty ? "PLAYER" : n.uppercased()
+        return n.isEmpty ? "ASPIRANT" : n.uppercased()
     }
 
     func setPlayerName(_ name: String) {

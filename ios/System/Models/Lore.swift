@@ -1,11 +1,11 @@
 import Foundation
 import SwiftData
 
-// MARK: - Preparation to Become Powerful
+// MARK: - The Discipline
 
-/// The canon daily quest (100 push-ups, 100 sit-ups, 100 squats, 10 km), reached
+/// The Discipline (100 push-ups, 100 sit-ups, 100 squats, 10 km), reached
 /// gradually. The tier rises by one for every five clears, so the load follows
-/// what the player has actually done rather than the calendar. Tier 18 is canon.
+/// what the player has actually done rather than the calendar. Tier 18 is the full load.
 struct PreparationLoad: Equatable {
     var reps: Int
     var km: Double
@@ -36,20 +36,20 @@ struct Fatigue {
     var value: Int
     var reasons: [String]
 
-    /// At or above this, the Daily Quest load is halved.
+    /// At or above this, The Discipline load is halved.
     static let highThreshold = 60
 
     var high: Bool { value >= Self.highThreshold }
     var label: String { value >= Self.highThreshold ? "FATIGUED" : value >= 30 ? "LOADED" : "FRESH" }
 }
 
-// MARK: - Shadow Army
+// MARK: - Retinue
 
 enum ShadowGrade: Int, CaseIterable {
     case normal, elite, knight, eliteKnight, commander, marshal, grandMarshal
 
     var title: String {
-        ["Normal", "Elite", "Knight", "Elite Knight", "Commander", "Marshal", "Grand Marshal"][rawValue]
+        ["Normal", "Elite", "Knight", "Elite Knight", "Commander", "Marshal", "High Marshal"][rawValue]
     }
 
     /// Multiples of the extraction threshold needed for each grade.
@@ -67,7 +67,7 @@ enum ShadowMetric {
     case preparation, strength, checkIns, lessons, vowDays, dungeons, cardioKm
 }
 
-/// A shadow is extracted when a habit has been sustained long enough to stand on
+/// A retainer is sworn in when a habit has been sustained long enough to stand on
 /// its own. Each one is a record of repetition, not a reward for a single effort.
 struct Shadow: Identifiable {
     var id: String
@@ -82,34 +82,34 @@ struct Shadow: Identifiable {
     var symbol: String
 
     static let all: [Shadow] = [
-        Shadow(id: "igris", name: "Igris", epithet: "the Blood-Red Commander",
-               lore: "The knight who guarded the Job Change gate. He kneels to the one who did not stop.",
-               habit: "Clear Preparation to Become Powerful", stat: .WIL, metric: .preparation,
+        Shadow(id: "igris", name: "Aldric", epithet: "the Oathwarden",
+               lore: "The knight who kept the first vigil. He kneels to the one who did not stop.",
+               habit: "Clear The Discipline", stat: .WIL, metric: .preparation,
                threshold: 30, unit: "clears", symbol: "shield.lefthalf.filled"),
-        Shadow(id: "tank", name: "Tank", epithet: "the Ice Bear",
+        Shadow(id: "tank", name: "Brann", epithet: "the Winter Anvil",
                lore: "Raw strength, built one session at a time.",
                habit: "Log strength sessions", stat: .STR, metric: .strength,
                threshold: 12, unit: "sessions", symbol: "dumbbell.fill"),
-        Shadow(id: "iron", name: "Iron", epithet: "the Shield",
-               lore: "He holds the line. A hunter who knows their condition is hard to break.",
+        Shadow(id: "iron", name: "Osk", epithet: "the Shield-Brother",
+               lore: "He holds the line. Someone who knows their condition is hard to break.",
                habit: "Log your morning status", stat: .VIT, metric: .checkIns,
                threshold: 30, unit: "check-ins", symbol: "shield.fill"),
-        Shadow(id: "tusk", name: "Tusk", epithet: "the High Orc Shaman",
+        Shadow(id: "tusk", name: "Maelis", epithet: "the Lamp-Keeper",
                lore: "Knowledge turned into power.",
                habit: "Finish game lessons", stat: .INT, metric: .lessons,
                threshold: 20, unit: "lessons", symbol: "book.closed.fill"),
-        Shadow(id: "kaisel", name: "Kaisel", epithet: "the Wyvern",
+        Shadow(id: "kaisel", name: "Sendra", epithet: "the Long Wind",
                lore: "Distance covered becomes speed.",
                habit: "Log cardio distance", stat: .AGI, metric: .cardioKm,
                threshold: 50, unit: "km", symbol: "wind"),
-        Shadow(id: "beru", name: "Beru", epithet: "the Ant King",
+        Shadow(id: "beru", name: "Morrow", epithet: "the Hollow Crown",
                lore: "The worst enemy, made loyal. What once consumed you now serves you.",
                habit: "Keep your vows", stat: .WIL, metric: .vowDays,
                threshold: 30, unit: "vow-days", symbol: "ant.fill"),
-        Shadow(id: "bellion", name: "Bellion", epithet: "the Grand Marshal",
+        Shadow(id: "bellion", name: "Thessaly", epithet: "the First Marshal",
                lore: "The first and strongest. He answers only to a sovereign.",
-               habit: "Clear monthly dungeons", stat: .SOV, metric: .dungeons,
-               threshold: 3, unit: "dungeons", symbol: "crown.fill"),
+               habit: "Clear monthly provings", stat: .SOV, metric: .dungeons,
+               threshold: 3, unit: "provings", symbol: "crown.fill"),
     ]
 
     static let extractionXP = 50

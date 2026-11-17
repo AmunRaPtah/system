@@ -68,8 +68,8 @@ extension SystemStore {
         checkShadows()
         alerts.removeAll()
         if DemoMode.showAlert, let igris = Shadow.all.first {
-            alerts.append(SystemAlert(style: .arise, title: "ARISE",
-                                      lines: ["\(igris.name), \(igris.epithet), has answered.", igris.lore,
+            alerts.append(SystemAlert(style: .arise, title: "[SWORN IN]",
+                                      lines: ["\(igris.name), \(igris.epithet), has been sworn in.", igris.lore,
                                               "+\(Shadow.extractionXP) XP \(igris.stat.rawValue)"]))
         }
     }

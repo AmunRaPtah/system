@@ -12,7 +12,7 @@ enum MindPractice: String, CaseIterable, Identifiable, Codable {
         switch self {
         case .breath: return "Resonance Breathing"
         case .stillness: return "Stillness"
-        case .focus: return "Instant Dungeon: Focus"
+        case .focus: return "Crucible: Focus"
         case .reframe: return "Thought Record"
         case .activation: return "One Valued Action"
         case .gratitude: return "Three Good Things"
@@ -76,11 +76,11 @@ enum MindPractice: String, CaseIterable, Identifiable, Codable {
     /// Canon flavour, kept to things that are actually in the story.
     var canon: String {
         switch self {
-        case .focus: return "An Instant Dungeon: a private gate where nothing else can reach you until it is cleared."
-        case .reframe, .activation: return "Courage of the Weak was not about strength. It was choosing to act while afraid."
+        case .focus: return "A Crucible: a private chamber where nothing else can reach you until it is done."
+        case .reframe, .activation: return "The Quiet Return was not about strength. It was choosing to act while afraid."
         case .recall: return "INT rises when knowledge is used, not when it is stored."
         case .stillness, .rest, .breath: return "Perception is trained in calm, not in noise."
-        case .gratitude, .unload: return "Even the strongest hunter stayed human by remembering what he fought for."
+        case .gratitude, .unload: return "Even the strongest warden stayed human by remembering what he fought for."
         }
     }
 

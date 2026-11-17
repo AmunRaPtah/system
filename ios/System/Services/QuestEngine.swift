@@ -47,7 +47,7 @@ enum QuestEngine {
                                 pillar: .body, stat: .VIT, xp: 20, refID: "recovery", proof: "check", minutes: 40))
         }
 
-        // BODY 2: the canon Daily Quest. Skipped on boss day; the assessment is enough.
+        // BODY 2: The Discipline. Skipped on boss day; the assessment is enough.
         if !pos.isAssessmentDay {
             quests.append(preparationQuest(day: d, tier: ctx.preparationTier))
         }
@@ -131,7 +131,7 @@ enum QuestEngine {
     // MARK: preparation
 
     static func preparationQuest(day: String, tier: Int) -> Quest {
-        Quest(id: "\(day)-prep", kind: .preparation, title: "Preparation to Become Powerful",
+        Quest(id: "\(day)-prep", kind: .preparation, title: "The Discipline",
               detail: preparationDetail(PreparationLoad.at(tier: tier), tier: tier, reduced: nil),
               pillar: .body, stat: .STR, xp: 25, refID: "prep-\(tier)", proof: "check", minutes: 30)
     }
@@ -161,16 +161,16 @@ enum QuestEngine {
               refID: "penalty-\(tier)", proof: "check", minutes: 25)
     }
 
-    /// Half a Daily Quest's reps (a quarter when strained) plus a brisk walk. At the
+    /// Half the Discipline reps (a quarter when strained) plus a brisk walk. At the
     /// canon tier that is the old 50-rep make-up set; at the start it is 10 reps.
     static func penaltyDetail(tier: Int, halved: Bool) -> String {
         let reps = PreparationLoad.at(tier: tier).reps
         if halved {
             let r = max(5, reps / 4)
-            return "The Penalty Zone, load halved (poor sleep, soreness or fatigue logged): \(r) push-ups, \(r) sit-ups, \(r) squats, then a 10-minute brisk walk. Any sets, knees allowed."
+            return "The Penance, load halved (poor sleep, soreness or fatigue logged): \(r) push-ups, \(r) sit-ups, \(r) squats, then a 10-minute brisk walk. Any sets, knees allowed."
         }
         let r = max(10, reps / 2)
-        return "The Penalty Zone. Survive it: \(r) push-ups, \(r) sit-ups, \(r) squats, then a 15-minute brisk walk. Any sets, knees allowed. Hard, not punishing."
+        return "The Penance. Survive it: \(r) push-ups, \(r) sit-ups, \(r) squats, then a 15-minute brisk walk. Any sets, knees allowed. Hard, not punishing."
     }
 
     static let penaltyXP = 40

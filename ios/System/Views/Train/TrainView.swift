@@ -125,7 +125,7 @@ struct LadderCard: View {
                 Text(s.title).font(Theme.mono(15, .bold)).foregroundStyle(Theme.text)
                 Text(s.detail).font(.system(size: 12)).foregroundStyle(Theme.dim)
                 SystemBar(value: Double(ls.count) / Double(s.repeats), color: Theme.gold)
-                Text("\(ls.count)/\(s.repeats) completions to unlock the next step. It appears in your Daily Quest.")
+                Text("\(ls.count)/\(s.repeats) completions to unlock the next step. It appears in The Discipline.")
                     .font(Theme.mono(10)).foregroundStyle(Theme.dim)
             } else if steps.isEmpty {
                 Text("No ladder loaded.").font(Theme.mono(12)).foregroundStyle(Theme.dim)

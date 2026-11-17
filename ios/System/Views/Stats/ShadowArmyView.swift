@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// The Shadow Army: one shadow per sustained habit, graded by how far past the
-/// extraction threshold the habit has gone.
+/// The Retinue: one retainer per sustained habit, graded by how far past the
+/// swearing-in threshold the habit has gone.
 struct ShadowArmyView: View {
     @Environment(SystemStore.self) private var store
 
@@ -11,10 +11,10 @@ struct ShadowArmyView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
                 VStack(alignment: .leading, spacing: 6) {
-                    BracketHeader(title: "Shadow Army", color: Theme.violet)
-                    Text("\(have.count)/\(Shadow.all.count) EXTRACTED · JOB \(store.job.uppercased())")
+                    BracketHeader(title: "Retinue", color: Theme.violet)
+                    Text("\(have.count)/\(Shadow.all.count) SWORN IN · CALLING \(store.job.uppercased())")
                         .font(Theme.mono(11, .bold)).foregroundStyle(Theme.dim)
-                    Text("A shadow rises when a habit has been kept long enough to stand on its own. It grows in grade as the habit continues.")
+                    Text("A retainer is sworn in when a habit has been kept long enough to stand on its own. It grows in grade as the habit continues.")
                         .font(.system(size: 13)).foregroundStyle(Theme.dim)
                 }
                 .systemPanel(Theme.violet)
@@ -25,7 +25,7 @@ struct ShadowArmyView: View {
             }
             .padding()
         }
-        .systemScreen("SHADOWS")
+        .systemScreen("RETINUE")
     }
 
     func card(_ s: Shadow, extracted: Bool, value: Int) -> some View {
@@ -48,7 +48,7 @@ struct ShadowArmyView: View {
             Text("\(s.habit): \(value) \(s.unit)").font(Theme.mono(11)).foregroundStyle(Theme.text)
             SystemBar(value: Double(value) / Double(max(1, goal)), color: color, height: 4)
             Text(nextMultiple == nil ? "Highest grade reached."
-                 : (extracted ? "Next grade at \(goal) \(s.unit)." : "Extraction at \(s.threshold) \(s.unit)."))
+                 : (extracted ? "Next grade at \(goal) \(s.unit)." : "Sworn in at \(s.threshold) \(s.unit)."))
                 .font(Theme.mono(10)).foregroundStyle(Theme.dim)
         }
         .systemPanel(color)

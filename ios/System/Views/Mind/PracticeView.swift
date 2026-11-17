@@ -206,14 +206,14 @@ struct PracticeView: View {
                         .monospacedDigit()
                     SystemBar(value: min(1, e / max(1, total)), color: e >= total ? Theme.green : Theme.violet, height: 5)
                     if e >= total, started != nil {
-                        Text(practice == .focus ? "GATE CLEARED. Write where to resume, then complete." : "TIME. Complete when ready.")
+                        Text(practice == .focus ? "CRUCIBLE DONE. Write where to resume, then complete." : "TIME. Complete when ready.")
                             .font(Theme.mono(11, .bold)).foregroundStyle(Theme.green)
                     }
                 }
             }
             HStack(spacing: 10) {
                 if started == nil {
-                    Button(practice == .focus ? "ENTER THE GATE" : "BEGIN") {
+                    Button(practice == .focus ? "ENTER THE CRUCIBLE" : "BEGIN") {
                         started = .now
                         UIApplication.shared.isIdleTimerDisabled = true
                         Haptics.impact()

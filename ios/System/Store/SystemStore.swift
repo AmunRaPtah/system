@@ -289,9 +289,9 @@ final class SystemStore {
         context.insert(Claim(key: ck))
         addXP(.SOV, 25, source: "daily-clear", note: "All dailies cleared", key: key)
         if isComebackDay(key) {
-            return "DAILY QUEST CLEARED  +25 XP SOV\n[HIDDEN QUEST COMPLETE] Courage of the Weak: you came back."
+            return "THE DISCIPLINE CLEARED  +25 XP SOV\n[HIDDEN QUEST COMPLETE] The Quiet Return: you came back."
         }
-        return "DAILY QUEST CLEARED  +25 XP SOV"
+        return "THE DISCIPLINE CLEARED  +25 XP SOV"
     }
 
     func finish(_ b: Before, style: SystemAlert.Style = .quest, title: String, lines: [String]) {
@@ -341,7 +341,7 @@ final class SystemStore {
             if c >= step.repeats { lines.append("Ladder step conquered. Next step unlocked.") }
             else { lines.append("Ladder \(c)/\(step.repeats)") }
         }
-        if q.kind == .penalty { lines.append("You survived the Penalty Zone. The chain holds.") }
+        if q.kind == .penalty { lines.append("You survived the Penance. The chain holds.") }
         if q.kind == .preparation {
             let clears = preparationClears()
             let tier = PreparationLoad.tier(clears: clears)
@@ -514,7 +514,7 @@ final class SystemStore {
             lines.append("Sleep \(Fmt.num(sleep)) h · Soreness \(soreness)/5 · Mood \(mood)/5  +5 XP VIT")
         }
         if sleep < 6 || soreness >= 4 {
-            lines.append("Recovery flagged. Daily Quest and penalty loads are halved today. Train smart.")
+            lines.append("Recovery flagged. The Discipline and Penance loads are halved today. Train smart.")
         }
         if sleep < 7 {
             lines.append("Sleep is the first stat. Anchor tonight: same lights-out time, screens away 30 min before.")
@@ -598,8 +598,8 @@ final class SystemStore {
         if amount > 0 {
             addXP(.WIL, -amount, source: "penalty", note: "Missed \(missedDay)", key: today)
         }
-        var lines = [count > 1 ? "Daily Quests were not completed on \(count) days." :
-                        "Daily Quest for \(DayKey.pretty(missedDay)) was not completed."]
+        var lines = [count > 1 ? "The Discipline was not completed on \(count) days." :
+                        "The Discipline for \(DayKey.pretty(missedDay)) was not completed."]
         if lowMood {
             lines.append("Your status showed a hard day. No XP lost.")
             lines.append("Rest counts. Tomorrow, one small step is enough.")
@@ -608,7 +608,7 @@ final class SystemStore {
         } else {
             lines.append("\(run) days missed in a row. Two is the start of a pattern.")
             if amount > 0 { lines.append("−\(amount) XP WIL") }
-            lines.append("[HIDDEN QUEST] Courage of the Weak: clear today's Daily Quest.")
+            lines.append("[HIDDEN QUEST] The Quiet Return: complete today's Discipline.")
         }
         if lowMood {
             lines.append("No Penalty Quest today. If things feel heavy, the Mind tab has gentle practices and support.")
@@ -670,7 +670,7 @@ final class SystemStore {
         finish(b, title: "[WEEKLY QUEST COMPLETE]", lines: ["\(target.title)  +\(target.xp) XP \(target.stat.rawValue)"])
     }
 
-    static let dungeonNames = ["The Awakening Gate", "The Iron Crypt", "Tower of Trials", "The Red Gate"]
+    static let dungeonNames = ["The First Vigil", "The Ashen Cloister", "The Cold Hall", "The Long Night"]
 
     func dungeon(_ key: String = DayKey.today) -> DungeonState {
         _ = revision
@@ -726,7 +726,7 @@ final class SystemStore {
         let b = begin()
         context.insert(Claim(key: "dungeon-\(d.block)"))
         for s in [Stat.STR, .END, .PER, .WIL, .SOV] { addXP(s, 50, source: "dungeon", note: d.title) }
-        finish(b, title: "[DUNGEON CLEARED]", lines: [d.title, "+250 XP across STR END PER WIL SOV", "Reward: the System acknowledges your growth."])
+        finish(b, title: "[PROVING CLEARED]", lines: [d.title, "+250 XP across STR END PER WIL SOV", "Reward: the System acknowledges your growth."])
     }
 
     // MARK: - Training history
@@ -825,7 +825,7 @@ final class SystemStore {
         alerts = []
         refresh()
         tick()
-        alerts.append(SystemAlert(style: .info, title: "[SYSTEM RESET]", lines: ["All records erased.", "Player re-awakened at Lv. 1."]))
+        alerts.append(SystemAlert(style: .info, title: "[SYSTEM RESET]", lines: ["All records erased.", "Aspirant re-sworn at Lv. 1."]))
     }
 
     private func deleteAll<T: PersistentModel>(_ type: T.Type) {
