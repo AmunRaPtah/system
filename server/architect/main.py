@@ -24,7 +24,9 @@ async def lifespan(_app):
     yield
 
 
-app = FastAPI(title="architect", version="1", lifespan=lifespan)
+# No /docs, /redoc or /openapi.json: nothing is readable without the token.
+app = FastAPI(title="architect", version="1", lifespan=lifespan,
+              docs_url=None, redoc_url=None, openapi_url=None)
 
 MAX_SNAPSHOT_BYTES = 2_000_000
 
@@ -50,6 +52,9 @@ def suggested_gates() -> dict:
 
 @app.post("/sync", dependencies=[Depends(require_token)])
 async def sync(request: Request) -> dict:
+    declared = request.headers.get("content-length", "")
+    if declared.isdigit() and int(declared) > MAX_SNAPSHOT_BYTES:
+        raise HTTPException(413, "snapshot too large")
     raw = await request.body()
     if len(raw) > MAX_SNAPSHOT_BYTES:
         raise HTTPException(413, "snapshot too large")
@@ -62,7 +67,12 @@ async def sync(request: Request) -> dict:
     for key in ("campaigns", "gates", "quests", "checkins"):
         if key in snap and not isinstance(snap[key], list):
             raise HTTPException(400, f"{key} must be a list")
+        if key in snap and not all(isinstance(x, dict) for x in snap[key]):
+            raise HTTPException(400, f"every item in {key} must be an object")
     at = store.put_snapshot(config.DB_FILE, snap)
+    if at is None:
+        # An overlapping older sync arrived late: keep the newer snapshot.
+        return {"ok": True, "stale": True}
     return {"ok": True, "receivedAt": at,
             "counts": {k: len(snap.get(k) or []) for k in ("campaigns", "gates", "quests", "checkins")}}
 

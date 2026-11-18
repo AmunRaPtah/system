@@ -19,6 +19,8 @@ import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
+RECENT_DAYS = 60
+
 MONTHS = {m: i for i, m in enumerate(
     ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
 
@@ -28,7 +30,7 @@ DAY_MONTH = re.compile(
     r"(?:\s+(?P<year>20\d\d))?\b")
 ISO = re.compile(r"(20\d\d)-(\d\d)-(\d\d)")
 LINK = re.compile(r"\[([^\]]+)\]\([^)]*\)")
-DONE_WORDS = re.compile(r"\b(SUBMITTED|WITHDRAWN|SKIPPED|DROPPED|DONE|SENT|REJECTED)\b")
+DONE_WORDS = re.compile(r"\b(SUBMITTED|WITHDRAWN|SKIPPED|DROPPED|DONE|SENT|REJECTED)\b", re.I)
 
 GROUND_WORDS = re.compile(
     r"\b(visa|passport|residence|legali[sz]|apostille|embassy|consulate|address|housing|"
@@ -54,23 +56,24 @@ class Suggestion:
 def clean(text: str) -> str:
     text = LINK.sub(r"\1", text)
     text = text.replace("**", "").replace("`", "")
-    return re.sub(r"\s+", " ", text).strip(" .,;:-")
+    text = re.sub(r"\s+", " ", text).strip()
+    # A title the source already cut off ("... for young...") keeps a visible ellipsis.
+    cut = text.endswith("...") or text.endswith("…")
+    text = text.strip(" .,;:-…")
+    return text + "…" if cut and text else text
 
 
 def infer_year(month: int, day: int, today: dt.date, hint: int | None) -> int:
-    """Use an explicit year hint, otherwise the year that puts the date within +-6 months of today."""
+    """Use an explicit year hint. Otherwise this year, unless the date passed more than
+    RECENT_DAYS ago, in which case it is next year's ("1 Jun" written in November is June
+    next year; "3 Nov" written on 18 Nov is a deadline just missed)."""
     if hint:
         return hint
-    best = today.year
-    best_gap = None
-    for y in (today.year - 1, today.year, today.year + 1):
-        try:
-            gap = abs((dt.date(y, month, day) - today).days)
-        except ValueError:
-            continue
-        if best_gap is None or gap < best_gap:
-            best, best_gap = y, gap
-    return best
+    try:
+        this_year = dt.date(today.year, month, day)
+    except ValueError:      # 29 Feb in a non-leap year: let the caller reject it
+        return today.year
+    return today.year if (today - this_year).days <= RECENT_DAYS else today.year + 1
 
 
 def parse_day_month(text: str, today: dt.date, year_hint: int | None = None) -> tuple[dt.date, bool] | None:
@@ -127,7 +130,7 @@ def parse_career_readme(path: Path, today: dt.date) -> list[Suggestion]:
             deadline, app, kind, status = cells[0], cells[1], cells[2], cells[3]
             if DONE_WORDS.search(status):
                 continue
-            parsed = parse_day_month(deadline, today)
+            parsed = parse_day_month(deadline, today)   # returns None on impossible dates
             if not parsed:
                 continue
             date, est = parsed
@@ -142,7 +145,7 @@ CHECK_LINE = re.compile(r"^\s*-\s*\[(?P<mark>[ xX-])\]\s*\*\*(?P<date>[^*]+)\*\*
 YEAR_HEADING = re.compile(r"^#{1,6}\s.*?\b(20\d\d)\b")
 
 
-def parse_checklist(path: Path, today: dt.date) -> list[Suggestion]:
+def parse_checklist(path: Path, today: dt.date, include_ticked: bool = False) -> list[Suggestion]:
     if not path.exists():
         return []
     out: list[Suggestion] = []
@@ -153,7 +156,7 @@ def parse_checklist(path: Path, today: dt.date) -> list[Suggestion]:
             year_hint = int(h.group(1)) if h else None
             continue
         m = CHECK_LINE.match(line)
-        if not m or m.group("mark") != " ":
+        if not m or (m.group("mark") != " " and not include_ticked):
             continue
         parsed = parse_day_month(m.group("date"), today, year_hint)
         if not parsed:
@@ -197,7 +200,10 @@ def parse_portfolio(path: Path, today: dt.date) -> list[Suggestion]:
             iso = ISO.search(cells[col])
             if not iso:
                 continue
-            date = dt.date(*map(int, iso.groups()))
+            try:
+                date = dt.date(*map(int, iso.groups()))
+            except ValueError:
+                continue
             milestone = clean(re.sub(r"\(\s*20\d\d-\d\d-\d\d\s*\)", "", cells[col]))
             out.append(Suggestion(title=f"{cells[0]}: {milestone}"[:120], date=date.isoformat(),
                                   source=path.name, domain="ambition", detail=clean(cells[0])))
@@ -218,16 +224,20 @@ def parse_opportunities(path: Path, today: dt.date) -> list[Suggestion]:
         if not (line.startswith("|") and "Opportunity" in line and "Deadline" in line):
             continue
         header = split_row(line)
-        oc, dc = header.index("Opportunity"), header.index("Deadline")
-        cc = header.index("Confidence") if "Confidence" in header else None
-        divc = header.index("Division") if "Division" in header else None
+        oc, dc = _col(header, "Opportunity"), _col(header, "Deadline")
+        if oc is None or dc is None:
+            continue
+        cc, divc = _col(header, "Confidence"), _col(header, "Division")
         for cells in table_rows(lines, i):
             if len(cells) <= max(oc, dc):
                 continue
             iso = ISO.search(cells[dc])
             if not iso:
                 continue
-            date = dt.date(*map(int, iso.groups()))
+            try:
+                date = dt.date(*map(int, iso.groups()))
+            except ValueError:
+                continue
             div = cells[divc] if divc is not None and len(cells) > divc else division
             conf = cells[cc] if cc is not None and len(cells) > cc else ""
             title = clean(cells[oc])
@@ -240,6 +250,11 @@ def parse_opportunities(path: Path, today: dt.date) -> list[Suggestion]:
 
 # ---------------------------------------------------------------- merge
 
+def _col(header: list[str], name: str) -> int | None:
+    """Index of the first header cell starting with `name` ("Opportunity (link)" counts)."""
+    return next((j for j, h in enumerate(header) if h.lower().startswith(name.lower())), None)
+
+
 def _tokens(title: str) -> set[str]:
     return {w for w in re.findall(r"[a-z0-9]+", title.lower()) if len(w) >= 4}
 
@@ -247,13 +262,15 @@ def _tokens(title: str) -> set[str]:
 def suggested_gates(career_dir: Path, zyco_dir: Path, today: dt.date | None = None) -> list[dict]:
     today = today or dt.date.today()
     checklist = parse_checklist(career_dir / "CHECKLIST.md", today)
+    # Ticked items take part in de-duplication only, so a done item's README twin stays hidden.
+    every_item = parse_checklist(career_dir / "CHECKLIST.md", today, include_ticked=True)
     readme = parse_career_readme(career_dir / "README.md", today)
     # The checklist is finer grained and carries tick state, so it wins; a README row is
     # kept only if no checklist item on the same date shares a significant word with it.
     merged = list(checklist)
     for r in readme:
         rt = _tokens(r.title)
-        if any(c.date == r.date and rt & _tokens(c.title) for c in checklist):
+        if any(c.date == r.date and rt & _tokens(c.title) for c in every_item):
             continue
         merged.append(r)
     merged += parse_portfolio(zyco_dir / "PORTFOLIO.md", today)

@@ -27,9 +27,18 @@ def connect(db: Path) -> sqlite3.Connection:
     return con
 
 
-def put_snapshot(db: Path, snapshot: dict) -> float:
+def put_snapshot(db: Path, snapshot: dict) -> float | None:
+    """Store a snapshot. Returns None (and stores nothing) if it is older, by the
+    phone's own sentAt, than the latest one: overlapping syncs can arrive out of order."""
     now = time.time()
+    sent = str(snapshot.get("sentAt") or "")
     with connect(db) as con:
+        con.execute("BEGIN IMMEDIATE")
+        row = con.execute("SELECT body FROM snapshots ORDER BY id DESC LIMIT 1").fetchone()
+        if row and sent:
+            prev = str(json.loads(row[0]).get("sentAt") or "")
+            if prev and sent < prev:   # ISO-8601 UTC strings compare in time order
+                return None
         con.execute("INSERT INTO snapshots (received_at, body) VALUES (?, ?)",
                     (now, json.dumps(snapshot, separators=(",", ":"))))
         con.execute("DELETE FROM snapshots WHERE id NOT IN "

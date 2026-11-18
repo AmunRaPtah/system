@@ -89,7 +89,7 @@ def gates_ahead(snap: dict, today: dt.date) -> list[tuple[dt.date, str]]:
 
 def todays_quests(snap: dict, today: dt.date) -> list[dict]:
     key = today.isoformat()
-    return [q for q in snap.get("quests") or [] if q.get("dayKey") == key]
+    return [q for q in snap.get("quests") or [] if isinstance(q, dict) and q.get("dayKey") == key]
 
 
 def checkins(snap: dict) -> list[dict]:
@@ -142,8 +142,31 @@ def evening_message(today: dt.date) -> str | None:
 
 
 def last_gate_day(snap: dict) -> str | None:
-    days = [c["dayKey"] for c in checkins(snap)]
-    return max(days) if days else None
+    """Latest gate day ever seen. The phone only sends 30 days of check-ins, so the
+    server remembers the maximum; an old lapse never turns back into "no gate yet"."""
+    days = [str(c["dayKey"]) for c in checkins(snap)]
+    seen = store.kv_get(config.DB_FILE, "last_gate_seen")
+    if seen:
+        days.append(seen)
+    if not days:
+        return None
+    last = max(days)
+    if last != seen:
+        store.kv_set(config.DB_FILE, "last_gate_seen", last)
+    return last
+
+
+def owner_today() -> dt.date:
+    """Today in the phone's time zone (sent as "tz" in each snapshot), else the box's."""
+    got = snapshot()
+    tz = str(got[0].get("tz") or "") if got else ""
+    if tz:
+        try:
+            from zoneinfo import ZoneInfo
+            return dt.datetime.now(ZoneInfo(tz)).date()
+        except Exception:
+            pass
+    return dt.date.today()
 
 
 def check_message(today: dt.date) -> tuple[str | None, str | None]:
@@ -183,7 +206,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--dry-run", action="store_true", help="print instead of sending")
     ap.add_argument("--today", help="override today's date (YYYY-MM-DD), for testing")
     a = ap.parse_args(argv)
-    today = dt.date.fromisoformat(a.today) if a.today else dt.date.today()
+    today = dt.date.fromisoformat(a.today) if a.today else owner_today()
 
     marker = None
     if a.mode == "morning":
