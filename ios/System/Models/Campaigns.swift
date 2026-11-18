@@ -33,7 +33,7 @@ enum Domain: String, Codable, CaseIterable, Identifiable {
     static func parse(_ s: String) -> Domain { Domain(rawValue: s.lowercased()) ?? .ambition }
 
     /// At most this many Ambition quests may be scheduled on one day.
-    static let ambitionCap = 3
+    static let ambitionCap = V3Rules.ambitionCap
 }
 
 enum CampaignStatus: String, Codable, CaseIterable {

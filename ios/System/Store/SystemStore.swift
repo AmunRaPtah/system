@@ -817,7 +817,7 @@ final class SystemStore {
         deleteAll(VowLog.self); deleteAll(MindLog.self)
         deleteAll(Campaign.self); deleteAll(CampaignGate.self); deleteAll(OwnerQuest.self); deleteAll(DayGate.self)
         save()
-        for k in [DefaultsKey.start, DefaultsKey.lastEval] { defaults.removeObject(forKey: k) }
+        for k in [DefaultsKey.start, DefaultsKey.lastEval, V3Key.firstSeen, V3Key.chooseThreeWeek] { defaults.removeObject(forKey: k) }
         for d in DrillKind.allCases { defaults.removeObject(forKey: DefaultsKey.drillLevel(d)) }
         let today = DayKey.today
         defaults.set(today, forKey: DefaultsKey.start)

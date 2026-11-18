@@ -56,7 +56,6 @@ targets:
         # The architect server is plain HTTP on the private WireGuard network.
         NSAppTransportSecurity:
           NSAllowsArbitraryLoads: true
-          NSAllowsLocalNetworking: true
         NSLocalNetworkUsageDescription: "System syncs with your own architect server on your private network."
         NSHealthShareUsageDescription: "System reads your steps, active energy, sleep and workouts (read-only, on this device) to auto-complete body quests and soften penalties after a short night."
     settings:

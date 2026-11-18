@@ -44,12 +44,14 @@ struct RootView: View {
             if store.needsAwakening() { awakening = true } else { store.requestNotificationsIfNeeded() }
             if !DemoMode.isOn {
                 store.tick()
+                store.carryOverStale()
                 ArchitectClient.shared.syncSoon(store)
             }
         }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active, !DemoMode.isOn {
                 store.tick()
+                store.carryOverStale()
                 ArchitectClient.shared.syncSoon(store)
             }
         }

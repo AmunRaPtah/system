@@ -11,9 +11,9 @@ extension SystemStore {
     }
 
     /// Days without a completed gate before Today collapses to one-tap mode.
-    static let disuseDays = 3
+    static let disuseDays = V3Rules.disuseDays
     /// A campaign that has not moved for this many days is faded in the War Room.
-    static let staleDays = 14
+    static let staleDays = V3Rules.staleDays
     static let ownerQuestXP = 20
 
     // MARK: - Campaigns
@@ -124,7 +124,22 @@ extension SystemStore {
 
     /// True when one more Ambition quest still fits on `key`.
     func ambitionRoom(on key: String, excluding uid: String = "") -> Bool {
-        ambitionCount(on: key, excluding: uid) < Domain.ambitionCap
+        V3Rules.ambitionRoom(count: ambitionCount(on: key, excluding: uid))
+    }
+
+    /// Open quests left on a past day return to the backlog so they stay visible.
+    /// Returns how many moved.
+    @discardableResult
+    func carryOverStale() -> Int {
+        // Until the evening rollover, yesterday's quests stay put for a late evening gate.
+        let today = V3Rules.eveningKey()
+        var n = 0
+        for q in fetchAll(OwnerQuest.self) where V3Rules.carriesOver(dayKey: q.dayKey, done: q.done, today: today) {
+            q.dayKey = ""
+            n += 1
+        }
+        if n > 0 { commitV3() }
+        return n
     }
 
     enum QuestAddResult { case added, backlogged, empty }
@@ -149,16 +164,17 @@ extension SystemStore {
     /// Schedules a quest for `key`. Returns false when the Ambition cap blocks it.
     @discardableResult
     func schedule(_ q: OwnerQuest, on key: String) -> Bool {
+        guard V3Rules.canReschedule(done: q.done) else { return false }
         if !key.isEmpty, q.dom == .ambition, !ambitionRoom(on: key, excluding: q.uid) { return false }
         q.dayKey = key
         commitV3()
         return true
     }
 
-    func setOwnerQuest(_ q: OwnerQuest, done: Bool) {
+    func setOwnerQuest(_ q: OwnerQuest, done: Bool, on key: String = DayKey.today) {
         guard q.done != done else { return }
         q.done = done
-        q.doneKey = done ? DayKey.today : ""
+        q.doneKey = done ? key : ""
         q.doneDate = done ? .now : nil
         // XP once per quest, never taken back, so toggling cannot farm it.
         let claim = "owner-\(q.uid)"
@@ -199,13 +215,17 @@ extension SystemStore {
         let open = fetchAll(OwnerQuest.self).filter { !$0.done }
         // Release first so the Ambition cap counts only what stays on today.
         for q in open where q.dayKey == key && !accepted.contains(q.uid) { q.dayKey = "" }
-        for q in open where accepted.contains(q.uid) && q.dayKey != key { _ = scheduleNoCommit(q, key) }
+        var refused = 0
+        for q in open where accepted.contains(q.uid) && q.dayKey != key {
+            if !scheduleNoCommit(q, key) { refused += 1 }
+        }
         let total = ownerQuests(on: key).count
         upsertGate(key, .morning, energy: energy, line: intention, done: 0, total: total)
         commitV3()
         alerts.append(SystemAlert(style: .info, title: "[MORNING GATE]",
                                   lines: ["Energy \(energy)/5 · \(total) quest\(total == 1 ? "" : "s") accepted.",
-                                          intention.isEmpty ? "The day is open." : "“\(intention)”"]))
+                                          intention.isEmpty ? "The day is open." : "“\(intention)”"]
+                                  + (refused > 0 ? ["\(refused) Ambition quest\(refused == 1 ? "" : "s") left in the backlog: cap of \(V3Rules.ambitionCap) a day."] : [])))
         ArchitectClient.shared.syncSoon(self)
     }
 
@@ -217,8 +237,7 @@ extension SystemStore {
 
     /// Evening: what got done, and one line. Done flags are set by the caller
     /// through `setOwnerQuest` / `complete`; this records the gate itself.
-    func completeEveningGate(line: String) {
-        let key = DayKey.today
+    func completeEveningGate(line: String, key: String = V3Rules.eveningKey()) {
         let owner = ownerQuests(on: key)
         let sys = quests(key).filter { $0.kind != .penalty }
         let done = owner.filter(\.done).count + sys.filter { isDone($0, on: key) }.count
@@ -265,7 +284,7 @@ extension SystemStore {
 
     /// No gate for `disuseDays` days: Today shows only "I'm here" and one quest.
     var isCollapsed: Bool {
-        DayKey.daysBetween(lastPresenceKey(), DayKey.today) >= Self.disuseDays
+        V3Rules.isCollapsed(lastPresence: lastPresenceKey(), today: DayKey.today)
     }
 
     /// The single quest offered in collapsed mode: first open owner quest today,
@@ -300,28 +319,22 @@ extension SystemStore {
 
     func warRoom() -> [WarRoomRow] {
         let today = DayKey.today
-        let now = Date.now
         return campaigns().filter { $0.state != .done }.map { c in
             let next = nextGate(of: c.uid)
             let moved = lastMoved(c)
-            let age = Calendar.current.dateComponents([.day], from: moved, to: now).day ?? 0
+            // Creation alone is not movement.
+            let movedKey = moved > c.created.addingTimeInterval(1) ? DayKey.key(moved) : nil
             return WarRoomRow(campaign: c, next: next,
                               daysLeft: next.map { DayKey.daysBetween(today, $0.dateKey) },
-                              movedThisWeek: age < 7 && moved > c.created.addingTimeInterval(1),
-                              stale: c.state == .paused || age >= Self.staleDays)
+                              movedThisWeek: V3Rules.movedThisWeek(movedKey: movedKey, today: today),
+                              stale: c.state == .paused || V3Rules.isStale(lastMovedKey: DayKey.key(moved), today: today))
         }
     }
 
     // MARK: - Choose three
 
     /// Monday of the calendar week containing `key`.
-    static func mondayKey(_ key: String = DayKey.today) -> String {
-        var cal = Calendar(identifier: .gregorian)
-        cal.firstWeekday = 2
-        let d = DayKey.date(key)
-        let start = cal.dateInterval(of: .weekOfYear, for: d)?.start ?? d
-        return DayKey.key(start)
-    }
+    static func mondayKey(_ key: String = DayKey.today) -> String { V3Rules.mondayKey(key) }
 
     var isSunday: Bool { Calendar.current.component(.weekday, from: .now) == 1 }
 
@@ -359,7 +372,8 @@ extension SystemStore {
         let titles = Dictionary(cs.map { ($0.uid, $0.title) }, uniquingKeysWith: { a, _ in a })
         let iso = ISO8601DateFormatter()
         var qs: [[String: Any]] = fetchAll(OwnerQuest.self)
-            .filter { !$0.dayKey.isEmpty || !$0.done }
+            // Open quests, plus anything dated in the last 30 days: keeps the snapshot bounded.
+            .filter { !$0.done || $0.dayKey >= DayKey.add(-30, to: today) }
             .map { q -> [String: Any] in
                 ["id": q.uid, "title": q.title, "domain": q.domain, "dayKey": q.dayKey,
                  "done": q.done, "doneKey": q.doneKey, "campaignID": q.campaignID,
@@ -385,6 +399,7 @@ extension SystemStore {
             "schema": 1,
             "sentAt": iso.string(from: .now),
             "today": today,
+            "tz": TimeZone.current.identifier,
             "player": ["level": p.level, "rank": p.rank.letter, "streak": p.streak,
                        "fatigue": fatigue(today).value, "collapsed": isCollapsed,
                        "lastPresence": lastPresenceKey()] as [String: Any],

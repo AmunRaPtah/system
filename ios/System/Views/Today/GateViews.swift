@@ -13,7 +13,9 @@ struct MorningGateView: View {
         let today = DayKey.today
         let todays = store.ownerQuests(on: today).filter { !$0.done }
         let candidates = todays + store.backlog()
-        let ambitionPicked = candidates.filter { $0.dom == .ambition && accepted.contains($0.uid) }.count
+        // Done Ambition quests still hold their slot, exactly as the store counts them.
+        let ambitionDone = store.ownerQuests(on: today).filter { $0.done && $0.dom == .ambition }.count
+        let ambitionPicked = ambitionDone + candidates.filter { $0.dom == .ambition && accepted.contains($0.uid) }.count
         let discipline = store.quests(today).filter { $0.kind != .penalty }.count
         NavigationStack {
             ScrollView {
@@ -102,12 +104,16 @@ struct EveningGateView: View {
     @State private var marked: Set<String> = []
     @State private var line = ""
     @State private var loaded = false
+    /// Fixed when the sheet opens, so closing after midnight still records that evening.
+    @State private var day = V3Rules.eveningKey()
 
     /// System dailies the owner can tick by hand; the rest complete from their logs.
     static let manual: Set<QuestKind> = [.recovery, .ladder, .challenge, .preparation]
 
     var body: some View {
-        let today = DayKey.today
+        let today = day
+        // System dailies complete only on the live day; after midnight they are read-only.
+        let live = today == DayKey.today
         let owner = store.ownerQuests(on: today)
         let sys = store.quests(today).filter { $0.kind != .penalty }
         NavigationStack {
@@ -126,7 +132,7 @@ struct EveningGateView: View {
                     ForEach(sys) { q in
                         let already = store.isDone(q, on: today)
                         let d = Domain.from(q.pillar)
-                        let canTick = !already && Self.manual.contains(q.kind)
+                        let canTick = live && !already && Self.manual.contains(q.kind)
                         toggleRow(title: q.title, tag: d?.label ?? "RANK", color: d.map { Theme.color($0) } ?? Theme.gold,
                                   on: already || marked.contains(q.id), locked: !canTick) {
                             if marked.contains(q.id) { marked.remove(q.id) } else { marked.insert(q.id) }
@@ -152,7 +158,8 @@ struct EveningGateView: View {
         .onAppear {
             guard !loaded else { return }
             loaded = true
-            done = Set(owner.filter(\.done).map(\.uid))
+            day = V3Rules.eveningKey()
+            done = Set(store.ownerQuests(on: day).filter(\.done).map(\.uid))
             line = store.dayGate(today, .evening)?.line ?? ""
         }
     }
@@ -177,13 +184,14 @@ struct EveningGateView: View {
     }
 
     func close() {
-        let today = DayKey.today
-        for q in store.ownerQuests(on: today) { store.setOwnerQuest(q, done: done.contains(q.uid)) }
-        for q in store.quests(today) where marked.contains(q.id) && !store.isDone(q, on: today) {
-            store.complete(q)
+        for q in store.ownerQuests(on: day) { store.setOwnerQuest(q, done: done.contains(q.uid), on: day) }
+        if day == DayKey.today {
+            for q in store.quests(day) where marked.contains(q.id) && !store.isDone(q, on: day) {
+                store.complete(q)
+            }
         }
         Haptics.success()
-        store.completeEveningGate(line: line)
+        store.completeEveningGate(line: line, key: day)
         dismiss()
     }
 }

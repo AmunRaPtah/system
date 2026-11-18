@@ -247,8 +247,12 @@ struct CampaignDetailView: View {
         .systemScreen("CAMPAIGN")
         .confirmationDialog("Delete this campaign and its gates? Its quests are kept.", isPresented: $confirmDelete, titleVisibility: .visible) {
             Button("Delete", role: .destructive) {
+                // Delete after the pop finishes so this screen never redraws a deleted model.
+                let uid = campaign.uid
                 dismiss()
-                store.deleteCampaign(campaign)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    if let c = store.campaign(uid) { store.deleteCampaign(c) }
+                }
             }
         }
     }

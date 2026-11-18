@@ -119,7 +119,7 @@ struct GateStrip: View {
     var body: some View {
         let key = DayKey.today
         let m = store.dayGate(key, .morning)
-        let e = store.dayGate(key, .evening)
+        let e = store.dayGate(V3Rules.eveningKey(), .evening)
         HStack(spacing: 10) {
             gateButton(title: "MORNING", symbol: "sunrise.fill", color: Theme.gold,
                        summary: m.map { "Energy \($0.energy)/5" + ($0.line.isEmpty ? "" : " · \($0.line)") }) { morning = true }
@@ -215,7 +215,9 @@ struct OwnerQuestRow: View {
         }
         .buttonStyle(.plain)
         .contextMenu {
-            Button("Move to backlog") { store.schedule(quest, on: "") }
+            if !quest.done {
+                Button("Move to backlog") { store.schedule(quest, on: "") }
+            }
             Button("Delete", role: .destructive) { store.deleteOwnerQuest(quest) }
         }
     }
